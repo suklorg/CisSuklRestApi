@@ -1,0 +1,11 @@
+{
+  "globalDependencies": {
+    "express": "github:DefinitelyTyped/DefinitelyTyped/express/express.d.ts#7ad4e09016898d9c4837e250121fef2aedbecaaa",
+    "express-serve-static-core": "github:DefinitelyTyped/DefinitelyTyped/express-serve-static-core/express-serve-static-core.d.ts#7ad4e09016898d9c4837e250121fef2aedbecaaa",
+    "mime": "github:DefinitelyTyped/DefinitelyTyped/mime/mime.d.ts#7ad4e09016898d9c4837e250121fef2aedbecaaa",
+    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#7ad4e09016898d9c4837e250121fef2aedbecaaa",
+    "oracledb": "github:DefinitelyTyped/DefinitelyTyped/oracledb/oracledb.d.ts#7ad4e09016898d9c4837e250121fef2aedbecaaa",
+    "serve-static": "github:DefinitelyTyped/DefinitelyTyped/serve-static/serve-static.d.ts#7ad4e09016898d9c4837e250121fef2aedbecaaa"
+  },
+  "dependencies": {}
+}
