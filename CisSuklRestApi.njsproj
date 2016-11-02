@@ -41,12 +41,13 @@
     <Content Include="Scripts\typings\globals\node\typings.json" />
     <Content Include="Scripts\typings\globals\serve-static\typings.json" />
     <Content Include="Scripts\typings\modules\oracledb\typings.json" />
+    <Content Include="src\common.js.map" />
+    <Content Include="src\routers\cissukl_ectd_router.js.map" />
+    <Content Include="src\routers\cissukl_router.js.map" />
     <Content Include="tsconfig.json" />
     <TypeScriptCompile Include="app.ts" />
     <Content Include="package.json" />
     <Content Include="README.md" />
-    <TypeScriptCompile Include="routers\cissukl_ectd_router.ts" />
-    <TypeScriptCompile Include="routers\cissukl_router.ts" />
     <TypeScriptCompile Include="Scripts\typings\globals\express-serve-static-core\index.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\globals\express\index.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\globals\mime\index.d.ts" />
@@ -54,13 +55,15 @@
     <TypeScriptCompile Include="Scripts\typings\globals\serve-static\index.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\index.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\modules\oracledb\index.d.ts" />
+    <TypeScriptCompile Include="src\common.ts" />
+    <TypeScriptCompile Include="src\routers\cissukl_ectd_router.ts" />
+    <TypeScriptCompile Include="src\routers\cissukl_router.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="routers\" />
-    <Folder Include="Scripts\" />
-    <Folder Include="Scripts\typings\" />
-    <Folder Include="Scripts\typings\globals\" />
-    <Folder Include="Scripts\typings\globals\es6-promise\" />
+    <Folder Include="scripts\" />
+    <Folder Include="scripts\typings\" />
+    <Folder Include="scripts\typings\globals\" />
+    <Folder Include="scripts\typings\globals\es6-promise\" />
     <Folder Include="Scripts\typings\globals\express-serve-static-core\" />
     <Folder Include="Scripts\typings\globals\express\" />
     <Folder Include="Scripts\typings\globals\mime\" />
@@ -68,6 +71,13 @@
     <Folder Include="Scripts\typings\globals\serve-static\" />
     <Folder Include="Scripts\typings\modules\" />
     <Folder Include="Scripts\typings\modules\oracledb\" />
+    <Folder Include="src\" />
+    <Folder Include="src\routers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\common.js" />
+    <Compile Include="src\routers\cissukl_ectd_router.js" />
+    <Compile Include="src\routers\cissukl_router.js" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">

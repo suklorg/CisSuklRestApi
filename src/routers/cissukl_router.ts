@@ -10,96 +10,35 @@ var logger = log4js.getLogger();
 let oracledb = require('oracledb');
 
 //import * as oracledb from "oracledb";
-import {getConnection, IConnection, IExecuteOptions, IExecuteReturn, OBJECT } from 'oracledb';
+//import {getConnection, IConnection, IExecuteOptions, IExecuteReturn, OBJECT } from 'oracledb';
 
-let connectString = { user: "cis_dlp", password: "cis_dlp", connectString: "dlptest" };
+let connectString = { user: "cis_sukl", password: "cis_sukl", connectString: "dlptest" };
 
 let cis_router: express.Router = express.Router();
 
 
-class CisAtcRow {
-    constructor() { };
-    kod_atc: string;
-};
-/*
-async function GetCisAtc(): Promise<Array<CisAtcRow>> {
 
-    try {
-        let connection: IConnection = await getConnection({ user: "aislp", password: "drdrug", connectString: "dlp" });;
-        //connection = await getConnection({ user: "aislp", password: "drdrug", connectString: "dlp" });
-        let result: IExecuteReturn = await connection.execute("SELECT kod AS kod_atc FROM cis_atc@cis_sukl.sukl.cz WHERE plat_do IS NULL ORDER BY kod", [], { outFormat: OBJECT });
-        let metaData: any = result.metaData;
-        let cisAtcRows: Array<any> = result.rows;
-        return cisAtcRows;
-        //return metaData;
-    } catch (e) {
-        console.log(e);
-    }
-}
-
-router.get('/atc', async (req: express.Request, res: express.Response): Promise<void> => {
-    res.send(await GetCisAtc());
-});
-
-class CisAtcKodAtcRow {
-    constructor() { };
-    kod_atc: string;
-    nazev: string;
-    nazev_en: string;
-};
-
-
-async function GetCisAtcKodAtc(kodAtc: string): Promise<Array<CisAtcKodAtcRow>> {
-
-    try {
-        let connection = await oracledb.getConnection({ user: "aislp", password: "drdrug", connectString: "dlp" });
-        let result: any = await connection.execute("SELECT kod AS kod_atc, nazev_cz as nazev, nazev_en FROM cis_atc@cis_sukl.sukl.cz WHERE plat_do IS NULL AND kod = :kodAtc", [kodAtc], { outFormat: oracledb.OBJECT });
-        let cisAtcKodAtcRows: Array<CisAtcKodAtcRow> = result.rows;
-        return cisAtcKodAtcRows;
-    } catch (e) {
-        console.log(e);
-    }
-}
-
-
-
-router.get('/atc/:kodAtc', async (req: express.Request, res: express.Response): Promise<void> => {
-    res.send(await GetCisAtcKodAtc(req.params.kodAtc));
-});
-
-*/
-//*
-/*
-const selRegistracniCislaCisloJednaci: string = "SELECT spisova_znacka as cislo_jednaci, registracni_cislo, asmf_cislo FROM sez_spis_znacky WHERE platnost_do IS NULL AND spisova_znacka = :cisloJednaci";
-
-async function GetSezRegistracniCislaCisloJednaci(cisloJednaci: string): Promise<Array<{}[]>> {
-    let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(selRegistracniCislaCisloJednaci, [cisloJednaci], { outFormat: oracledb.OBJECT });
-    return result.rows;
-}
-
-
-router.get('/registracnicisla/cislojednaci/:cisloJednaci', async (req: express.Request, res: express.Response): Promise<void> => {
-    try {
-        res.send(await GetSezRegistracniCislaCisloJednaci(req.params.cisloJednaci));
-    } catch (e) {
-        let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        //let a: {} = JSON.parse('{ "error" : "' + s + '"}');
-        res.status(404).send(JSON.parse('{ "error" : "' + s + '"}'));
-    }
-
-});
-
-*/
-////
-const selLecivePripravky: string = "SELECT kod_sukl,nazev,sila,kod_lekova_forma,baleni,kod_cesta_podani,doplnek,kod_obal,registracni_cislo,kod_registracni_procedura,kod_stav_registrace,kod_druh_registrace,kod_organizace_drzitel,kod_zeme_drzitel,kod_organizace_drzitel_sreg_b,kod_zeme_drzitel_sreg_b,soubezny_dovoz,kod_organizace_dovozce,kod_zeme_dovozce,platnost_registrace_do,neomezena_platnost_registrace,uvadeni_do,kod_indikacni_skupina,kod_atc_skupina,ddd_mnozstvi,ddd_jednotka,ddd_baleni,ddd_zdroj,povinne_vzorky,kod_zpusob_vydeje,kod_zavislost,kod_doping,kod_narizeni_vlady,braillovo_pismo,expirace,expirace_jednotka FROM sez_dlp WHERE platnost_do IS NULL ORDER BY nazev,doplnek,kod_sukl";
+//const selLecivePripravky: string = "SELECT kod_sukl,nazev,sila,kod_lekova_forma,baleni,kod_cesta_podani,doplnek,kod_obal,registracni_cislo,kod_registracni_procedura,kod_stav_registrace,kod_druh_registrace,kod_organizace_drzitel,kod_zeme_drzitel,kod_organizace_drzitel_sreg_b,kod_zeme_drzitel_sreg_b,soubezny_dovoz,kod_organizace_dovozce,kod_zeme_dovozce,platnost_registrace_do,neomezena_platnost_registrace,uvadeni_do,kod_indikacni_skupina,kod_atc_skupina,ddd_mnozstvi,ddd_jednotka,ddd_baleni,ddd_zdroj,povinne_vzorky,kod_zpusob_vydeje,kod_zavislost,kod_doping,kod_narizeni_vlady,braillovo_pismo,expirace,expirace_jednotka FROM sez_dlp WHERE platnost_do IS NULL ORDER BY nazev,doplnek,kod_sukl";
 
 async function GetLecivePripravky(): Promise<Array<{}[]>> {
+    /*
     oracledb.maxRows = 100;
     let connection = await oracledb.getConnection(connectString);
     let result: any = await connection.execute(selLecivePripravky, [], { outFormat: oracledb.OBJECT });
     return result.rows;
+    */
+
+    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetLecivePripravky(:count, :cursor); END;";
+    let oraParameters = {
+        count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
+        cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
+
+    };
+    let connection = await oracledb.getConnection(connectString);
+    let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+    result.rows = await result.outBinds.cursor.getRows(Number(result.outBinds.count));
+    return result.rows;
+
 }
 
 
@@ -115,26 +54,20 @@ cis_router.get('/lecivepripravky', async (req: express.Request, res: express.Res
 });
 
 /////
-const selLecivePripravkyKody: string = "SELECT kod_sukl FROM sez_dlp WHERE platnost_do IS NULL ORDER BY kod_sukl";
+//const selLecivePripravkyKody: string = "SELECT kod_sukl FROM sez_dlp WHERE platnost_do IS NULL ORDER BY kod_sukl";
 
 async function GetLecivePripravkyKody(): Promise<Array<{}[]>> {
     //oracledb.maxRows = 1000;
-    let plsql: string = "BEGIN cis_sukl_dlp.GetLecivePripravkyKody(:cursor); END;";
-    let bindvars = {
+    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetLecivePripravkyKody(:count, :cursor); END;";
+    let oraParameters = {
+        count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
         cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
+
     };
     let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(plsql, bindvars, { outFormat: oracledb.OBJECT });
-    //let result: any = await connection.execute(selLecivePripravkyKody, [], { resultSet: true, outFormat: oracledb.OBJECT });
-    //return await c;
-    //return await result.outBinds.cursor.getRows;
-    result.rows = await result.outBinds.cursor.getRows(100);   
-    //result.rows = await result.outBinds.cursor.getRows(1);   
-    //result.outBinds.cursor.close();
-    //connection.close();
-    //return result.outBinds.cursor.getRows(100);
+    let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+    result.rows = await result.outBinds.cursor.getRows(Number(result.outBinds.count));   
     return result.rows;
-    //return result.resultSet.getRow();
 }
 
 
@@ -151,13 +84,27 @@ cis_router.get('/lecivepripravky/kody', async (req: express.Request, res: expres
 
 /////
 
-const selLecivePripravkyKodSukl: string = "SELECT kod_sukl, nazev, sila, kod_lekova_forma, baleni, kod_cesta_podani, doplnek, kod_obal, registracni_cislo, kod_registracni_procedura, kod_stav_registrace, kod_druh_registrace, kod_organizace_drzitel, kod_zeme_drzitel, kod_organizace_drzitel_sreg_b, kod_zeme_drzitel_sreg_b, soubezny_dovoz, kod_organizace_dovozce, kod_zeme_dovozce, platnost_registrace_do, neomezena_platnost_registrace, uvadeni_do, kod_indikacni_skupina, kod_atc_skupina, ddd_mnozstvi, ddd_jednotka, ddd_baleni, ddd_zdroj, povinne_vzorky, kod_zpusob_vydeje, kod_zavislost, kod_doping, kod_narizeni_vlady, braillovo_pismo, expirace, expirace_jednotka FROM sez_dlp WHERE platnost_do IS NULL AND kod_sukl = :kodSukl";
+//const selLecivePripravkyKodSukl: string = "SELECT kod_sukl, nazev, sila, kod_lekova_forma, baleni, kod_cesta_podani, doplnek, kod_obal, registracni_cislo, kod_registracni_procedura, kod_stav_registrace, kod_druh_registrace, kod_organizace_drzitel, kod_zeme_drzitel, kod_organizace_drzitel_sreg_b, kod_zeme_drzitel_sreg_b, soubezny_dovoz, kod_organizace_dovozce, kod_zeme_dovozce, platnost_registrace_do, neomezena_platnost_registrace, uvadeni_do, kod_indikacni_skupina, kod_atc_skupina, ddd_mnozstvi, ddd_jednotka, ddd_baleni, ddd_zdroj, povinne_vzorky, kod_zpusob_vydeje, kod_zavislost, kod_doping, kod_narizeni_vlady, braillovo_pismo, expirace, expirace_jednotka FROM sez_dlp WHERE platnost_do IS NULL AND kod_sukl = :kodSukl";
 
 async function GetLecivePripravkyKodSukl(kodSukl: string): Promise<Array<{}[]>> {
+    /*
     oracledb.maxRows = 100;
     let connection = await oracledb.getConnection(connectString);
     let result: any = await connection.execute(selLecivePripravkyKodSukl, [kodSukl], { outFormat: oracledb.OBJECT });
     return result.rows;
+    */
+
+    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetLecivePripravkyKodSukl(:kodSukl, :cursor); END;";
+    let oraParameters = {
+        kodSukl: { val: kodSukl, type: oracledb.STRING, dir: oracledb.BIND_IN },
+        cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
+
+    };
+    let connection = await oracledb.getConnection(connectString);
+    let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+    result.rows = await result.outBinds.cursor.getRows(1);
+    return result.rows;
+
 }
 
 
@@ -250,7 +197,7 @@ async function GetStavyRegistraceKodStavRegistrace(kodStavRegistrace: string): P
 }
 
 
-cis_router.get('/stavyregistrace/kodstavregistrace/:kodStavRegistrace', async (req: express.Request, res: express.Response): Promise<void> => {
+cis_router.get('/stavyregistrace/:kodStavRegistrace', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.send(await GetStavyRegistraceKodStavRegistrace(req.params.kodStavRegistrace));
     } catch (e) {
@@ -309,7 +256,7 @@ async function GetAtcSkupinyKody(): Promise<Array<{}[]>> {
 }
 
 
-cis_router.get('/atcskupinykody', async (req: express.Request, res: express.Response): Promise<void> => {
+cis_router.get('/atcskupiny/kody', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.send(await GetAtcSkupinyKody());
     } catch (e) {
@@ -338,7 +285,7 @@ async function GetAtcSkupinyKodAtcSkupina(kodAtcSkupina: string): Promise<Array<
 }
 
 
-cis_router.get('/atcskupiny/kodatcskupina/:kodAtcSkupina', async (req: express.Request, res: express.Response): Promise<void> => {
+cis_router.get('/atcskupiny/:kodAtcSkupina', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.send(await GetAtcSkupinyKodAtcSkupina(req.params.kodAtcSkupina));
     } catch (e) {
@@ -430,7 +377,7 @@ async function GetIndikacniSkupinyKodIndikacniSkupina(kodIndikacniSkupina: numbe
 }
 
 
-cis_router.get('/indikacniskupiny/kodindikacniskupina/:kodIndikacniSkupina', async (req: express.Request, res: express.Response): Promise<void> => {
+cis_router.get('/indikacniskupiny/:kodIndikacniSkupina', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.send(await GetIndikacniSkupinyKodIndikacniSkupina(Number(req.params.kodIndikacniSkupina)));
     } catch (e) {
@@ -518,7 +465,7 @@ async function GetUcinneLatkyKodUcinnaLatka(kodUcinnaLatka: number): Promise<Arr
 }
 
 
-cis_router.get('/ucinnelatky/koducinnalatka/:kodUcinnaLatka', async (req: express.Request, res: express.Response): Promise<void> => {
+cis_router.get('/ucinnelatky/:kodUcinnaLatka', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.send(await GetUcinneLatkyKodUcinnaLatka(req.params.kodUcinnaLatka));
     } catch (e) {
