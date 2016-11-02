@@ -490,7 +490,7 @@ async function GetUcinneLatkyKodSukl(kodSukl : number): Promise<Array<{}[]>> {
     };
     let connection = await oracledb.getConnection(connectString);
     let result: any = await connection.execute(oraProcedure, oraParameters , { outFormat: oracledb.OBJECT });
-    result.rows = await result.outBinds.cursor.getRows(Number(result.outBinds.count));
+    result.rows = await result.outBinds.cursor.getRows(result.outBinds.count);
     return result.rows;
 }
 

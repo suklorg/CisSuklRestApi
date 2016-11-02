@@ -1,0 +1,23 @@
+{
+    "authors": "Daniel Grove <https://github.com/drGrove>",
+    "definitionFilename": "index.d.ts",
+    "libraryDependencies": [],
+    "moduleDependencies": [],
+    "libraryMajorVersion": "0",
+    "libraryMinorVersion": "0",
+    "libraryName": "Swagger-JSDoc",
+    "typingsPackageName": "swagger-jsdoc",
+    "projectName": "https://github.com/surnet/swagger-jsdoc",
+    "sourceRepoURL": "https://www.github.com/DefinitelyTyped/DefinitelyTyped",
+    "sourceBranch": "types-2.0",
+    "kind": "DeclareModule",
+    "globals": [],
+    "declaredModules": [
+        "swagger-jsdoc"
+    ],
+    "files": [
+        "index.d.ts"
+    ],
+    "hasPackageJson": false,
+    "contentHash": "2188f51c27079280fea470a17999b2b5929b5a2fbd15a3e42d370d4316e1d8e9"
+}

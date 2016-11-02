@@ -34,13 +34,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Scripts\typings.json" />
-    <Content Include="Scripts\typings\globals\es6-promise\typings.json" />
     <Content Include="Scripts\typings\globals\express-serve-static-core\typings.json" />
     <Content Include="Scripts\typings\globals\express\typings.json" />
     <Content Include="Scripts\typings\globals\mime\typings.json" />
     <Content Include="Scripts\typings\globals\node\typings.json" />
     <Content Include="Scripts\typings\globals\serve-static\typings.json" />
     <Content Include="Scripts\typings\modules\oracledb\typings.json" />
+    <Content Include="scripts\typings\modules\swagger-jsdoc\package.json" />
+    <Content Include="scripts\typings\modules\swagger-jsdoc\README.md" />
+    <Content Include="scripts\typings\modules\swagger-jsdoc\types-metadata.json" />
     <Content Include="src\common.js.map" />
     <Content Include="src\routers\cissukl_ectd_router.js.map" />
     <Content Include="src\routers\cissukl_router.js.map" />
@@ -55,6 +57,7 @@
     <TypeScriptCompile Include="Scripts\typings\globals\serve-static\index.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\index.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\modules\oracledb\index.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\modules\swagger-jsdoc\index.d.ts" />
     <TypeScriptCompile Include="src\common.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_ectd_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_router.ts" />
@@ -63,7 +66,6 @@
     <Folder Include="scripts\" />
     <Folder Include="scripts\typings\" />
     <Folder Include="scripts\typings\globals\" />
-    <Folder Include="scripts\typings\globals\es6-promise\" />
     <Folder Include="Scripts\typings\globals\express-serve-static-core\" />
     <Folder Include="Scripts\typings\globals\express\" />
     <Folder Include="Scripts\typings\globals\mime\" />
@@ -71,6 +73,7 @@
     <Folder Include="Scripts\typings\globals\serve-static\" />
     <Folder Include="Scripts\typings\modules\" />
     <Folder Include="Scripts\typings\modules\oracledb\" />
+    <Folder Include="scripts\typings\modules\swagger-jsdoc\" />
     <Folder Include="src\" />
     <Folder Include="src\routers\" />
   </ItemGroup>

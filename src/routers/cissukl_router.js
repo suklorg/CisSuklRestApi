@@ -431,7 +431,7 @@ function GetUcinneLatkyKodSukl(kodSukl) {
         };
         let connection = yield oracledb.getConnection(connectString);
         let result = yield connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-        result.rows = yield result.outBinds.cursor.getRows(Number(result.outBinds.count));
+        result.rows = yield result.outBinds.cursor.getRows(result.outBinds.count);
         return result.rows;
     });
 }
