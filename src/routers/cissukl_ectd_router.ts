@@ -2,29 +2,36 @@
 
 import * as express from "express";
 import { getConnection, IConnection, BIND_IN, BIND_OUT, CURSOR, NUMBER, STRING } from "oracledb";
-import { connectionAttributes, oraProcedures, oraOutFormat, FormatExceptionMessage }  from "../common";
-    
+import { connectionAttributes, oraProcedures, oraOutFormat, FormatExceptionMessage, oraProcs }  from "../common";
+ 
 let ectd_router: express.Router = express.Router();
 
+ectd_router.get('/registracnicisla', async (req: express.Request, res: express.Response): Promise<void> => {
 
-async function GetCislaJednaciCisloJednaci(cisloJednaci: string): Promise<Array<{}[]>> {
-//async function GetCislaJednaciCisloJednaci(cisloJednaci: string): Promise<String> {
+    try {
+        res.type('application/json');
+        if (req.query.cislo_jednaci !== "undefined" && typeof req.query.cislo_jednaci !== "object" && Object.keys(req.query).length === 1) 
+            res.send(await GetCislaJednaciCisloJednaci(req.query.cislo_jednaci));
+        else
+            res.status(404).send(FormatExceptionMessage("Pro dané URL není služba implementována."))
+    } catch (e) {
+        res.status(404).send(FormatExceptionMessage(e.message));
+        console.log(e.message);
+    }
 
-    let oraParams = {
-        cisloJednaci: { val: cisloJednaci, type: STRING, dir: BIND_IN },
-        count: { type: NUMBER, dir: BIND_OUT },
-        cursor: { type: CURSOR, dir: BIND_OUT }
-    };
+});
+
+async function GetCislaJednaciCisloJednaci(cisloJednaci: string): Promise<string> {
+
+    oraProcs.getCislaJednaciCisloJednaci.procParams.cisloJednaci.val = cisloJednaci;
 
     let connection: IConnection = await getConnection(connectionAttributes);
     try {
-        let result: any = await connection.execute(oraProcedures.getCislaJednaciCisloJednaci, oraParams, oraOutFormat);
-        //return await JSON.stringify(result.outBinds.cursor.getRows(result.outBinds.count));
-        return await result.outBinds.cursor.getRows(result.outBinds.count);
+        let result: any = await connection.execute(oraProcs.getCislaJednaciCisloJednaci.procName, oraProcs.getCislaJednaciCisloJednaci.procParams, oraOutFormat);
+        return JSON.stringify(await result.outBinds.cursor.getRows(result.outBinds.count), null, 4);
     } finally {
         connection.close();
     }
-
 }
 
 /**
@@ -42,17 +49,6 @@ async function GetCislaJednaciCisloJednaci(cisloJednaci: string): Promise<Array<
  *         schema:
  *           $ref: '#/definitions/Puppy'
  */
-ectd_router.get('/cislajednaci/:cisloJednaci', async (req: express.Request, res: express.Response): Promise<void> => {
-
-    try {
-        res.send(await GetCislaJednaciCisloJednaci(String(req.params.cisloJednaci)));
-    } catch (e) {
-        console.log(e.message);
-        res.status(404).send(FormatExceptionMessage(e.message));
-    }
-
-});
-
 ////
 
 //*/

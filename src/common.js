@@ -14,6 +14,16 @@ var common;
     common.oraProcedures = {
         getCislaJednaciCisloJednaci: "BEGIN cis_sukl_dlp.GetCislaJednaciCisJednaci( :cisloJednaci, :count, :cursor ); END;"
     };
+    common.oraProcs = {
+        getCislaJednaciCisloJednaci: {
+            procName: "BEGIN cis_sukl_dlp.GetCislaJednaciCisJednaci( :cisloJednaci, :count, :cursor ); END;",
+            procParams: {
+                cisloJednaci: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        }
+    };
     function FormatExceptionMessage(message) {
         return JSON.parse('{ "error" : "' + message.replace(/"/g, '\\\"').replace(/\n/g, '') + '"}');
     }

@@ -1,4 +1,4 @@
-﻿import { IConnectionAttributes, IExecuteOptions, OBJECT } from "oracledb";
+﻿import { IConnectionAttributes, IExecuteOptions, OBJECT, NUMBER, STRING, CURSOR, BIND_IN, BIND_OUT } from "oracledb";
 
 'use strict';
 namespace common {
@@ -13,7 +13,21 @@ namespace common {
     };
 
     export const oraProcedures = {
-        getCislaJednaciCisloJednaci: "BEGIN cis_sukl_dlp.GetCislaJednaciCisJednaci( :cisloJednaci, :count, :cursor ); END;"
+        getCislaJednaciCisloJednaci:  "BEGIN cis_sukl_dlp.GetCislaJednaciCisJednaci( :cisloJednaci, :count, :cursor ); END;"
+
+    };
+
+
+    export const oraProcs = {
+        getCislaJednaciCisloJednaci: {
+            procName : "BEGIN cis_sukl_dlp.GetCislaJednaciCisJednaci( :cisloJednaci, :count, :cursor ); END;",
+            procParams : {
+                cisloJednaci: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+            
+            }
+        }
 
     };
 

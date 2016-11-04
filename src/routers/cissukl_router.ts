@@ -1,6 +1,7 @@
 ﻿"use strict";
 
 import * as express from "express";
+import { connectionAttributes, oraProcedures, oraOutFormat, FormatExceptionMessage, oraProcs }  from "../common";
 
 //import { getLogger } from 'log4js';
 
@@ -16,35 +17,23 @@ let connectString = { user: "cis_sukl", password: "cis_sukl", connectString: "dl
 
 let cis_router: express.Router = express.Router();
 
-
-
-//const selLecivePripravky: string = "SELECT kod_sukl,nazev,sila,kod_lekova_forma,baleni,kod_cesta_podani,doplnek,kod_obal,registracni_cislo,kod_registracni_procedura,kod_stav_registrace,kod_druh_registrace,kod_organizace_drzitel,kod_zeme_drzitel,kod_organizace_drzitel_sreg_b,kod_zeme_drzitel_sreg_b,soubezny_dovoz,kod_organizace_dovozce,kod_zeme_dovozce,platnost_registrace_do,neomezena_platnost_registrace,uvadeni_do,kod_indikacni_skupina,kod_atc_skupina,ddd_mnozstvi,ddd_jednotka,ddd_baleni,ddd_zdroj,povinne_vzorky,kod_zpusob_vydeje,kod_zavislost,kod_doping,kod_narizeni_vlady,braillovo_pismo,expirace,expirace_jednotka FROM sez_dlp WHERE platnost_do IS NULL ORDER BY nazev,doplnek,kod_sukl";
-
-async function GetLecivePripravky(): Promise<Array<{}[]>> {
-    /*
-    oracledb.maxRows = 100;
-    let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(selLecivePripravky, [], { outFormat: oracledb.OBJECT });
-    return result.rows;
-    */
-
-    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetLecivePripravky(:count, :cursor); END;";
-    let oraParameters = {
-        count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
-        cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-
-    };
-    let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-    result.rows = await result.outBinds.cursor.getRows(Number(result.outBinds.count));
-    return result.rows;
-
-}
+/////
+// lecive pripravky
+////
 
 
 cis_router.get('/lecivepripravky', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
-        res.send(await GetLecivePripravky());
+        res.type('application/json');
+        if (Object.keys(req.query).length === 0) {
+            res.send(await GetLecivePripravky());
+        }
+        else if (req.query.fields === "kod_sukl" && Object.keys(req.query).length === 1) {
+            res.send(await GetLecivePripravkyKody());
+        } else {
+            res.status(404).send(FormatExceptionMessage("Pro dané URL není služba implementována."));
+        }
+
     } catch (e) {
         let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
         console.log(s);
@@ -53,10 +42,29 @@ cis_router.get('/lecivepripravky', async (req: express.Request, res: express.Res
 
 });
 
-/////
-//const selLecivePripravkyKody: string = "SELECT kod_sukl FROM sez_dlp WHERE platnost_do IS NULL ORDER BY kod_sukl";
 
-async function GetLecivePripravkyKody(): Promise<Array<{}[]>> {
+async function GetLecivePripravky(): Promise<string> {
+
+    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetLecivePripravky(:count, :cursor); END;";
+    let oraParameters = {
+        count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
+        cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
+
+    };
+    let connection = await oracledb.getConnection(connectString);
+    try {
+        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
+    } finally {
+        connection.close();
+    }
+}
+
+
+
+/////
+
+async function GetLecivePripravkyKody(): Promise<string> {
     //oracledb.maxRows = 1000;
     let oraProcedure: string = "BEGIN cis_sukl_dlp.GetLecivePripravkyKody(:count, :cursor); END;";
     let oraParameters = {
@@ -65,51 +73,22 @@ async function GetLecivePripravkyKody(): Promise<Array<{}[]>> {
 
     };
     let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-    result.rows = await result.outBinds.cursor.getRows(Number(result.outBinds.count));   
-    return result.rows;
+    try {
+        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
+    } finally {
+        connection.close();
+    }
 }
 
 
-cis_router.get('/lecivepripravky/kody', async (req: express.Request, res: express.Response): Promise<void> => {
-    try {
-        res.send(await GetLecivePripravkyKody());
-    } catch (e) {
-        let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
-    }
-
-});
 
 /////
-
-//const selLecivePripravkyKodSukl: string = "SELECT kod_sukl, nazev, sila, kod_lekova_forma, baleni, kod_cesta_podani, doplnek, kod_obal, registracni_cislo, kod_registracni_procedura, kod_stav_registrace, kod_druh_registrace, kod_organizace_drzitel, kod_zeme_drzitel, kod_organizace_drzitel_sreg_b, kod_zeme_drzitel_sreg_b, soubezny_dovoz, kod_organizace_dovozce, kod_zeme_dovozce, platnost_registrace_do, neomezena_platnost_registrace, uvadeni_do, kod_indikacni_skupina, kod_atc_skupina, ddd_mnozstvi, ddd_jednotka, ddd_baleni, ddd_zdroj, povinne_vzorky, kod_zpusob_vydeje, kod_zavislost, kod_doping, kod_narizeni_vlady, braillovo_pismo, expirace, expirace_jednotka FROM sez_dlp WHERE platnost_do IS NULL AND kod_sukl = :kodSukl";
-
-async function GetLecivePripravkyKodSukl(kodSukl: string): Promise<Array<{}[]>> {
-    /*
-    oracledb.maxRows = 100;
-    let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(selLecivePripravkyKodSukl, [kodSukl], { outFormat: oracledb.OBJECT });
-    return result.rows;
-    */
-
-    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetLecivePripravkyKodSukl(:kodSukl, :cursor); END;";
-    let oraParameters = {
-        kodSukl: { val: kodSukl, type: oracledb.STRING, dir: oracledb.BIND_IN },
-        cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-
-    };
-    let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-    result.rows = await result.outBinds.cursor.getRows(1);
-    return result.rows;
-
-}
 
 
 cis_router.get('/lecivepripravky/:kodSukl', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
+        res.type('application/json');
         res.send(await GetLecivePripravkyKodSukl(req.params.kodSukl));
     } catch (e) {
         let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
@@ -119,12 +98,49 @@ cis_router.get('/lecivepripravky/:kodSukl', async (req: express.Request, res: ex
 
 });
 
+async function GetLecivePripravkyKodSukl(kodSukl: string): Promise<string> {
+
+    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetLecivePripravkyKodSukl(:kodSukl, :cursor); END;";
+    let oraParameters = {
+        kodSukl: { val: kodSukl, type: oracledb.STRING, dir: oracledb.BIND_IN },
+        cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
+
+    };
+    let connection = await oracledb.getConnection(connectString);
+    try {
+        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(1)), null, 4);
+    } finally {
+        connection.close();
+    }
+}
+
 
 /////
 // stavy registrace
 ////
 
-async function GetStavyRegistrace(): Promise<Array<{}[]>> {
+cis_router.get('/stavyregistrace', async (req: express.Request, res: express.Response): Promise<void> => {
+    try {
+        res.type('application/json');
+        if (Object.keys(req.query).length === 0) {
+            res.send(await GetStavyRegistrace());
+        }
+        else if (req.query.fields === "kod_stav_registrace" && Object.keys(req.query).length === 1) {
+            res.send(await GetStavyRegistraceKody());
+        } else {
+            res.status(404).send(FormatExceptionMessage("Pro dané URL není služba implementována."));
+        }
+    } catch (e) {
+        let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
+        console.log(s);
+        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
+    }
+});
+
+
+
+async function GetStavyRegistrace(): Promise<string> {
     //oracledb.maxRows = 1000;
     let oraProcedure: string = "BEGIN cis_sukl_dlp.GetStavyRegistrace(:count, :cursor); END;";
     let oraParameters = {
@@ -133,26 +149,19 @@ async function GetStavyRegistrace(): Promise<Array<{}[]>> {
 
     };
     let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-    result.rows = await result.outBinds.cursor.getRows(Number(result.outBinds.count));
-    return result.rows;
+    try {
+        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
+    } finally {
+        connection.close();
+    }
 }
 
-
-cis_router.get('/stavyregistrace', async (req: express.Request, res: express.Response): Promise<void> => {
-    try {
-        res.send(await GetStavyRegistrace());
-    } catch (e) {
-        let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
-    }
-});
 
 
 /////
 
-async function GetStavyRegistraceKody(): Promise<Array<{}[]>> {
+async function GetStavyRegistraceKody(): Promise<string> {
     //oracledb.maxRows = 1000;
     let oraProcedure: string = "BEGIN cis_sukl_dlp.GetStavyRegistraceKody(:count, :cursor); END;";
     let oraParameters = {
@@ -161,44 +170,21 @@ async function GetStavyRegistraceKody(): Promise<Array<{}[]>> {
 
     };
     let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-    result.rows = await result.outBinds.cursor.getRows(Number(result.outBinds.count));
-    return result.rows;
-}
-
-
-cis_router.get('/stavyregistrace/kody', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
-        res.send(await GetStavyRegistraceKody());
-    } catch (e) {
-        let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
+        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
+    } finally {
+        connection.close();
     }
-});
+}
 
 
 
 /////
 
-
-async function GetStavyRegistraceKodStavRegistrace(kodStavRegistrace: string): Promise<Array<{}[]>> {
-    //oracledb.maxRows = 1000;
-    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetStavyRegistraceKodStavReg(:kodStavRegistrace, :cursor); END;";
-    let oraParameters = {
-        kodStavRegistrace: { val: kodStavRegistrace, type: oracledb.STRING, dir: oracledb.BIND_IN },
-        cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-
-    };
-    let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-    result.rows = await result.outBinds.cursor.getRows(1);
-    return result.rows;
-}
-
-
 cis_router.get('/stavyregistrace/:kodStavRegistrace', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
+        res.type('application/json');
         res.send(await GetStavyRegistraceKodStavRegistrace(req.params.kodStavRegistrace));
     } catch (e) {
         let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
@@ -208,12 +194,52 @@ cis_router.get('/stavyregistrace/:kodStavRegistrace', async (req: express.Reques
 });
 
 
+async function GetStavyRegistraceKodStavRegistrace(kodStavRegistrace: string): Promise<string> {
+    //oracledb.maxRows = 1000;
+    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetStavyRegistraceKodStavReg(:kodStavRegistrace, :cursor); END;";
+    let oraParameters = {
+        kodStavRegistrace: { val: kodStavRegistrace, type: oracledb.STRING, dir: oracledb.BIND_IN },
+        cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
+
+    };
+    let connection = await oracledb.getConnection(connectString);
+    try {
+        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(1)), null, 4);
+    } finally {
+        connection.close();
+    }
+}
+
+
+
+
 
 /////
 // atc skupiny
 ////
 
-async function GetAtcSkupiny(): Promise<Array<{}[]>> {
+cis_router.get('/atcskupiny', async (req: express.Request, res: express.Response): Promise<void> => {
+    try {
+        res.type('application/json');
+        if (Object.keys(req.query).length === 0) {
+            res.send(await GetAtcSkupiny());
+        }
+        else if (req.query.fields === "kod_atc_skupina" && Object.keys(req.query).length === 1) {
+            res.send(await GetAtcSkupinyKody());
+        } else {
+            res.status(404).send(FormatExceptionMessage("Pro dané URL není služba implementována."));
+        }
+
+    } catch (e) {
+        let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
+        console.log(s);
+        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
+    }
+});
+//*/
+
+async function GetAtcSkupiny(): Promise<string> {
     //oracledb.maxRows = 1000;
     let oraProcedure: string = "BEGIN cis_sukl_dlp.GetAtcSkupiny(:count, :cursor); END;";
     let oraParameters = {
@@ -222,27 +248,17 @@ async function GetAtcSkupiny(): Promise<Array<{}[]>> {
 
     };
     let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-    result.rows = await result.outBinds.cursor.getRows(Number(result.outBinds.count));
-    return result.rows;
+    try {
+        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
+    } finally {
+        connection.close();
+    }
 }
 
-
-cis_router.get('/atcskupiny', async (req: express.Request, res: express.Response): Promise<void> => {
-    try {
-        res.send(await GetAtcSkupiny());
-    } catch (e) {
-        let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
-    }
-});
-
-
 ////
-
-async function GetAtcSkupinyKody(): Promise<Array<{}[]>> {
-    //oracledb.maxRows = 1000;
+async function GetAtcSkupinyKody(): Promise<string> {
+   
     let oraProcedure: string = "BEGIN cis_sukl_dlp.GetAtcSkupinyKody(:count, :cursor); END;";
     let oraParameters = {
         count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
@@ -250,43 +266,20 @@ async function GetAtcSkupinyKody(): Promise<Array<{}[]>> {
 
     };
     let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-    result.rows = await result.outBinds.cursor.getRows(Number(result.outBinds.count));
-    return result.rows;
-}
-
-
-cis_router.get('/atcskupiny/kody', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
-        res.send(await GetAtcSkupinyKody());
-    } catch (e) {
-        let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
+        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
+    } finally {
+        connection.close();
     }
-});
+}
 
 
 /////
 
-
-async function GetAtcSkupinyKodAtcSkupina(kodAtcSkupina: string): Promise<Array<{}[]>> {
-    //oracledb.maxRows = 1000;
-    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetAtcSkupinyKodAtcSkupina(:kodAtcSkupina, :cursor); END;";
-    let oraParameters = {
-        kodAtcSkupina: { val: kodAtcSkupina, type: oracledb.STRING, dir: oracledb.BIND_IN },
-        cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-
-    };
-    let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-    result.rows = await result.outBinds.cursor.getRows(1);
-    return result.rows;
-}
-
-
 cis_router.get('/atcskupiny/:kodAtcSkupina', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
+        res.type('application/json');
         res.send(await GetAtcSkupinyKodAtcSkupina(req.params.kodAtcSkupina));
     } catch (e) {
         let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
@@ -295,29 +288,38 @@ cis_router.get('/atcskupiny/:kodAtcSkupina', async (req: express.Request, res: e
     }
 });
 
+async function GetAtcSkupinyKodAtcSkupina(kodAtcSkupina: string): Promise<string> {
+
+    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetAtcSkupinyKodAtcSkupina(:kodAtcSkupina, :cursor); END;";
+    let oraParameters = {
+        kodAtcSkupina: { val: kodAtcSkupina, type: oracledb.STRING, dir: oracledb.BIND_IN },
+        cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
+    };
+    let connection = await oracledb.getConnection(connectString);
+    try {
+        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(1)), null, 4);
+    } finally {
+        connection.close();
+    }
+
+}
 
 /////
 // indikacni skupiny
 ////
 
-async function GetIndikacniSkupiny(): Promise<Array<{}[]>> {
-    //oracledb.maxRows = 1000;
-    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetIndikacniSkupiny(:count, :cursor); END;";
-    let oraParameters = {
-        count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
-        cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-
-    };
-    let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-    result.rows = await result.outBinds.cursor.getRows(Number(result.outBinds.count));
-    return result.rows;
-}
-
-
 cis_router.get('/indikacniskupiny', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
-        res.send(await GetIndikacniSkupiny());
+        res.type('application/json');
+        if (Object.keys(req.query).length === 0) {
+            res.send(await GetIndikacniSkupiny());
+        }
+        else if (req.query.fields === "kod_indikacni_skupina" && Object.keys(req.query).length === 1) {
+            res.send(await GetIndikacniSkupinyKody());
+        } else {
+            res.status(404).send(FormatExceptionMessage("Pro dané URL není služba implementována."));
+        }
     } catch (e) {
         let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
         console.log(s);
@@ -326,9 +328,25 @@ cis_router.get('/indikacniskupiny', async (req: express.Request, res: express.Re
 });
 
 
+async function GetIndikacniSkupiny(): Promise<string> {
+    
+    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetIndikacniSkupiny(:count, :cursor); END;";
+    let oraParameters = {
+        count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
+        cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
+    };
+    let connection = await oracledb.getConnection(connectString);
+    try {
+        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
+    } finally {
+        connection.close();
+    }
+}
+
 ////
 
-async function GetIndikacniSkupinyKody(): Promise<Array<{}[]>> {
+async function GetIndikacniSkupinyKody(): Promise<string> {
     //oracledb.maxRows = 1000;
     let oraProcedure: string = "BEGIN cis_sukl_dlp.GetIndikacniSkupinyKody(:count, :cursor); END;";
     let oraParameters = {
@@ -337,15 +355,19 @@ async function GetIndikacniSkupinyKody(): Promise<Array<{}[]>> {
 
     };
     let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-    result.rows = await result.outBinds.cursor.getRows(Number(result.outBinds.count));
-    return result.rows;
+    try {
+        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
+    } finally {
+        connection.close();
+    }
 }
 
-
-cis_router.get('/indikacniskupiny/kody', async (req: express.Request, res: express.Response): Promise<void> => {
+/////
+cis_router.get('/indikacniskupiny/:kodIndikacniSkupina', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
-        res.send(await GetIndikacniSkupinyKody());
+        res.type('application/json');
+        res.send(await GetIndikacniSkupinyKodIndikacniSkupina(Number(req.params.kodIndikacniSkupina)));
     } catch (e) {
         let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
         console.log(s);
@@ -354,10 +376,7 @@ cis_router.get('/indikacniskupiny/kody', async (req: express.Request, res: expre
 });
 
 
-
-/////
-
-async function GetIndikacniSkupinyKodIndikacniSkupina(kodIndikacniSkupina: number): Promise<Array<{}[]>> {
+async function GetIndikacniSkupinyKodIndikacniSkupina(kodIndikacniSkupina: number): Promise<string> {
     //oracledb.maxRows = 1000;
     let oraProcedure: string = "BEGIN cis_sukl_dlp.GetIndikacniSkupinyKodIndSkup(:kodIndikacniSkupina, :cursor); END;";
     let oraParameters = {
@@ -367,19 +386,33 @@ async function GetIndikacniSkupinyKodIndikacniSkupina(kodIndikacniSkupina: numbe
     };
     let connection = await oracledb.getConnection(connectString);
     try {
-        //connection = await oracledb.getConnection(connectString);
         let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-        result.rows = await result.outBinds.cursor.getRows(1);
-        return result.rows;
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(1)), null, 4);
     } finally {
         connection.close();
     }
 }
 
 
-cis_router.get('/indikacniskupiny/:kodIndikacniSkupina', async (req: express.Request, res: express.Response): Promise<void> => {
+/////
+// ucinne latky
+////
+
+cis_router.get('/ucinnelatky', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
-        res.send(await GetIndikacniSkupinyKodIndikacniSkupina(Number(req.params.kodIndikacniSkupina)));
+        res.type('application/json');
+        if (Object.keys(req.query).length === 0) {
+            res.send(await GetUcinneLatky());
+        }
+        else if (req.query.fields === "kod_ucinna_latka" && Object.keys(req.query).length === 1) {
+            res.send(await GetUcinneLatkyKody());
+        }
+        else if (req.query.kod_sukl !== "undefined" && typeof req.query.kod_sukl !== "object" && Object.keys(req.query).length === 1) {
+            res.send(await GetUcinneLatkyKodSukl(req.query.kod_sukl));
+        } else {
+            res.status(404).send(FormatExceptionMessage("Pro dané URL není služba implementována."));
+        }
+
     } catch (e) {
         let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
         console.log(s);
@@ -387,11 +420,8 @@ cis_router.get('/indikacniskupiny/:kodIndikacniSkupina', async (req: express.Req
     }
 });
 
-/////
-// ucinne latky
-////
 
-async function GetUcinneLatky(): Promise<Array<{}[]>> {
+async function GetUcinneLatky(): Promise<string> {
     //oracledb.maxRows = 1000;
     let oraProcedure: string = "BEGIN cis_sukl_dlp.GetUcinneLatky(:count, :cursor); END;";
     let oraParameters = {
@@ -400,26 +430,19 @@ async function GetUcinneLatky(): Promise<Array<{}[]>> {
         
     };
     let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-    result.rows = await result.outBinds.cursor.getRows(Number(result.outBinds.count));
-    return result.rows;
+    try {
+        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
+    } finally {
+        connection.close();
+    }
 }
 
-
-cis_router.get('/ucinnelatky', async (req: express.Request, res: express.Response): Promise<void> => {
-    try {
-        res.send(await GetUcinneLatky());
-    } catch (e) {
-        let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
-    }
-});
 
 
 /////
 
-async function GetUcinneLatkyKody(): Promise<Array<{}[]>> {
+async function GetUcinneLatkyKody(): Promise<string> {
     //oracledb.maxRows = 1000;
     let oraProcedure: string = "BEGIN cis_sukl_dlp.GetUcinneLatkyKody(:count, :cursor); END;";
     let oraParameters = {
@@ -428,45 +451,38 @@ async function GetUcinneLatkyKody(): Promise<Array<{}[]>> {
 
     };
     let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-    result.rows = await result.outBinds.cursor.getRows(Number(result.outBinds.count));
-    return result.rows;
+    try {
+        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
+    } finally {
+        connection.close();
+    }
 }
 
-
-cis_router.get('/ucinnelatky/kody', async (req: express.Request, res: express.Response): Promise<void> => {
-    try {
-        res.send(await GetUcinneLatkyKody());
-    } catch (e) {
-        let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
-    }
-});
-
-
-
-/////
-
-
-async function GetUcinneLatkyKodUcinnaLatka(kodUcinnaLatka: number): Promise<Array<{}[]>> {
+async function GetUcinneLatkyKodSukl(kodSukl: number): Promise<string> {
     //oracledb.maxRows = 1000;
-    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetUcinneLatkyKodUcinnaLatka(:kodUcinnaLatka,  :cursor); END;";
+    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetUcinneLatkyKodSukl(:kodSukl, :count, :cursor); END;";
     let oraParameters = {
-        kodUcinnaLatka: { val: kodUcinnaLatka },
-        //count: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT },
+        kodSukl: { val: kodSukl },
+        count: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT },
         cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
 
     };
     let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-    result.rows = await result.outBinds.cursor.getRows(1);
-    return result.rows;
+    try {
+        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
+    } finally {
+        connection.close();
+    }
 }
 
 
+
+/////
 cis_router.get('/ucinnelatky/:kodUcinnaLatka', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
+        res.type('application/json');
         res.send(await GetUcinneLatkyKodUcinnaLatka(req.params.kodUcinnaLatka));
     } catch (e) {
         let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
@@ -476,34 +492,30 @@ cis_router.get('/ucinnelatky/:kodUcinnaLatka', async (req: express.Request, res:
 });
 
 
-/////
 
-
-async function GetUcinneLatkyKodSukl(kodSukl : number): Promise<Array<{}[]>> {
-    //oracledb.maxRows = 1000;
-    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetUcinneLatkyKodSukl(:kodSukl, :count, :cursor); END;";
+async function GetUcinneLatkyKodUcinnaLatka(kodUcinnaLatka: number): Promise<string> {
+    
+    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetUcinneLatkyKodUcinnaLatka(:kodUcinnaLatka, :cursor); END;";
     let oraParameters = {
-        kodSukl: { val: kodSukl},
-        count: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT },
+        kodUcinnaLatka: { val: kodUcinnaLatka },
+        //count: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT },
         cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
 
     };
     let connection = await oracledb.getConnection(connectString);
-    let result: any = await connection.execute(oraProcedure, oraParameters , { outFormat: oracledb.OBJECT });
-    result.rows = await result.outBinds.cursor.getRows(result.outBinds.count);
-    return result.rows;
+    try {
+        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(1)), null, 4);
+    } finally {
+        connection.close();
+    }
 }
 
 
-cis_router.get('/ucinnelatky/kodsukl/:kodSukl', async (req: express.Request, res: express.Response): Promise<void> => {
-    try {
-        res.send(await GetUcinneLatkyKodSukl(req.params.kodSukl));
-    } catch (e) {
-        let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
-    }
-});
+
+/////
+
+
 
 //*/
 export { cis_router};

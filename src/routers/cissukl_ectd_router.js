@@ -12,19 +12,26 @@ const oracledb_1 = require("oracledb");
 const common_1 = require("../common");
 let ectd_router = express.Router();
 exports.ectd_router = ectd_router;
+ectd_router.get('/registracnicisla', (req, res) => __awaiter(this, void 0, Promise, function* () {
+    try {
+        res.type('application/json');
+        if (req.query.cislo_jednaci !== "undefined" && typeof req.query.cislo_jednaci !== "object" && Object.keys(req.query).length === 1)
+            res.send(yield GetCislaJednaciCisloJednaci(req.query.cislo_jednaci));
+        else
+            res.status(404).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+    }
+    catch (e) {
+        res.status(404).send(common_1.FormatExceptionMessage(e.message));
+        console.log(e.message);
+    }
+}));
 function GetCislaJednaciCisloJednaci(cisloJednaci) {
     return __awaiter(this, void 0, Promise, function* () {
-        //async function GetCislaJednaciCisloJednaci(cisloJednaci: string): Promise<String> {
-        let oraParams = {
-            cisloJednaci: { val: cisloJednaci, type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
-            count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
-            cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
-        };
+        common_1.oraProcs.getCislaJednaciCisloJednaci.procParams.cisloJednaci.val = cisloJednaci;
         let connection = yield oracledb_1.getConnection(common_1.connectionAttributes);
         try {
-            let result = yield connection.execute(common_1.oraProcedures.getCislaJednaciCisloJednaci, oraParams, common_1.oraOutFormat);
-            //return await JSON.stringify(result.outBinds.cursor.getRows(result.outBinds.count));
-            return yield result.outBinds.cursor.getRows(result.outBinds.count);
+            let result = yield connection.execute(common_1.oraProcs.getCislaJednaciCisloJednaci.procName, common_1.oraProcs.getCislaJednaciCisloJednaci.procParams, common_1.oraOutFormat);
+            return JSON.stringify(yield result.outBinds.cursor.getRows(result.outBinds.count), null, 4);
         }
         finally {
             connection.close();
@@ -46,15 +53,6 @@ function GetCislaJednaciCisloJednaci(cisloJednaci) {
  *         schema:
  *           $ref: '#/definitions/Puppy'
  */
-ectd_router.get('/cislajednaci/:cisloJednaci', (req, res) => __awaiter(this, void 0, Promise, function* () {
-    try {
-        res.send(yield GetCislaJednaciCisloJednaci(String(req.params.cisloJednaci)));
-    }
-    catch (e) {
-        console.log(e.message);
-        res.status(404).send(common_1.FormatExceptionMessage(e.message));
-    }
-}));
 ////
 //*/
 //# sourceMappingURL=cissukl_ectd_router.js.map
