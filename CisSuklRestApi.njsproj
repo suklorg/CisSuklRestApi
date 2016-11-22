@@ -57,7 +57,6 @@
     <TypeScriptCompile Include="Scripts\typings\globals\serve-static\index.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\index.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\modules\oracledb\index.d.ts" />
-    <TypeScriptCompile Include="scripts\typings\modules\swagger-jsdoc\index.d.ts" />
     <TypeScriptCompile Include="src\common.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_ectd_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_router.ts" />

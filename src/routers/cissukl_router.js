@@ -21,7 +21,7 @@ exports.cis_router = cis_router;
 /////
 // lecive pripravky
 ////
-cis_router.get('/lecivepripravky', (req, res) => __awaiter(this, void 0, Promise, function* () {
+cis_router.get('/lecivepripravky', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -41,7 +41,7 @@ cis_router.get('/lecivepripravky', (req, res) => __awaiter(this, void 0, Promise
     }
 }));
 function GetLecivePripravky() {
-    return __awaiter(this, void 0, Promise, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         let oraProcedure = "BEGIN cis_sukl_dlp.GetLecivePripravky(:count, :cursor); END;";
         let oraParameters = {
             count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
@@ -59,7 +59,7 @@ function GetLecivePripravky() {
 }
 /////
 function GetLecivePripravkyKody() {
-    return __awaiter(this, void 0, Promise, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         //oracledb.maxRows = 1000;
         let oraProcedure = "BEGIN cis_sukl_dlp.GetLecivePripravkyKody(:count, :cursor); END;";
         let oraParameters = {
@@ -77,7 +77,7 @@ function GetLecivePripravkyKody() {
     });
 }
 /////
-cis_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(this, void 0, Promise, function* () {
+cis_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         res.send(yield GetLecivePripravkyKodSukl(req.params.kodSukl));
@@ -89,7 +89,7 @@ cis_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(this, void 0
     }
 }));
 function GetLecivePripravkyKodSukl(kodSukl) {
-    return __awaiter(this, void 0, Promise, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         let oraProcedure = "BEGIN cis_sukl_dlp.GetLecivePripravkyKodSukl(:kodSukl, :cursor); END;";
         let oraParameters = {
             kodSukl: { val: kodSukl, type: oracledb.STRING, dir: oracledb.BIND_IN },
@@ -108,7 +108,7 @@ function GetLecivePripravkyKodSukl(kodSukl) {
 /////
 // stavy registrace
 ////
-cis_router.get('/stavyregistrace', (req, res) => __awaiter(this, void 0, Promise, function* () {
+cis_router.get('/stavyregistrace', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -128,7 +128,7 @@ cis_router.get('/stavyregistrace', (req, res) => __awaiter(this, void 0, Promise
     }
 }));
 function GetStavyRegistrace() {
-    return __awaiter(this, void 0, Promise, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         //oracledb.maxRows = 1000;
         let oraProcedure = "BEGIN cis_sukl_dlp.GetStavyRegistrace(:count, :cursor); END;";
         let oraParameters = {
@@ -147,7 +147,7 @@ function GetStavyRegistrace() {
 }
 /////
 function GetStavyRegistraceKody() {
-    return __awaiter(this, void 0, Promise, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         //oracledb.maxRows = 1000;
         let oraProcedure = "BEGIN cis_sukl_dlp.GetStavyRegistraceKody(:count, :cursor); END;";
         let oraParameters = {
@@ -165,7 +165,7 @@ function GetStavyRegistraceKody() {
     });
 }
 /////
-cis_router.get('/stavyregistrace/:kodStavRegistrace', (req, res) => __awaiter(this, void 0, Promise, function* () {
+cis_router.get('/stavyregistrace/:kodStavRegistrace', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         res.send(yield GetStavyRegistraceKodStavRegistrace(req.params.kodStavRegistrace));
@@ -177,7 +177,7 @@ cis_router.get('/stavyregistrace/:kodStavRegistrace', (req, res) => __awaiter(th
     }
 }));
 function GetStavyRegistraceKodStavRegistrace(kodStavRegistrace) {
-    return __awaiter(this, void 0, Promise, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         //oracledb.maxRows = 1000;
         let oraProcedure = "BEGIN cis_sukl_dlp.GetStavyRegistraceKodStavReg(:kodStavRegistrace, :cursor); END;";
         let oraParameters = {
@@ -197,7 +197,7 @@ function GetStavyRegistraceKodStavRegistrace(kodStavRegistrace) {
 /////
 // atc skupiny
 ////
-cis_router.get('/atcskupiny', (req, res) => __awaiter(this, void 0, Promise, function* () {
+cis_router.get('/atcskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -218,7 +218,7 @@ cis_router.get('/atcskupiny', (req, res) => __awaiter(this, void 0, Promise, fun
 }));
 //*/
 function GetAtcSkupiny() {
-    return __awaiter(this, void 0, Promise, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         //oracledb.maxRows = 1000;
         let oraProcedure = "BEGIN cis_sukl_dlp.GetAtcSkupiny(:count, :cursor); END;";
         let oraParameters = {
@@ -237,7 +237,7 @@ function GetAtcSkupiny() {
 }
 ////
 function GetAtcSkupinyKody() {
-    return __awaiter(this, void 0, Promise, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         let oraProcedure = "BEGIN cis_sukl_dlp.GetAtcSkupinyKody(:count, :cursor); END;";
         let oraParameters = {
             count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
@@ -254,7 +254,7 @@ function GetAtcSkupinyKody() {
     });
 }
 /////
-cis_router.get('/atcskupiny/:kodAtcSkupina', (req, res) => __awaiter(this, void 0, Promise, function* () {
+cis_router.get('/atcskupiny/:kodAtcSkupina', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         res.send(yield GetAtcSkupinyKodAtcSkupina(req.params.kodAtcSkupina));
@@ -266,7 +266,7 @@ cis_router.get('/atcskupiny/:kodAtcSkupina', (req, res) => __awaiter(this, void 
     }
 }));
 function GetAtcSkupinyKodAtcSkupina(kodAtcSkupina) {
-    return __awaiter(this, void 0, Promise, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         let oraProcedure = "BEGIN cis_sukl_dlp.GetAtcSkupinyKodAtcSkupina(:kodAtcSkupina, :cursor); END;";
         let oraParameters = {
             kodAtcSkupina: { val: kodAtcSkupina, type: oracledb.STRING, dir: oracledb.BIND_IN },
@@ -285,7 +285,7 @@ function GetAtcSkupinyKodAtcSkupina(kodAtcSkupina) {
 /////
 // indikacni skupiny
 ////
-cis_router.get('/indikacniskupiny', (req, res) => __awaiter(this, void 0, Promise, function* () {
+cis_router.get('/indikacniskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -305,7 +305,7 @@ cis_router.get('/indikacniskupiny', (req, res) => __awaiter(this, void 0, Promis
     }
 }));
 function GetIndikacniSkupiny() {
-    return __awaiter(this, void 0, Promise, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         let oraProcedure = "BEGIN cis_sukl_dlp.GetIndikacniSkupiny(:count, :cursor); END;";
         let oraParameters = {
             count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
@@ -323,7 +323,7 @@ function GetIndikacniSkupiny() {
 }
 ////
 function GetIndikacniSkupinyKody() {
-    return __awaiter(this, void 0, Promise, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         //oracledb.maxRows = 1000;
         let oraProcedure = "BEGIN cis_sukl_dlp.GetIndikacniSkupinyKody(:count, :cursor); END;";
         let oraParameters = {
@@ -341,7 +341,7 @@ function GetIndikacniSkupinyKody() {
     });
 }
 /////
-cis_router.get('/indikacniskupiny/:kodIndikacniSkupina', (req, res) => __awaiter(this, void 0, Promise, function* () {
+cis_router.get('/indikacniskupiny/:kodIndikacniSkupina', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         res.send(yield GetIndikacniSkupinyKodIndikacniSkupina(Number(req.params.kodIndikacniSkupina)));
@@ -353,7 +353,7 @@ cis_router.get('/indikacniskupiny/:kodIndikacniSkupina', (req, res) => __awaiter
     }
 }));
 function GetIndikacniSkupinyKodIndikacniSkupina(kodIndikacniSkupina) {
-    return __awaiter(this, void 0, Promise, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         //oracledb.maxRows = 1000;
         let oraProcedure = "BEGIN cis_sukl_dlp.GetIndikacniSkupinyKodIndSkup(:kodIndikacniSkupina, :cursor); END;";
         let oraParameters = {
@@ -373,7 +373,7 @@ function GetIndikacniSkupinyKodIndikacniSkupina(kodIndikacniSkupina) {
 /////
 // ucinne latky
 ////
-cis_router.get('/ucinnelatky', (req, res) => __awaiter(this, void 0, Promise, function* () {
+cis_router.get('/ucinnelatky', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -382,7 +382,7 @@ cis_router.get('/ucinnelatky', (req, res) => __awaiter(this, void 0, Promise, fu
         else if (req.query.fields === "kod_ucinna_latka" && Object.keys(req.query).length === 1) {
             res.send(yield GetUcinneLatkyKody());
         }
-        else if (req.query.kod_sukl !== "undefined" && typeof req.query.kod_sukl !== "object" && Object.keys(req.query).length === 1) {
+        else if (typeof req.query.kod_sukl !== "undefined" && typeof req.query.kod_sukl !== "object" && Object.keys(req.query).length === 1) {
             res.send(yield GetUcinneLatkyKodSukl(req.query.kod_sukl));
         }
         else {
@@ -396,7 +396,7 @@ cis_router.get('/ucinnelatky', (req, res) => __awaiter(this, void 0, Promise, fu
     }
 }));
 function GetUcinneLatky() {
-    return __awaiter(this, void 0, Promise, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         //oracledb.maxRows = 1000;
         let oraProcedure = "BEGIN cis_sukl_dlp.GetUcinneLatky(:count, :cursor); END;";
         let oraParameters = {
@@ -415,7 +415,7 @@ function GetUcinneLatky() {
 }
 /////
 function GetUcinneLatkyKody() {
-    return __awaiter(this, void 0, Promise, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         //oracledb.maxRows = 1000;
         let oraProcedure = "BEGIN cis_sukl_dlp.GetUcinneLatkyKody(:count, :cursor); END;";
         let oraParameters = {
@@ -433,7 +433,7 @@ function GetUcinneLatkyKody() {
     });
 }
 function GetUcinneLatkyKodSukl(kodSukl) {
-    return __awaiter(this, void 0, Promise, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         //oracledb.maxRows = 1000;
         let oraProcedure = "BEGIN cis_sukl_dlp.GetUcinneLatkyKodSukl(:kodSukl, :count, :cursor); END;";
         let oraParameters = {
@@ -452,7 +452,7 @@ function GetUcinneLatkyKodSukl(kodSukl) {
     });
 }
 /////
-cis_router.get('/ucinnelatky/:kodUcinnaLatka', (req, res) => __awaiter(this, void 0, Promise, function* () {
+cis_router.get('/ucinnelatky/:kodUcinnaLatka', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         res.send(yield GetUcinneLatkyKodUcinnaLatka(req.params.kodUcinnaLatka));
@@ -464,7 +464,7 @@ cis_router.get('/ucinnelatky/:kodUcinnaLatka', (req, res) => __awaiter(this, voi
     }
 }));
 function GetUcinneLatkyKodUcinnaLatka(kodUcinnaLatka) {
-    return __awaiter(this, void 0, Promise, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         let oraProcedure = "BEGIN cis_sukl_dlp.GetUcinneLatkyKodUcinnaLatka(:kodUcinnaLatka, :cursor); END;";
         let oraParameters = {
             kodUcinnaLatka: { val: kodUcinnaLatka },

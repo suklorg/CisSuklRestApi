@@ -8,51 +8,171 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const express = require("express");
-const oracledb_1 = require("oracledb");
+//import { getConnection, IConnection, BIND_IN, BIND_OUT, CURSOR, NUMBER, STRING } from "oracledb";
 const common_1 = require("../common");
+const cis = require("../common");
 let ectd_router = express.Router();
 exports.ectd_router = ectd_router;
-ectd_router.get('/registracnicisla', (req, res) => __awaiter(this, void 0, Promise, function* () {
+/**
+ * @swagger
+ * /zmenyregistracnicisla:
+ *   get:
+ *     tags:
+ *       - Registrační čísla
+ *     description: Vrací seznam změněných registračních čísel
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: platnost_od
+ *         description: Datum
+ *         in: query
+ *         required:
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Pole registračních čísel
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: '#/definitions/ZmenyRegistracniCisla'
+ * definition:
+ *   ZmenyRegistracniCisla:
+ *     type: object
+ *     properties:
+ *       REGISTRACNI_CISLO:
+ *         type: string
+ *         description: Registrační číslo - Varchar(16)
+ *         example: 87/173/03-C
+ *       REGISTRACNI_CISLO_PUVODNI:
+ *         type: string
+ *         description: Registrační číslo - Varchar(16)
+ *         example: 87/173/03-C
+ */
+ectd_router.get('/zmenyregistracnicisla', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
     try {
         res.type('application/json');
-        if (req.query.cislo_jednaci !== "undefined" && typeof req.query.cislo_jednaci !== "object" && Object.keys(req.query).length === 1)
-            res.send(yield GetCislaJednaciCisloJednaci(req.query.cislo_jednaci));
-        else
-            res.status(404).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+        if (Object.keys(req.query).length === 0) {
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getZmenyRegistracniCisla);
+        }
+        else if (typeof req.query.platnost_od !== "undefined" && typeof req.query.platnost_od !== "object" && Object.keys(req.query).length === 1) {
+            common_1.oraProcs.getZmenyRegistracniCislaPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getZmenyRegistracniCislaPlatnostOd);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+        }
     }
     catch (e) {
-        res.status(404).send(common_1.FormatExceptionMessage(e.message));
+        if (e instanceof cis.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
         console.log(e.message);
     }
 }));
-function GetCislaJednaciCisloJednaci(cisloJednaci) {
-    return __awaiter(this, void 0, Promise, function* () {
-        common_1.oraProcs.getCislaJednaciCisloJednaci.procParams.cisloJednaci.val = cisloJednaci;
-        let connection = yield oracledb_1.getConnection(common_1.connectionAttributes);
-        try {
-            let result = yield connection.execute(common_1.oraProcs.getCislaJednaciCisloJednaci.procName, common_1.oraProcs.getCislaJednaciCisloJednaci.procParams, common_1.oraOutFormat);
-            return JSON.stringify(yield result.outBinds.cursor.getRows(result.outBinds.count), null, 4);
-        }
-        finally {
-            connection.close();
-        }
-    });
-}
+/**
+* @swagger
+* definition:
+*   RegistracniCislaCisloJednaci:
+*     type: array
+*     items:
+*       $ref: '#/definitions/RegistracniCislaCisloJednaciObject'
+*       description: Ahoj
+*/
 /**
  * @swagger
- * /cislajednaci/:cisloJednaci':
+ * definition:
+ *   RegistracniCislaCisloJednaciObject:
+ *     type: object
+ *     properties:
+ *       CISLO_JEDNACI:
+ *         type: string
+ *         description: Číslo jednací - Varchar(12)
+ *         example: 10057/04
+ *       REGISTRACNI_CISLO:
+ *         type: string
+ *         description: Registrační číslo - Varchar(16)
+ *         example: 87/173/03-C
+ *       ASMF_CISLO:
+ *         type: string
+ *         description: Registrační číslo - Varchar(15)
+ *         example: "null"
+ *       RC1:
+ *         type: string
+ *         description: Složka registračního čísla - Varchar(2)
+ *         example: "87"
+ *       RC2:
+ *         type: string
+ *         description: Složka registračního čísla - Varchar(4)
+ *         example: "173"
+ *       RC3:
+ *         type: string
+ *         description: Složka registračního čísla - Varchar(4)
+ *         example: "03"
+ *       RC4:
+ *         type: string
+ *         description: Složka registračního čísla - Varchar(4)
+ *         example: "C"
+ */
+/**
+ * @swagger
+ * /registracnicisla:
  *   get:
  *     tags:
- *       - Puppies
- *     description: Returns all puppies
+ *       - Registrační čísla
+ *     description: Vrací seznam registračních čísel přiřazených k číslu jednacímu
  *     produces:
  *       - application/json
+ *     parameters:
+ *       - name: cislo_jednaci
+ *         description: Číslo jednací bez lomítka
+ *         in: query
+ *         required: true
+ *         type: string
  *     responses:
  *       200:
- *         description: An array of puppies
+ *         description: Pole registračních čísel
  *         schema:
- *           $ref: '#/definitions/Puppy'
+ *           $ref: '#/definitions/RegistracniCislaCisloJednaci'
  */
-////
+ectd_router.get('/registracnicisla', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
+    try {
+        res.type('application/json');
+        if (typeof req.query.cislo_jednaci !== "undefined" && typeof req.query.cislo_jednaci !== "object" && Object.keys(req.query).length === 1) {
+            common_1.oraProcs.getCislaJednaciCisloJednaci.procParams.cislo_jednaci.val = req.query.cislo_jednaci;
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCislaJednaciCisloJednaci);
+        }
+        else if (typeof req.query.mrp_cislo !== "undefined" && typeof req.query.mrp_cislo !== "object" && Object.keys(req.query).length === 1) {
+            common_1.oraProcs.getCislaJednaciMrpCislo.procParams.mrp_cislo.val = req.query.mrp_cislo;
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCislaJednaciMrpCislo);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+        }
+    }
+    catch (e) {
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
+    }
+}));
 //*/
 //# sourceMappingURL=cissukl_ectd_router.js.map

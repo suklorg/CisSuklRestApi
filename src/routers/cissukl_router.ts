@@ -407,7 +407,7 @@ cis_router.get('/ucinnelatky', async (req: express.Request, res: express.Respons
         else if (req.query.fields === "kod_ucinna_latka" && Object.keys(req.query).length === 1) {
             res.send(await GetUcinneLatkyKody());
         }
-        else if (req.query.kod_sukl !== "undefined" && typeof req.query.kod_sukl !== "object" && Object.keys(req.query).length === 1) {
+        else if (typeof req.query.kod_sukl !== "undefined" && typeof req.query.kod_sukl !== "object" && Object.keys(req.query).length === 1) {
             res.send(await GetUcinneLatkyKodSukl(req.query.kod_sukl));
         } else {
             res.status(404).send(FormatExceptionMessage("Pro dané URL není služba implementována."));
