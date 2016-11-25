@@ -5,6 +5,7 @@ let swaggerJSDoc = require("swagger-jsdoc");
 
 import { ectd_router }  from "./src/routers/cissukl_ectd_router";
 import { cis_router }  from "./src/routers/cissukl_router";
+import { lekarny_router } from "./src/routers/cissukl_lekarny_router";
 
 let port: number = 8000;
 
@@ -17,7 +18,8 @@ var swaggerDefinition = {
         version: '0.0.1',
         description: 'Popis RESTful API',
     },
-    host: 'test-s-node:8000',
+    host: 'localhost:8000',
+    //host: 'test-s-node:8000',
     //basePath: '/cissuklapi/v0',
     basePath: '/cissuklapi/v0',
 };
@@ -43,6 +45,7 @@ app.get('/swagger.json', function (req, res) {
 //*/
 app.use('/cissuklapi/v0', cis_router);
 app.use('/cissuklapi/v0', ectd_router);
+app.use('/cissuklapi/v0', lekarny_router);
 
 app.listen(port);
 

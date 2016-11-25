@@ -61,6 +61,44 @@ var common;
     common.ExecuteProcedure = ExecuteProcedure;
     ;
     common.oraProcs = {
+        getLekarny: {
+            procName: "BEGIN cis_sukl_dlp.GetLekarny( :count, :cursor ); END;",
+            procParams: {
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getLekarnyKody: {
+            procName: "BEGIN cis_sukl_dlp.GetLekarnyKody( :count, :cursor ); END;",
+            procParams: {
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getLekarnyStatus: {
+            procName: "BEGIN cis_sukl_dlp.GetLekarnyStatus( :status, :count, :cursor ); END;",
+            procParams: {
+                status: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getLekarnyKodyStatus: {
+            procName: "BEGIN cis_sukl_dlp.GetLekarnyKodyStatus( :status, :count, :cursor ); END;",
+            procParams: {
+                status: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getLekarnyKodPracoviste: {
+            procName: "BEGIN cis_sukl_dlp.GetLekarnyKodPracoviste( :kod_pracoviste, :count, :cursor ); END;",
+            procParams: {
+                kod_pracoviste: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
         getCislaJednaciCisloJednaci: {
             procName: "BEGIN cis_sukl_dlp.GetCislaJednaciCisJednaci( :cislo_jednaci, :count, :cursor ); END;",
             procParams: {

@@ -75,6 +75,49 @@ namespace common {
 
 
     export const oraProcs = {
+        getLekarny: {
+            procName: "BEGIN cis_sukl_dlp.GetLekarny( :count, :cursor ); END;",
+            procParams: {
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        getLekarnyKody: {
+            procName: "BEGIN cis_sukl_dlp.GetLekarnyKody( :count, :cursor ); END;",
+            procParams: {
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        getLekarnyStatus: {
+            procName: "BEGIN cis_sukl_dlp.GetLekarnyStatus( :status, :count, :cursor ); END;",
+            procParams: {
+                status: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        getLekarnyKodyStatus: {
+            procName: "BEGIN cis_sukl_dlp.GetLekarnyKodyStatus( :status, :count, :cursor ); END;",
+            procParams: {
+                status: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        getLekarnyKodPracoviste: {
+            procName: "BEGIN cis_sukl_dlp.GetLekarnyKodPracoviste( :kod_pracoviste, :count, :cursor ); END;",
+            procParams: {
+                kod_pracoviste: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
         getCislaJednaciCisloJednaci: {
             procName : "BEGIN cis_sukl_dlp.GetCislaJednaciCisJednaci( :cislo_jednaci, :count, :cursor ); END;",
             procParams : {
