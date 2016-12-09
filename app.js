@@ -5,6 +5,7 @@ let swaggerJSDoc = require("swagger-jsdoc");
 const cissukl_ectd_router_1 = require("./src/routers/cissukl_ectd_router");
 const cissukl_router_1 = require("./src/routers/cissukl_router");
 const cissukl_lekarny_router_1 = require("./src/routers/cissukl_lekarny_router");
+const cissukl_lp_router_1 = require("./src/routers/cissukl_lp_router");
 let port = 8000;
 let app = express();
 ///*
@@ -39,6 +40,7 @@ app.get('/swagger.json', function (req, res) {
 app.use('/cissuklapi/v0', cissukl_router_1.cis_router);
 app.use('/cissuklapi/v0', cissukl_ectd_router_1.ectd_router);
 app.use('/cissuklapi/v0', cissukl_lekarny_router_1.lekarny_router);
+app.use('/cissuklapi/v0', cissukl_lp_router_1.lp_router);
 app.listen(port);
 console.log('CisSuklApi: ' + port);
 //# sourceMappingURL=app.js.map

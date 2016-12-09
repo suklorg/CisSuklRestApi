@@ -2,7 +2,6 @@
 
 import { IConnectionAttributes, IExecuteOptions, IConnection, getConnection, OBJECT, NUMBER, STRING, DATE, CURSOR, BIND_IN, BIND_OUT } from "oracledb";
 
-'use strict';
 namespace common {
 
     export class AppError implements Error {
@@ -75,6 +74,23 @@ namespace common {
 
 
     export const oraProcs = {
+        getNeregistrovaneLecivePripravky: {
+            procName: "BEGIN cis_sukl_dlp.GetNeregLecPripravky( :count, :cursor ); END;",
+            procParams: {
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        getNeregistrovaneLecivePripravkyObdobiOd: {
+            procName: "BEGIN cis_sukl_dlp.GetNeregLecPripravkyObdobiOd( :obdobi_od, :count, :cursor ); END;",
+            procParams: {
+                obdobi_od: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
         getLekarny: {
             procName: "BEGIN cis_sukl_dlp.GetLekarny( :count, :cursor ); END;",
             procParams: {

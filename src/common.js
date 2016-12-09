@@ -8,7 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const oracledb_1 = require("oracledb");
-'use strict';
 var common;
 (function (common) {
     class AppError {
@@ -61,6 +60,21 @@ var common;
     common.ExecuteProcedure = ExecuteProcedure;
     ;
     common.oraProcs = {
+        getNeregistrovaneLecivePripravky: {
+            procName: "BEGIN cis_sukl_dlp.GetNeregLecPripravky( :count, :cursor ); END;",
+            procParams: {
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getNeregistrovaneLecivePripravkyObdobiOd: {
+            procName: "BEGIN cis_sukl_dlp.GetNeregLecPripravkyObdobiOd( :obdobi_od, :count, :cursor ); END;",
+            procParams: {
+                obdobi_od: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
         getLekarny: {
             procName: "BEGIN cis_sukl_dlp.GetLekarny( :count, :cursor ); END;",
             procParams: {
