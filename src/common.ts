@@ -39,12 +39,14 @@ namespace common {
 
     export interface IOraExecuteResult {
         resultSet: string;
+        totalCount: number;
         count: number;
 
     };
 
     class OraExecuteResult implements IOraExecuteResult {
         resultSet: string;
+        totalCount: number;        
         count: number;
         constructor() { };
     }
@@ -59,6 +61,7 @@ namespace common {
             let result: any = await connection.execute(oraProcedure.procName, oraProcedure.procParams, oraOutFormat);
 
             oraExecuteResult.count = result.outBinds.count;
+            oraExecuteResult.totalCount = result.outBinds.total_count;
             if (oraExecuteResult.count <= 0) {
                 throw new AppError(404, 'Nenalezeny žádné záznamy.')
             }
@@ -74,6 +77,29 @@ namespace common {
 
 
     export const oraProcs = {
+        getLecivePripravkyKody: {
+            procName: "BEGIN cis_sukl_dlp.GetLecivePripravkyKody(:offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: NUMBER, dir: BIND_IN },
+                limit: { val: 5, type: NUMBER, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        getLecivePripravky: {
+            procName: "BEGIN cis_sukl_dlp.GetLecivePripravky(:offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: NUMBER, dir: BIND_IN },
+                limit: { val: 5, type: NUMBER, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
         getNeregistrovaneLecivePripravky: {
             procName: "BEGIN cis_sukl_dlp.GetNeregLecPripravky( :count, :cursor ); END;",
             procParams: {

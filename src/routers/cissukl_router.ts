@@ -21,7 +21,7 @@ let cis_router: express.Router = express.Router();
 // lecive pripravky
 ////
 
-
+/*
 cis_router.get('/lecivepripravky', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.type('application/json');
@@ -61,7 +61,6 @@ async function GetLecivePripravky(): Promise<string> {
 }
 
 
-
 /////
 
 async function GetLecivePripravkyKody(): Promise<string> {
@@ -81,6 +80,7 @@ async function GetLecivePripravkyKody(): Promise<string> {
     }
 }
 
+*/
 
 
 /////

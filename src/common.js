@@ -46,6 +46,7 @@ var common;
             try {
                 let result = yield connection.execute(oraProcedure.procName, oraProcedure.procParams, common.oraOutFormat);
                 oraExecuteResult.count = result.outBinds.count;
+                oraExecuteResult.totalCount = result.outBinds.total_count;
                 if (oraExecuteResult.count <= 0) {
                     throw new AppError(404, 'Nenalezeny žádné záznamy.');
                 }
@@ -60,6 +61,26 @@ var common;
     common.ExecuteProcedure = ExecuteProcedure;
     ;
     common.oraProcs = {
+        getLecivePripravkyKody: {
+            procName: "BEGIN cis_sukl_dlp.GetLecivePripravkyKody(:offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                limit: { val: 5, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getLecivePripravky: {
+            procName: "BEGIN cis_sukl_dlp.GetLecivePripravky(:offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                limit: { val: 5, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
         getNeregistrovaneLecivePripravky: {
             procName: "BEGIN cis_sukl_dlp.GetNeregLecPripravky( :count, :cursor ); END;",
             procParams: {

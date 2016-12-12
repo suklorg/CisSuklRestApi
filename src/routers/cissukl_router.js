@@ -21,61 +21,66 @@ exports.cis_router = cis_router;
 /////
 // lecive pripravky
 ////
-cis_router.get('/lecivepripravky', (req, res) => __awaiter(this, void 0, void 0, function* () {
+/*
+cis_router.get('/lecivepripravky', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
-            res.send(yield GetLecivePripravky());
+            res.send(await GetLecivePripravky());
         }
         else if (req.query.fields === "kod_sukl" && Object.keys(req.query).length === 1) {
-            res.send(yield GetLecivePripravkyKody());
+            res.send(await GetLecivePripravkyKody());
+        } else {
+            res.status(404).send(FormatExceptionMessage("Pro dané URL není služba implementována."));
         }
-        else {
-            res.status(404).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
-        }
-    }
-    catch (e) {
-        let s = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
+
+    } catch (e) {
+        let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
         console.log(s);
         res.status(404).send(JSON.parse('{ "error" : "' + s + '"}'));
     }
-}));
-function GetLecivePripravky() {
-    return __awaiter(this, void 0, void 0, function* () {
-        let oraProcedure = "BEGIN cis_sukl_dlp.GetLecivePripravky(:count, :cursor); END;";
-        let oraParameters = {
-            count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
-            cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-        };
-        let connection = yield oracledb.getConnection(connectString);
-        try {
-            let result = yield connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-            return JSON.stringify(yield result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
-        }
-        finally {
-            connection.close();
-        }
-    });
+
+});
+
+
+async function GetLecivePripravky(): Promise<string> {
+
+    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetLecivePripravky(:count, :cursor); END;";
+    let oraParameters = {
+        count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
+        cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
+
+    };
+    let connection = await oracledb.getConnection(connectString);
+    try {
+        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
+    } finally {
+        connection.close();
+    }
 }
+
+
 /////
-function GetLecivePripravkyKody() {
-    return __awaiter(this, void 0, void 0, function* () {
-        //oracledb.maxRows = 1000;
-        let oraProcedure = "BEGIN cis_sukl_dlp.GetLecivePripravkyKody(:count, :cursor); END;";
-        let oraParameters = {
-            count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
-            cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-        };
-        let connection = yield oracledb.getConnection(connectString);
-        try {
-            let result = yield connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-            return JSON.stringify(yield result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
-        }
-        finally {
-            connection.close();
-        }
-    });
+
+async function GetLecivePripravkyKody(): Promise<string> {
+    //oracledb.maxRows = 1000;
+    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetLecivePripravkyKody(:count, :cursor); END;";
+    let oraParameters = {
+        count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
+        cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
+
+    };
+    let connection = await oracledb.getConnection(connectString);
+    try {
+        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
+        return JSON.stringify(await result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
+    } finally {
+        connection.close();
+    }
 }
+
+*/
 /////
 cis_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
