@@ -3,10 +3,11 @@ import * as express from "express";
 let swaggerJSDoc = require("swagger-jsdoc");
 //import { swaggerJSDoc } from "swagger-jsdoc";
 
-import { ectd_router }  from "./src/routers/cissukl_ectd_router";
-import { cis_router }  from "./src/routers/cissukl_router";
+import { reg_cisla_router }  from "./src/routers/cissukl_reg_cisla_router";
+import { ciselniky_router }  from "./src/routers/cissukl_ciselniky_router";
 import { lekarny_router } from "./src/routers/cissukl_lekarny_router";
 import { lp_router } from "./src/routers/cissukl_lp_router";
+import { dis13_router } from "./src/routers/cissukl_dis13_router";
 
 let port: number = 8000;
 
@@ -44,10 +45,11 @@ app.get('/swagger.json', function (req, res) {
     res.send(swaggerSpec);
 });
 //*/
-app.use('/cissuklapi/v0', cis_router);
-app.use('/cissuklapi/v0', ectd_router);
+app.use('/cissuklapi/v0', ciselniky_router);
+app.use('/cissuklapi/v0', reg_cisla_router);
 app.use('/cissuklapi/v0', lekarny_router);
 app.use('/cissuklapi/v0', lp_router);
+app.use('/cissuklapi/v0', dis13_router);
 
 app.listen(port);
 

@@ -46,21 +46,53 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
                 oraProcs.getLecivePripravkyKody.procParams.limit.val = 20;
                 oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKody);
             }
-            else if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 2) {
-                oraProcs.getLecivePripravkyKody.procParams.offset.val = 0;
-                oraProcs.getLecivePripravkyKody.procParams.limit.val = Number(req.query.limit);
-                oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKody);
+            else if (typeof req.query.je_regulovany !== "undefined") {
+                if (Object.keys(req.query).length === 2) {
+                    oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.je_regulovany.val = req.query.je_regulovany;
+                    oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.offset.val = 0;
+                    oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.limit.val = 20;
+                    oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodyJeRegulovany);
+                }
+                else if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 3) {
+                    oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.je_regulovany.val = req.query.je_regulovany;
+                    oraProcs.getLecivePripravkyKody.procParams.offset.val = 0;
+                    oraProcs.getLecivePripravkyKody.procParams.limit.val = Number(req.query.limit);
+                    oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKody);
+                }
+                else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 3) {
+                    oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.je_regulovany.val = req.query.je_regulovany;
+                    oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.offset.val = Number(req.query.offset);
+                    oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.limit.val = 20;
+                    oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodyJeRegulovany);
+                }
+                else if (typeof req.query.offset !== "undefined" && typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 4) {
+                    oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.je_regulovany.val = req.query.je_regulovany;
+                    oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.offset.val = Number(req.query.offset);
+                    oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.limit.val = Number(req.query.limit);
+                    oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodyJeRegulovany);
+                }
             }
-            else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 2) {
-                oraProcs.getLecivePripravkyKody.procParams.offset.val = Number(req.query.offset);
-                oraProcs.getLecivePripravkyKody.procParams.limit.val = 20;
-                oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKody);
+
+
+            /////
+            else {
+                if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 2) {
+                    oraProcs.getLecivePripravkyKody.procParams.offset.val = 0;
+                    oraProcs.getLecivePripravkyKody.procParams.limit.val = Number(req.query.limit);
+                    oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKody);
+                }
+                else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 2) {
+                    oraProcs.getLecivePripravkyKody.procParams.offset.val = Number(req.query.offset);
+                    oraProcs.getLecivePripravkyKody.procParams.limit.val = 20;
+                    oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKody);
+                }
+                else if (typeof req.query.offset !== "undefined" && typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 3) {
+                    oraProcs.getLecivePripravkyKody.procParams.offset.val = Number(req.query.offset);
+                    oraProcs.getLecivePripravkyKody.procParams.limit.val = Number(req.query.limit);
+                    oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKody);
+                }
             }
-            else if (typeof req.query.offset !== "undefined" && typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 3) {
-                oraProcs.getLecivePripravkyKody.procParams.offset.val = Number(req.query.offset);
-                oraProcs.getLecivePripravkyKody.procParams.limit.val = Number(req.query.limit);
-                oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKody);
-            }
+            ///////
         }
         else {
 

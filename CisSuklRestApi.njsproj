@@ -58,9 +58,10 @@
     <TypeScriptCompile Include="Scripts\typings\index.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\modules\oracledb\index.d.ts" />
     <TypeScriptCompile Include="src\common.ts" />
-    <TypeScriptCompile Include="src\routers\cissukl_ectd_router.ts" />
+    <TypeScriptCompile Include="src\routers\cissukl_dis13_router.ts" />
+    <TypeScriptCompile Include="src\routers\cissukl_reg_cisla_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_lekarny_router.ts" />
-    <TypeScriptCompile Include="src\routers\cissukl_router.ts" />
+    <TypeScriptCompile Include="src\routers\cissukl_ciselniky_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_lp_router.ts" />
   </ItemGroup>
   <ItemGroup>

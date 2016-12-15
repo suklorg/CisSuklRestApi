@@ -77,8 +77,32 @@ namespace common {
 
 
     export const oraProcs = {
+        getDis13Kody: {
+            procName: "BEGIN cis_sukl_dis13.GetDis13Kody( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: NUMBER, dir: BIND_IN },
+                limit: { val: 5, type: NUMBER, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        getLecivePripravkyKodyJeRegulovany: {
+            procName: "BEGIN cis_sukl_lp.GetLecPripravkyKodyJeRegul( :je_regulovany, :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                je_regulovany: { val: '', type: STRING, dir: BIND_IN },
+                offset: { val: 0, type: NUMBER, dir: BIND_IN },
+                limit: { val: 5, type: NUMBER, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
         getLecivePripravkyKody: {
-            procName: "BEGIN cis_sukl_dlp.GetLecivePripravkyKody(:offset, :limit, :total_count, :count, :cursor ); END;",
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravkyKody( :offset, :limit, :total_count, :count, :cursor ); END;",
             procParams: {
                 offset: { val: 0, type: NUMBER, dir: BIND_IN },
                 limit: { val: 5, type: NUMBER, dir: BIND_IN },
@@ -89,7 +113,7 @@ namespace common {
             }
         },
         getLecivePripravky: {
-            procName: "BEGIN cis_sukl_dlp.GetLecivePripravky(:offset, :limit, :total_count, :count, :cursor ); END;",
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravky( :offset, :limit, :total_count, :count, :cursor ); END;",
             procParams: {
                 offset: { val: 0, type: NUMBER, dir: BIND_IN },
                 limit: { val: 5, type: NUMBER, dir: BIND_IN },
@@ -101,7 +125,7 @@ namespace common {
         },
 
         getNeregistrovaneLecivePripravky: {
-            procName: "BEGIN cis_sukl_dlp.GetNeregLecPripravky( :count, :cursor ); END;",
+            procName: "BEGIN cis_sukl_lp.GetNeregLecPripravky( :count, :cursor ); END;",
             procParams: {
                 count: { type: NUMBER, dir: BIND_OUT },
                 cursor: { type: CURSOR, dir: BIND_OUT }
@@ -109,7 +133,7 @@ namespace common {
             }
         },
         getNeregistrovaneLecivePripravkyObdobiOd: {
-            procName: "BEGIN cis_sukl_dlp.GetNeregLecPripravkyObdobiOd( :obdobi_od, :count, :cursor ); END;",
+            procName: "BEGIN cis_sukl_lp.GetNeregLecPripravkyObdobiOd( :obdobi_od, :count, :cursor ); END;",
             procParams: {
                 obdobi_od: { val: '', type: STRING, dir: BIND_IN },
                 count: { type: NUMBER, dir: BIND_OUT },

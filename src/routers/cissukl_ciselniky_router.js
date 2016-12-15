@@ -16,13 +16,13 @@ let oracledb = require('oracledb');
 //import * as oracledb from "oracledb";
 //import {getConnection, IConnection, IExecuteOptions, IExecuteReturn, OBJECT } from 'oracledb';
 let connectString = { user: "cis_sukl", password: "cis_sukl", connectString: "dlptest" };
-let cis_router = express.Router();
-exports.cis_router = cis_router;
+let ciselniky_router = express.Router();
+exports.ciselniky_router = ciselniky_router;
 /////
 // lecive pripravky
 ////
 /*
-cis_router.get('/lecivepripravky', async (req: express.Request, res: express.Response): Promise<void> => {
+ciselniky_router.get('/lecivepripravky', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -82,7 +82,7 @@ async function GetLecivePripravkyKody(): Promise<string> {
 
 */
 /////
-cis_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         res.send(yield GetLecivePripravkyKodSukl(req.params.kodSukl));
@@ -113,7 +113,7 @@ function GetLecivePripravkyKodSukl(kodSukl) {
 /////
 // stavy registrace
 ////
-cis_router.get('/stavyregistrace', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/stavyregistrace', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -170,7 +170,7 @@ function GetStavyRegistraceKody() {
     });
 }
 /////
-cis_router.get('/stavyregistrace/:kodStavRegistrace', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/stavyregistrace/:kodStavRegistrace', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         res.send(yield GetStavyRegistraceKodStavRegistrace(req.params.kodStavRegistrace));
@@ -202,7 +202,7 @@ function GetStavyRegistraceKodStavRegistrace(kodStavRegistrace) {
 /////
 // atc skupiny
 ////
-cis_router.get('/atcskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/atcskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -259,7 +259,7 @@ function GetAtcSkupinyKody() {
     });
 }
 /////
-cis_router.get('/atcskupiny/:kodAtcSkupina', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/atcskupiny/:kodAtcSkupina', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         res.send(yield GetAtcSkupinyKodAtcSkupina(req.params.kodAtcSkupina));
@@ -290,7 +290,7 @@ function GetAtcSkupinyKodAtcSkupina(kodAtcSkupina) {
 /////
 // indikacni skupiny
 ////
-cis_router.get('/indikacniskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -346,7 +346,7 @@ function GetIndikacniSkupinyKody() {
     });
 }
 /////
-cis_router.get('/indikacniskupiny/:kodIndikacniSkupina', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/indikacniskupiny/:kodIndikacniSkupina', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         res.send(yield GetIndikacniSkupinyKodIndikacniSkupina(Number(req.params.kodIndikacniSkupina)));
@@ -378,7 +378,7 @@ function GetIndikacniSkupinyKodIndikacniSkupina(kodIndikacniSkupina) {
 /////
 // ucinne latky
 ////
-cis_router.get('/ucinnelatky', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/ucinnelatky', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -457,7 +457,7 @@ function GetUcinneLatkyKodSukl(kodSukl) {
     });
 }
 /////
-cis_router.get('/ucinnelatky/:kodUcinnaLatka', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/ucinnelatky/:kodUcinnaLatka', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         res.type('application/json');
         res.send(yield GetUcinneLatkyKodUcinnaLatka(req.params.kodUcinnaLatka));
@@ -488,4 +488,4 @@ function GetUcinneLatkyKodUcinnaLatka(kodUcinnaLatka) {
 }
 /////
 //*/
-//# sourceMappingURL=cissukl_router.js.map
+//# sourceMappingURL=cissukl_ciselniky_router.js.map

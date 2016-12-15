@@ -15,14 +15,14 @@ let oracledb = require('oracledb');
 
 let connectString = { user: "cis_sukl", password: "cis_sukl", connectString: "dlptest" };
 
-let cis_router: express.Router = express.Router();
+let ciselniky_router: express.Router = express.Router();
 
 /////
 // lecive pripravky
 ////
 
 /*
-cis_router.get('/lecivepripravky', async (req: express.Request, res: express.Response): Promise<void> => {
+ciselniky_router.get('/lecivepripravky', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -86,7 +86,7 @@ async function GetLecivePripravkyKody(): Promise<string> {
 /////
 
 
-cis_router.get('/lecivepripravky/:kodSukl', async (req: express.Request, res: express.Response): Promise<void> => {
+ciselniky_router.get('/lecivepripravky/:kodSukl', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.type('application/json');
         res.send(await GetLecivePripravkyKodSukl(req.params.kodSukl));
@@ -120,7 +120,7 @@ async function GetLecivePripravkyKodSukl(kodSukl: string): Promise<string> {
 // stavy registrace
 ////
 
-cis_router.get('/stavyregistrace', async (req: express.Request, res: express.Response): Promise<void> => {
+ciselniky_router.get('/stavyregistrace', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -182,7 +182,7 @@ async function GetStavyRegistraceKody(): Promise<string> {
 
 /////
 
-cis_router.get('/stavyregistrace/:kodStavRegistrace', async (req: express.Request, res: express.Response): Promise<void> => {
+ciselniky_router.get('/stavyregistrace/:kodStavRegistrace', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.type('application/json');
         res.send(await GetStavyRegistraceKodStavRegistrace(req.params.kodStavRegistrace));
@@ -219,7 +219,7 @@ async function GetStavyRegistraceKodStavRegistrace(kodStavRegistrace: string): P
 // atc skupiny
 ////
 
-cis_router.get('/atcskupiny', async (req: express.Request, res: express.Response): Promise<void> => {
+ciselniky_router.get('/atcskupiny', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -277,7 +277,7 @@ async function GetAtcSkupinyKody(): Promise<string> {
 
 /////
 
-cis_router.get('/atcskupiny/:kodAtcSkupina', async (req: express.Request, res: express.Response): Promise<void> => {
+ciselniky_router.get('/atcskupiny/:kodAtcSkupina', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.type('application/json');
         res.send(await GetAtcSkupinyKodAtcSkupina(req.params.kodAtcSkupina));
@@ -309,7 +309,7 @@ async function GetAtcSkupinyKodAtcSkupina(kodAtcSkupina: string): Promise<string
 // indikacni skupiny
 ////
 
-cis_router.get('/indikacniskupiny', async (req: express.Request, res: express.Response): Promise<void> => {
+ciselniky_router.get('/indikacniskupiny', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -364,7 +364,7 @@ async function GetIndikacniSkupinyKody(): Promise<string> {
 }
 
 /////
-cis_router.get('/indikacniskupiny/:kodIndikacniSkupina', async (req: express.Request, res: express.Response): Promise<void> => {
+ciselniky_router.get('/indikacniskupiny/:kodIndikacniSkupina', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.type('application/json');
         res.send(await GetIndikacniSkupinyKodIndikacniSkupina(Number(req.params.kodIndikacniSkupina)));
@@ -398,7 +398,7 @@ async function GetIndikacniSkupinyKodIndikacniSkupina(kodIndikacniSkupina: numbe
 // ucinne latky
 ////
 
-cis_router.get('/ucinnelatky', async (req: express.Request, res: express.Response): Promise<void> => {
+ciselniky_router.get('/ucinnelatky', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -480,7 +480,7 @@ async function GetUcinneLatkyKodSukl(kodSukl: number): Promise<string> {
 
 
 /////
-cis_router.get('/ucinnelatky/:kodUcinnaLatka', async (req: express.Request, res: express.Response): Promise<void> => {
+ciselniky_router.get('/ucinnelatky/:kodUcinnaLatka', async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         res.type('application/json');
         res.send(await GetUcinneLatkyKodUcinnaLatka(req.params.kodUcinnaLatka));
@@ -518,4 +518,4 @@ async function GetUcinneLatkyKodUcinnaLatka(kodUcinnaLatka: number): Promise<str
 
 
 //*/
-export { cis_router};
+export { ciselniky_router};

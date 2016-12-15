@@ -1,18 +1,14 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator.throw(value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments)).next());
-    });
-};
-const express = require("express");
+﻿"use strict";
+
+import * as express from "express";
 //import { getConnection, IConnection, BIND_IN, BIND_OUT, CURSOR, NUMBER, STRING } from "oracledb";
-const common_1 = require("../common");
-const cis = require("../common");
-let ectd_router = express.Router();
-exports.ectd_router = ectd_router;
+import { FormatExceptionMessage, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult } from "../common";
+import * as cis from "../common";
+ 
+let reg_cisla_router: express.Router = express.Router();
+
+
+
 /**
  * @swagger
  * /zmenyregistracnicisla:
@@ -24,9 +20,9 @@ exports.ectd_router = ectd_router;
  *       - application/json
  *     parameters:
  *       - name: platnost_od
- *         description: Datum
+ *         description: Datum 
  *         in: query
- *         required:
+ *         required: 
  *         type: string
  *     responses:
  *       200:
@@ -48,45 +44,50 @@ exports.ectd_router = ectd_router;
  *         description: Registrační číslo - Varchar(16)
  *         example: 87/173/03-C
  */
-ectd_router.get('/zmenyregistracnicisla', (req, res) => __awaiter(this, void 0, void 0, function* () {
-    let oraExecuteResult;
+reg_cisla_router.get('/zmenyregistracnicisla', async (req: express.Request, res: express.Response): Promise<void> => {
+
+    let oraExecuteResult: cis.IOraExecuteResult;
+
     try {
         res.type('application/json');
+
         if (Object.keys(req.query).length === 0) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getZmenyRegistracniCisla);
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getZmenyRegistracniCisla);
         }
         else if (typeof req.query.platnost_od !== "undefined" && typeof req.query.platnost_od !== "object" && Object.keys(req.query).length === 1) {
-            common_1.oraProcs.getZmenyRegistracniCislaPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getZmenyRegistracniCislaPlatnostOd);
+            oraProcs.getZmenyRegistracniCislaPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;            
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getZmenyRegistracniCislaPlatnostOd);
         }
+
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(FormatExceptionMessage("Pro dané URL není služba implementována."))
         }
-    }
-    catch (e) {
+    } catch (e) {
         if (e instanceof cis.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send(FormatExceptionMessage(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
-        }
-        ;
+            res.status(400).send(FormatExceptionMessage(e.message));
+        };
         console.log(e.message);
     }
-}));
-/**
-* @swagger
-* definition:
-*   RegistracniCislaCisloJednaci:
-*     type: array
-*     items:
-*       $ref: '#/definitions/RegistracniCislaCisloJednaciObject'
-*       description: Ahoj
-*/
+
+});
+
+
+ /**
+ * @swagger
+ * definition:
+ *   RegistracniCislaCisloJednaci:
+ *     type: array
+ *     items:
+ *       $ref: '#/definitions/RegistracniCislaCisloJednaciObject'
+ *       description: Ahoj
+ */
 /**
  * @swagger
  * definition:
@@ -122,6 +123,7 @@ ectd_router.get('/zmenyregistracnicisla', (req, res) => __awaiter(this, void 0, 
  *         description: Složka registračního čísla - Varchar(4)
  *         example: "C"
  */
+
 /**
  * @swagger
  * /registracnicisla:
@@ -143,36 +145,41 @@ ectd_router.get('/zmenyregistracnicisla', (req, res) => __awaiter(this, void 0, 
  *         schema:
  *           $ref: '#/definitions/RegistracniCislaCisloJednaci'
  */
-ectd_router.get('/registracnicisla', (req, res) => __awaiter(this, void 0, void 0, function* () {
-    let oraExecuteResult;
+reg_cisla_router.get('/registracnicisla', async (req: express.Request, res: express.Response): Promise<void> => {
+
+    let oraExecuteResult: cis.IOraExecuteResult;
+
     try {
         res.type('application/json');
+
         if (typeof req.query.cislo_jednaci !== "undefined" && typeof req.query.cislo_jednaci !== "object" && Object.keys(req.query).length === 1) {
-            common_1.oraProcs.getCislaJednaciCisloJednaci.procParams.cislo_jednaci.val = req.query.cislo_jednaci;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCislaJednaciCisloJednaci);
+            oraProcs.getCislaJednaciCisloJednaci.procParams.cislo_jednaci.val = req.query.cislo_jednaci;
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getCislaJednaciCisloJednaci);
+
+        } else if (typeof req.query.mrp_cislo !== "undefined" && typeof req.query.mrp_cislo !== "object" && Object.keys(req.query).length === 1) {
+            oraProcs.getCislaJednaciMrpCislo.procParams.mrp_cislo.val = req.query.mrp_cislo;
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getCislaJednaciMrpCislo);
         }
-        else if (typeof req.query.mrp_cislo !== "undefined" && typeof req.query.mrp_cislo !== "object" && Object.keys(req.query).length === 1) {
-            common_1.oraProcs.getCislaJednaciMrpCislo.procParams.mrp_cislo.val = req.query.mrp_cislo;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCislaJednaciMrpCislo);
-        }
+
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(FormatExceptionMessage("Pro dané URL není služba implementována."))
         }
-    }
-    catch (e) {
-        if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+    } catch (e) {
+        if (e instanceof AppError) {
+            res.status(e.status).send(FormatExceptionMessage(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
-        }
-        ;
+            res.status(400).send(FormatExceptionMessage(e.message));
+        };
         console.log(e.message);
     }
-}));
+});
+
+
+
 //*/
-//# sourceMappingURL=cissukl_ectd_router.js.map
+export { reg_cisla_router };
