@@ -2,490 +2,242 @@
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator.throw(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments)).next());
     });
 };
 const express = require("express");
 const common_1 = require("../common");
-//import { getLogger } from 'log4js';
-var log4js = require('log4js');
-var logger = log4js.getLogger();
-let oracledb = require('oracledb');
-//import * as oracledb from "oracledb";
-//import {getConnection, IConnection, IExecuteOptions, IExecuteReturn, OBJECT } from 'oracledb';
-let connectString = { user: "cis_sukl", password: "cis_sukl", connectString: "dlptest" };
 let ciselniky_router = express.Router();
 exports.ciselniky_router = ciselniky_router;
-/////
-// lecive pripravky
-////
-/*
-ciselniky_router.get('/lecivepripravky', async (req: express.Request, res: express.Response): Promise<void> => {
-    try {
-        res.type('application/json');
-        if (Object.keys(req.query).length === 0) {
-            res.send(await GetLecivePripravky());
-        }
-        else if (req.query.fields === "kod_sukl" && Object.keys(req.query).length === 1) {
-            res.send(await GetLecivePripravkyKody());
-        } else {
-            res.status(404).send(FormatExceptionMessage("Pro dané URL není služba implementována."));
-        }
-
-    } catch (e) {
-        let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "error" : "' + s + '"}'));
-    }
-
-});
-
-
-async function GetLecivePripravky(): Promise<string> {
-
-    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetLecivePripravky(:count, :cursor); END;";
-    let oraParameters = {
-        count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
-        cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-
-    };
-    let connection = await oracledb.getConnection(connectString);
-    try {
-        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-        return JSON.stringify(await result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
-    } finally {
-        connection.close();
-    }
-}
-
-
-/////
-
-async function GetLecivePripravkyKody(): Promise<string> {
-    //oracledb.maxRows = 1000;
-    let oraProcedure: string = "BEGIN cis_sukl_dlp.GetLecivePripravkyKody(:count, :cursor); END;";
-    let oraParameters = {
-        count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
-        cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-
-    };
-    let connection = await oracledb.getConnection(connectString);
-    try {
-        let result: any = await connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-        return JSON.stringify(await result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
-    } finally {
-        connection.close();
-    }
-}
-
-*/
-/////
-ciselniky_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(this, void 0, void 0, function* () {
-    try {
-        res.type('application/json');
-        res.send(yield GetLecivePripravkyKodSukl(req.params.kodSukl));
-    }
-    catch (e) {
-        let s = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
-    }
-}));
-function GetLecivePripravkyKodSukl(kodSukl) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let oraProcedure = "BEGIN cis_sukl_dlp.GetLecivePripravkyKodSukl(:kodSukl, :cursor); END;";
-        let oraParameters = {
-            kodSukl: { val: kodSukl, type: oracledb.STRING, dir: oracledb.BIND_IN },
-            cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-        };
-        let connection = yield oracledb.getConnection(connectString);
-        try {
-            let result = yield connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-            return JSON.stringify(yield result.outBinds.cursor.getRows(Number(1)), null, 4);
-        }
-        finally {
-            connection.close();
-        }
-    });
-}
-/////
-// stavy registrace
-////
-ciselniky_router.get('/stavyregistrace', (req, res) => __awaiter(this, void 0, void 0, function* () {
-    try {
-        res.type('application/json');
-        if (Object.keys(req.query).length === 0) {
-            res.send(yield GetStavyRegistrace());
-        }
-        else if (req.query.fields === "kod_stav_registrace" && Object.keys(req.query).length === 1) {
-            res.send(yield GetStavyRegistraceKody());
-        }
-        else {
-            res.status(404).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
-        }
-    }
-    catch (e) {
-        let s = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
-    }
-}));
-function GetStavyRegistrace() {
-    return __awaiter(this, void 0, void 0, function* () {
-        //oracledb.maxRows = 1000;
-        let oraProcedure = "BEGIN cis_sukl_dlp.GetStavyRegistrace(:count, :cursor); END;";
-        let oraParameters = {
-            count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
-            cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-        };
-        let connection = yield oracledb.getConnection(connectString);
-        try {
-            let result = yield connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-            return JSON.stringify(yield result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
-        }
-        finally {
-            connection.close();
-        }
-    });
-}
-/////
-function GetStavyRegistraceKody() {
-    return __awaiter(this, void 0, void 0, function* () {
-        //oracledb.maxRows = 1000;
-        let oraProcedure = "BEGIN cis_sukl_dlp.GetStavyRegistraceKody(:count, :cursor); END;";
-        let oraParameters = {
-            count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
-            cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-        };
-        let connection = yield oracledb.getConnection(connectString);
-        try {
-            let result = yield connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-            return JSON.stringify(yield result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
-        }
-        finally {
-            connection.close();
-        }
-    });
-}
-/////
-ciselniky_router.get('/stavyregistrace/:kodStavRegistrace', (req, res) => __awaiter(this, void 0, void 0, function* () {
-    try {
-        res.type('application/json');
-        res.send(yield GetStavyRegistraceKodStavRegistrace(req.params.kodStavRegistrace));
-    }
-    catch (e) {
-        let s = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
-    }
-}));
-function GetStavyRegistraceKodStavRegistrace(kodStavRegistrace) {
-    return __awaiter(this, void 0, void 0, function* () {
-        //oracledb.maxRows = 1000;
-        let oraProcedure = "BEGIN cis_sukl_dlp.GetStavyRegistraceKodStavReg(:kodStavRegistrace, :cursor); END;";
-        let oraParameters = {
-            kodStavRegistrace: { val: kodStavRegistrace, type: oracledb.STRING, dir: oracledb.BIND_IN },
-            cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-        };
-        let connection = yield oracledb.getConnection(connectString);
-        try {
-            let result = yield connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-            return JSON.stringify(yield result.outBinds.cursor.getRows(Number(1)), null, 4);
-        }
-        finally {
-            connection.close();
-        }
-    });
-}
-/////
-// atc skupiny
-////
-ciselniky_router.get('/atcskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
-    try {
-        res.type('application/json');
-        if (Object.keys(req.query).length === 0) {
-            res.send(yield GetAtcSkupiny());
-        }
-        else if (req.query.fields === "kod_atc_skupina" && Object.keys(req.query).length === 1) {
-            res.send(yield GetAtcSkupinyKody());
-        }
-        else {
-            res.status(404).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
-        }
-    }
-    catch (e) {
-        let s = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
-    }
-}));
-//*/
-function GetAtcSkupiny() {
-    return __awaiter(this, void 0, void 0, function* () {
-        //oracledb.maxRows = 1000;
-        let oraProcedure = "BEGIN cis_sukl_dlp.GetAtcSkupiny(:count, :cursor); END;";
-        let oraParameters = {
-            count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
-            cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-        };
-        let connection = yield oracledb.getConnection(connectString);
-        try {
-            let result = yield connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-            return JSON.stringify(yield result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
-        }
-        finally {
-            connection.close();
-        }
-    });
-}
-////
-function GetAtcSkupinyKody() {
-    return __awaiter(this, void 0, void 0, function* () {
-        let oraProcedure = "BEGIN cis_sukl_dlp.GetAtcSkupinyKody(:count, :cursor); END;";
-        let oraParameters = {
-            count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
-            cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-        };
-        let connection = yield oracledb.getConnection(connectString);
-        try {
-            let result = yield connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-            return JSON.stringify(yield result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
-        }
-        finally {
-            connection.close();
-        }
-    });
-}
-/////
-ciselniky_router.get('/atcskupiny/:kodAtcSkupina', (req, res) => __awaiter(this, void 0, void 0, function* () {
-    try {
-        res.type('application/json');
-        res.send(yield GetAtcSkupinyKodAtcSkupina(req.params.kodAtcSkupina));
-    }
-    catch (e) {
-        let s = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
-    }
-}));
-function GetAtcSkupinyKodAtcSkupina(kodAtcSkupina) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let oraProcedure = "BEGIN cis_sukl_dlp.GetAtcSkupinyKodAtcSkupina(:kodAtcSkupina, :cursor); END;";
-        let oraParameters = {
-            kodAtcSkupina: { val: kodAtcSkupina, type: oracledb.STRING, dir: oracledb.BIND_IN },
-            cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-        };
-        let connection = yield oracledb.getConnection(connectString);
-        try {
-            let result = yield connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-            return JSON.stringify(yield result.outBinds.cursor.getRows(Number(1)), null, 4);
-        }
-        finally {
-            connection.close();
-        }
-    });
-}
-/////
-// indikacni skupiny
-////
-ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
-    try {
-        res.type('application/json');
-        if (Object.keys(req.query).length === 0) {
-            res.send(yield GetIndikacniSkupiny());
-        }
-        else if (req.query.fields === "kod_indikacni_skupina" && Object.keys(req.query).length === 1) {
-            res.send(yield GetIndikacniSkupinyKody());
-        }
-        else {
-            res.status(404).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
-        }
-    }
-    catch (e) {
-        let s = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
-    }
-}));
-function GetIndikacniSkupiny() {
-    return __awaiter(this, void 0, void 0, function* () {
-        let oraProcedure = "BEGIN cis_sukl_dlp.GetIndikacniSkupiny(:count, :cursor); END;";
-        let oraParameters = {
-            count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
-            cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-        };
-        let connection = yield oracledb.getConnection(connectString);
-        try {
-            let result = yield connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-            return JSON.stringify(yield result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
-        }
-        finally {
-            connection.close();
-        }
-    });
-}
-////
-function GetIndikacniSkupinyKody() {
-    return __awaiter(this, void 0, void 0, function* () {
-        //oracledb.maxRows = 1000;
-        let oraProcedure = "BEGIN cis_sukl_dlp.GetIndikacniSkupinyKody(:count, :cursor); END;";
-        let oraParameters = {
-            count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
-            cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-        };
-        let connection = yield oracledb.getConnection(connectString);
-        try {
-            let result = yield connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-            return JSON.stringify(yield result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
-        }
-        finally {
-            connection.close();
-        }
-    });
-}
-/////
-ciselniky_router.get('/indikacniskupiny/:kodIndikacniSkupina', (req, res) => __awaiter(this, void 0, void 0, function* () {
-    try {
-        res.type('application/json');
-        res.send(yield GetIndikacniSkupinyKodIndikacniSkupina(Number(req.params.kodIndikacniSkupina)));
-    }
-    catch (e) {
-        let s = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
-    }
-}));
-function GetIndikacniSkupinyKodIndikacniSkupina(kodIndikacniSkupina) {
-    return __awaiter(this, void 0, void 0, function* () {
-        //oracledb.maxRows = 1000;
-        let oraProcedure = "BEGIN cis_sukl_dlp.GetIndikacniSkupinyKodIndSkup(:kodIndikacniSkupina, :cursor); END;";
-        let oraParameters = {
-            kodIndikacniSkupina: { val: kodIndikacniSkupina, type: oracledb.NUMBER, dir: oracledb.BIND_IN },
-            cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-        };
-        let connection = yield oracledb.getConnection(connectString);
-        try {
-            let result = yield connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-            return JSON.stringify(yield result.outBinds.cursor.getRows(Number(1)), null, 4);
-        }
-        finally {
-            connection.close();
-        }
-    });
-}
-/////
-// ucinne latky
-////
 ciselniky_router.get('/ucinnelatky', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
-            res.send(yield GetUcinneLatky());
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getUcinneLatky);
         }
         else if (req.query.fields === "kod_ucinna_latka" && Object.keys(req.query).length === 1) {
-            res.send(yield GetUcinneLatkyKody());
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getUcinneLatkyKody);
         }
-        else if (typeof req.query.kod_sukl !== "undefined" && typeof req.query.kod_sukl !== "object" && Object.keys(req.query).length === 1) {
-            res.send(yield GetUcinneLatkyKodSukl(req.query.kod_sukl));
+        else if (req.query.kod_sukl !== "undefined" && Object.keys(req.query).length === 1) {
+            common_1.oraProcs.getUcinneLatkyKodSukl.procParams.kod_sukl.val = req.query.kod_sukl;
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getUcinneLatkyKodSukl);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(404).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
         }
     }
     catch (e) {
-        let s = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
     }
 }));
-function GetUcinneLatky() {
-    return __awaiter(this, void 0, void 0, function* () {
-        //oracledb.maxRows = 1000;
-        let oraProcedure = "BEGIN cis_sukl_dlp.GetUcinneLatky(:count, :cursor); END;";
-        let oraParameters = {
-            count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
-            cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-        };
-        let connection = yield oracledb.getConnection(connectString);
-        try {
-            let result = yield connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-            return JSON.stringify(yield result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
-        }
-        finally {
-            connection.close();
-        }
-    });
-}
-/////
-function GetUcinneLatkyKody() {
-    return __awaiter(this, void 0, void 0, function* () {
-        //oracledb.maxRows = 1000;
-        let oraProcedure = "BEGIN cis_sukl_dlp.GetUcinneLatkyKody(:count, :cursor); END;";
-        let oraParameters = {
-            count: { type: oracledb.PLS_INTEGER, dir: oracledb.BIND_OUT },
-            cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-        };
-        let connection = yield oracledb.getConnection(connectString);
-        try {
-            let result = yield connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-            return JSON.stringify(yield result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
-        }
-        finally {
-            connection.close();
-        }
-    });
-}
-function GetUcinneLatkyKodSukl(kodSukl) {
-    return __awaiter(this, void 0, void 0, function* () {
-        //oracledb.maxRows = 1000;
-        let oraProcedure = "BEGIN cis_sukl_dlp.GetUcinneLatkyKodSukl(:kodSukl, :count, :cursor); END;";
-        let oraParameters = {
-            kodSukl: { val: kodSukl },
-            count: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT },
-            cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-        };
-        let connection = yield oracledb.getConnection(connectString);
-        try {
-            let result = yield connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-            return JSON.stringify(yield result.outBinds.cursor.getRows(Number(result.outBinds.count)), null, 4);
-        }
-        finally {
-            connection.close();
-        }
-    });
-}
-/////
 ciselniky_router.get('/ucinnelatky/:kodUcinnaLatka', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
     try {
         res.type('application/json');
-        res.send(yield GetUcinneLatkyKodUcinnaLatka(req.params.kodUcinnaLatka));
+        if (Object.keys(req.query).length === 0) {
+            common_1.oraProcs.getUcinneLatkyKodUcinnaLatka.procParams.kod_ucinna_latka.val = req.params.kodUcinnaLatka;
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getUcinneLatkyKodUcinnaLatka);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+        }
     }
     catch (e) {
-        let s = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
-        console.log(s);
-        res.status(404).send(JSON.parse('{ "status" : "404", "error" : "' + s + '"}'));
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
     }
 }));
-function GetUcinneLatkyKodUcinnaLatka(kodUcinnaLatka) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let oraProcedure = "BEGIN cis_sukl_dlp.GetUcinneLatkyKodUcinnaLatka(:kodUcinnaLatka, :cursor); END;";
-        let oraParameters = {
-            kodUcinnaLatka: { val: kodUcinnaLatka },
-            //count: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT },
-            cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }
-        };
-        let connection = yield oracledb.getConnection(connectString);
-        try {
-            let result = yield connection.execute(oraProcedure, oraParameters, { outFormat: oracledb.OBJECT });
-            return JSON.stringify(yield result.outBinds.cursor.getRows(Number(1)), null, 4);
+///
+ciselniky_router.get('/atcskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
+    try {
+        res.type('application/json');
+        if (Object.keys(req.query).length === 0) {
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getAtcSkupiny);
         }
-        finally {
-            connection.close();
+        else if (req.query.fields === "kod_atc_skupina" && Object.keys(req.query).length === 1) {
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getAtcSkupinyKody);
         }
-    });
-}
-/////
-//*/
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+        }
+    }
+    catch (e) {
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
+    }
+}));
+ciselniky_router.get('/atcskupiny/:kodAtcSkupina', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
+    try {
+        res.type('application/json');
+        if (Object.keys(req.query).length === 0) {
+            common_1.oraProcs.getAtcSkupinyKodAtcSkupina.procParams.kod_atc_skupina.val = req.params.kodAtcSkupina;
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getAtcSkupinyKodAtcSkupina);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+        }
+    }
+    catch (e) {
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
+    }
+}));
+ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
+    try {
+        res.type('application/json');
+        if (Object.keys(req.query).length === 0) {
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getIndikacniSkupiny);
+        }
+        else if (req.query.fields === "kod_indikacni_skupina" && Object.keys(req.query).length === 1) {
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getIndikacniSkupinyKody);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+        }
+    }
+    catch (e) {
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
+    }
+}));
+ciselniky_router.get('/indikacniskupiny/:kodIndikacniSkupina', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
+    try {
+        res.type('application/json');
+        if (Object.keys(req.query).length === 0) {
+            common_1.oraProcs.getIndikacniSkupinyKodIndikacniSkupina.procParams.kod_indikacni_skupina.val = req.params.kodIndikacniSkupina;
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getIndikacniSkupinyKodIndikacniSkupina);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+        }
+    }
+    catch (e) {
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
+    }
+}));
+ciselniky_router.get('/stavyregistrace', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
+    try {
+        res.type('application/json');
+        if (Object.keys(req.query).length === 0) {
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getStavyRegistrace);
+        }
+        else if (req.query.fields === "kod_stav_registrace" && Object.keys(req.query).length === 1) {
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getStavyRegistraceKody);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+        }
+    }
+    catch (e) {
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
+    }
+}));
+ciselniky_router.get('/stavyregistrace/:kodStavRegistrace', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
+    try {
+        res.type('application/json');
+        if (Object.keys(req.query).length === 0) {
+            common_1.oraProcs.getStavyRegistraceKodStavRegistrace.procParams.kod_stav_registrace.val = req.params.kodStavRegistrace;
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getStavyRegistraceKodStavRegistrace);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+        }
+    }
+    catch (e) {
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
+    }
+}));
 //# sourceMappingURL=cissukl_ciselniky_router.js.map
