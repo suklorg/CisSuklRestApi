@@ -9,6 +9,7 @@ import { ciselniky_router }  from "./src/routers/cissukl_ciselniky_router";
 import { lekarny_router } from "./src/routers/cissukl_lekarny_router";
 import { lp_router } from "./src/routers/cissukl_lp_router";
 import { dis13_router } from "./src/routers/cissukl_dis13_router";
+import { scau_router } from "./src/routers/cissukl_scau_router";
 
 
 let port: number = 8000;
@@ -53,6 +54,7 @@ app.use('/cissuklapi/v0', lekarny_router);
 app.use('/cissuklapi/v0', lp_router);
 app.use('/cissuklapi/v0', dis13_router);
 app.use('/cissuklapi/v0', organizace_router);
+app.use('/cissuklapi/v0', scau_router);
 
 app.listen(port);
 

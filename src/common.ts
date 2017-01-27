@@ -2,6 +2,8 @@
 
 import { IConnectionAttributes, IExecuteOptions, IConnection, getConnection, OBJECT, NUMBER, STRING, DATE, CURSOR, BIND_IN, BIND_OUT } from "oracledb";
 
+let oracledb = require('oracledb');
+
 namespace common {
 
     export class AppError implements Error {
@@ -57,6 +59,8 @@ namespace common {
 
     export async function ExecuteProcedure(oraProcedure: IOraProcedure): Promise<IOraExecuteResult> {
 
+        //oracledb.fetchAsString = [DATE, NUMBER];
+
         let oraExecuteResult: IOraExecuteResult = new OraExecuteResult();
 
         let connection: IConnection = await getConnection(connectionAttributes);
@@ -81,6 +85,40 @@ namespace common {
 
 
     export const oraProcs = {
+
+        getScau: {
+            procName: "BEGIN cis_sukl_scau.GetScau( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: NUMBER, dir: BIND_IN },
+                limit: { val: 5, type: NUMBER, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+        getScauKody: {
+            procName: "BEGIN cis_sukl_scau.GetScauKody( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: NUMBER, dir: BIND_IN },
+                limit: { val: 5, type: NUMBER, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+        getScauKodSukl: {
+            procName: "BEGIN cis_sukl_scau.GetScauKodSukl( :kod_sukl, :count, :cursor ); END;",
+            procParams: {
+                kod_sukl: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
 
         getOrganizace: {
             procName: "BEGIN cis_sukl_organizace.GetOrganizace( :offset, :limit, :total_count, :count, :cursor ); END;",

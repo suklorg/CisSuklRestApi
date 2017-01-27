@@ -8,6 +8,7 @@ const cissukl_ciselniky_router_1 = require("./src/routers/cissukl_ciselniky_rout
 const cissukl_lekarny_router_1 = require("./src/routers/cissukl_lekarny_router");
 const cissukl_lp_router_1 = require("./src/routers/cissukl_lp_router");
 const cissukl_dis13_router_1 = require("./src/routers/cissukl_dis13_router");
+const cissukl_scau_router_1 = require("./src/routers/cissukl_scau_router");
 let port = 8000;
 let app = express();
 ///*
@@ -45,6 +46,7 @@ app.use('/cissuklapi/v0', cissukl_lekarny_router_1.lekarny_router);
 app.use('/cissuklapi/v0', cissukl_lp_router_1.lp_router);
 app.use('/cissuklapi/v0', cissukl_dis13_router_1.dis13_router);
 app.use('/cissuklapi/v0', cissukl_organizace_router_1.organizace_router);
+app.use('/cissuklapi/v0', cissukl_scau_router_1.scau_router);
 app.listen(port);
 console.log('CisSuklApi: ' + port);
 //# sourceMappingURL=app.js.map

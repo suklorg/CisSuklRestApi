@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 import * as express from "express";
-import { FormatExceptionMessage, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult } from "../common";
+import { FormatExceptionMessage, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, defLimit, defOffset } from "../common";
 
 let lp_router: express.Router = express.Router();
 
@@ -38,8 +38,8 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
         //
 
         if (Object.keys(req.query).length === 0) {
-            oraProcs.getLecivePripravky.procParams.offset.val = 0;
-            oraProcs.getLecivePripravky.procParams.limit.val = 20;
+            oraProcs.getLecivePripravky.procParams.offset.val = defOffset;
+            oraProcs.getLecivePripravky.procParams.limit.val = defLimit;
             oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravky);
         }
         //
@@ -55,8 +55,8 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
                 // /lecivepripravky?fields=kod_sukl
                 //
                 if (Object.keys(req.query).length === 1) {
-                    oraProcs.getLecivePripravkyKody.procParams.offset.val = 0;
-                    oraProcs.getLecivePripravkyKody.procParams.limit.val = 20;
+                    oraProcs.getLecivePripravkyKody.procParams.offset.val = defOffset;
+                    oraProcs.getLecivePripravkyKody.procParams.limit.val = defLimit;
                     oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKody);
                 }
                 //
@@ -68,8 +68,8 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
                     //
                     if (Object.keys(req.query).length === 2) {
                         oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.je_regulovany.val = req.query.je_regulovany;
-                        oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.offset.val = 0;
-                        oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.limit.val = 20;
+                        oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.offset.val = defOffset;
+                        oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.limit.val = defLimit;
                         oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodyJeRegulovany);
                     }
                     //
@@ -77,7 +77,7 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
                     //
                     else if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 3) {
                         oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.je_regulovany.val = req.query.je_regulovany;
-                        oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.offset.val = 0;
+                        oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.offset.val = defOffset;
                         oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.limit.val = Number(req.query.limit);
                         oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodyJeRegulovany);
                     }
@@ -87,7 +87,7 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
                     else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 3) {
                         oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.je_regulovany.val = req.query.je_regulovany;
                         oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.offset.val = Number(req.query.offset);
-                        oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.limit.val = 20;
+                        oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.limit.val = defLimit;
                         oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodyJeRegulovany);
                     }
                     //
@@ -110,8 +110,8 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
                     //
                     if (Object.keys(req.query).length === 2) {
                         oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;
-                        oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.offset.val = 0;
-                        oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.limit.val = 20;
+                        oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.offset.val = defOffset;
+                        oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.limit.val = defLimit;
                         oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodyPlatnostOd);
                     }
                     //
@@ -119,7 +119,7 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
                     //
                     else if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 3) {
                         oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;
-                        oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.offset.val = 0;
+                        oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.offset.val = defOffset;
                         oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.limit.val = Number(req.query.limit);
                         oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodyPlatnostOd);
                     }
@@ -129,7 +129,7 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
                     else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 3) {
                         oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;
                         oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.offset.val = Number(req.query.offset);
-                        oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.limit.val = 20;
+                        oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.limit.val = defLimit;
                         oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodyPlatnostOd);
                     }
                     //
@@ -142,12 +142,31 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
                         oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodyPlatnostOd);
                     }
                 }
+                //
+                // /lecivepripravky?fields=kod_sukl&limit={limit}
+                //
+                else if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 2) {
+                    oraProcs.getLecivePripravkyKody.procParams.offset.val = defOffset;
+                    oraProcs.getLecivePripravkyKody.procParams.limit.val = Number(req.query.limit);
+                    oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKody);
+                }
+                //
+                // /lecivepripravky?fields=kod_sukl&offset={offset}
+                //
+                else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 2) {
+                    oraProcs.getLecivePripravkyKody.procParams.offset.val = Number(req.query.offset);
+                    oraProcs.getLecivePripravkyKody.procParams.limit.val = defLimit;
+                    oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKody);
+                }
+                //
+                // /lecivepripravky?fields=kod_sukl&limit={limit}&offset={offset}
+                //
+                else if (typeof req.query.offset !== "undefined" && typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 3) {
+                    oraProcs.getLecivePripravkyKody.procParams.offset.val = Number(req.query.offset);
+                    oraProcs.getLecivePripravkyKody.procParams.limit.val = Number(req.query.limit);
+                    oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKody);
 
-            //
-            // /lecivepripravky?fields=kod_drzitele
-            //
-            // nebude se implementovat
-            } else if (req.query.fields === "kod_drzitele") {
+                }
             }
         }
         //
@@ -161,8 +180,8 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
                 //
                 if (Object.keys(req.query).length === 1) {
                     oraProcs.getLecivePripravkyPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;
-                    oraProcs.getLecivePripravkyPlatnostOd.procParams.offset.val = 0;
-                    oraProcs.getLecivePripravkyPlatnostOd.procParams.limit.val = 20;
+                    oraProcs.getLecivePripravkyPlatnostOd.procParams.offset.val = defOffset;
+                    oraProcs.getLecivePripravkyPlatnostOd.procParams.limit.val = defLimit;
                     oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyPlatnostOd);
                 }
                 //
@@ -170,7 +189,7 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
                 //
                 else if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 2) {
                     oraProcs.getLecivePripravkyPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;
-                    oraProcs.getLecivePripravkyPlatnostOd.procParams.offset.val = 0;
+                    oraProcs.getLecivePripravkyPlatnostOd.procParams.offset.val = defOffset;
                     oraProcs.getLecivePripravkyPlatnostOd.procParams.limit.val = Number(req.query.limit);
                     oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyPlatnostOd);
                 }
@@ -180,7 +199,7 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
                 else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 2) {
                     oraProcs.getLecivePripravkyPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;
                     oraProcs.getLecivePripravkyPlatnostOd.procParams.offset.val = Number(req.query.offset);
-                    oraProcs.getLecivePripravkyPlatnostOd.procParams.limit.val = 20;
+                    oraProcs.getLecivePripravkyPlatnostOd.procParams.limit.val = defLimit;
                     oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyPlatnostOd);
                 }
                 //
@@ -193,14 +212,16 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
                     oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyPlatnostOd);
                 }
             }          ///////
-
+            //
+            // /lecivepripravky?
+            //
 
             else {
                 //
                 // /lecivepripravky?limit={limit}
                 //
                 if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 1) {
-                    oraProcs.getLecivePripravky.procParams.offset.val = 0;
+                    oraProcs.getLecivePripravky.procParams.offset.val = defOffset;
                     oraProcs.getLecivePripravky.procParams.limit.val = Number(req.query.limit);
                     oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravky);
                 }
@@ -209,7 +230,7 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
                 //
                 else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 1) {
                     oraProcs.getLecivePripravky.procParams.offset.val = Number(req.query.offset);
-                    oraProcs.getLecivePripravky.procParams.limit.val = 20;
+                    oraProcs.getLecivePripravky.procParams.limit.val = defLimit;
                     oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravky);
                 }
                 //
@@ -223,6 +244,7 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
                 }
             }
         }
+        
         //*/
 
         if (typeof oraExecuteResult !== "undefined") {

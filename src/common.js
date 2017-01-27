@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const oracledb_1 = require("oracledb");
+let oracledb = require('oracledb');
 var common;
 (function (common) {
     class AppError {
@@ -45,6 +46,7 @@ var common;
     }
     function ExecuteProcedure(oraProcedure) {
         return __awaiter(this, void 0, void 0, function* () {
+            //oracledb.fetchAsString = [DATE, NUMBER];
             let oraExecuteResult = new OraExecuteResult();
             let connection = yield oracledb_1.getConnection(common.connectionAttributes);
             try {
@@ -65,6 +67,34 @@ var common;
     common.ExecuteProcedure = ExecuteProcedure;
     ;
     common.oraProcs = {
+        getScau: {
+            procName: "BEGIN cis_sukl_scau.GetScau( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                limit: { val: 5, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getScauKody: {
+            procName: "BEGIN cis_sukl_scau.GetScauKody( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                limit: { val: 5, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getScauKodSukl: {
+            procName: "BEGIN cis_sukl_scau.GetScauKodSukl( :kod_sukl, :count, :cursor ); END;",
+            procParams: {
+                kod_sukl: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
         getOrganizace: {
             procName: "BEGIN cis_sukl_organizace.GetOrganizace( :offset, :limit, :total_count, :count, :cursor ); END;",
             procParams: {

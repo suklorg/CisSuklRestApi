@@ -65,6 +65,7 @@
     <TypeScriptCompile Include="src\routers\cissukl_lp_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_organizace_router.ts" />
+    <TypeScriptCompile Include="src\routers\cissukl_scau_router.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="scripts\" />
