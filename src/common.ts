@@ -18,12 +18,21 @@ namespace common {
             return this.name + ': ' + this.message;
         }
         }
-
+///*
+    export const connectionAttributes: IConnectionAttributes = {
+        user: "cis2016",
+        password: "Amtax67779",
+        connectString: "util"
+    };
+//*/
+/*
     export const connectionAttributes: IConnectionAttributes = {
         user: "cis_sukl",
         password: "cis_sukl",
         connectString: "dlptest"
     };
+*/
+
     export const oraOutFormat: IExecuteOptions = {
         outFormat: OBJECT
     };

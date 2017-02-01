@@ -22,11 +22,20 @@ var common;
         }
     }
     common.AppError = AppError;
+    ///*
     common.connectionAttributes = {
-        user: "cis_sukl",
-        password: "cis_sukl",
-        connectString: "dlptest"
+        user: "cis2016",
+        password: "Amtax67779",
+        connectString: "util"
     };
+    //*/
+    /*
+        export const connectionAttributes: IConnectionAttributes = {
+            user: "cis_sukl",
+            password: "cis_sukl",
+            connectString: "dlptest"
+        };
+    */
     common.oraOutFormat = {
         outFormat: oracledb_1.OBJECT
     };

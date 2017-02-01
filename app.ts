@@ -40,21 +40,20 @@ var options = {
 let swaggerSpec = swaggerJSDoc(options);
 
 const path = require('path');
-//app.use(express.static(path.join(__dirname + '\\api_docs', 'public'))); 
 app.use(express.static(path.join(__dirname , 'public'))); 
-//console.log('dirname: ' + __dirname + '\\routes');
+console.log('dirname: ' + __dirname + '\\routes');
 app.get('/swagger.json', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(swaggerSpec);
 });
 //*/
-app.use('/cissuklapi/v0', ciselniky_router);
-app.use('/cissuklapi/v0', reg_cisla_router);
-app.use('/cissuklapi/v0', lekarny_router);
-app.use('/cissuklapi/v0', lp_router);
-app.use('/cissuklapi/v0', dis13_router);
-app.use('/cissuklapi/v0', organizace_router);
-app.use('/cissuklapi/v0', scau_router);
+app.use('/cissuklapi/v1', ciselniky_router);
+app.use('/cissuklapi/v1', reg_cisla_router);
+app.use('/cissuklapi/v1', lekarny_router);
+app.use('/cissuklapi/v1', lp_router);
+app.use('/cissuklapi/v1', dis13_router);
+app.use('/cissuklapi/v1', organizace_router);
+app.use('/cissuklapi/v1', scau_router);
 
 app.listen(port);
 

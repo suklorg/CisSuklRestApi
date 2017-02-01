@@ -52,6 +52,8 @@ reg_cisla_router.get('/zmenyregistracnicisla', (req, res) => __awaiter(this, voi
     let oraExecuteResult;
     try {
         res.type('application/json');
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
         if (Object.keys(req.query).length === 0) {
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getZmenyRegistracniCisla);
         }

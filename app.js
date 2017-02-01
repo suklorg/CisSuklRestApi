@@ -32,21 +32,20 @@ var options = {
 };
 let swaggerSpec = swaggerJSDoc(options);
 const path = require('path');
-//app.use(express.static(path.join(__dirname + '\\api_docs', 'public'))); 
 app.use(express.static(path.join(__dirname, 'public')));
-//console.log('dirname: ' + __dirname + '\\routes');
+console.log('dirname: ' + __dirname + '\\routes');
 app.get('/swagger.json', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(swaggerSpec);
 });
 //*/
-app.use('/cissuklapi/v0', cissukl_ciselniky_router_1.ciselniky_router);
-app.use('/cissuklapi/v0', cissukl_reg_cisla_router_1.reg_cisla_router);
-app.use('/cissuklapi/v0', cissukl_lekarny_router_1.lekarny_router);
-app.use('/cissuklapi/v0', cissukl_lp_router_1.lp_router);
-app.use('/cissuklapi/v0', cissukl_dis13_router_1.dis13_router);
-app.use('/cissuklapi/v0', cissukl_organizace_router_1.organizace_router);
-app.use('/cissuklapi/v0', cissukl_scau_router_1.scau_router);
+app.use('/cissuklapi/v1', cissukl_ciselniky_router_1.ciselniky_router);
+app.use('/cissuklapi/v1', cissukl_reg_cisla_router_1.reg_cisla_router);
+app.use('/cissuklapi/v1', cissukl_lekarny_router_1.lekarny_router);
+app.use('/cissuklapi/v1', cissukl_lp_router_1.lp_router);
+app.use('/cissuklapi/v1', cissukl_dis13_router_1.dis13_router);
+app.use('/cissuklapi/v1', cissukl_organizace_router_1.organizace_router);
+app.use('/cissuklapi/v1', cissukl_scau_router_1.scau_router);
 app.listen(port);
 console.log('CisSuklApi: ' + port);
 //# sourceMappingURL=app.js.map
