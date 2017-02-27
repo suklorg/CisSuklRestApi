@@ -31,7 +31,7 @@ ciselniky_router.get('/lecivepripravky', async (req: express.Request, res: expre
         else if (req.query.fields === "kod_sukl" && Object.keys(req.query).length === 1) {
             res.send(await GetLecivePripravkyKody());
         } else {
-            res.status(404).send(FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(404).send(FormatExceptionMessage(errMessage400));
         }
 
     } catch (e) {
@@ -129,7 +129,7 @@ ciselniky_router.get('/stavyregistrace', async (req: express.Request, res: expre
         else if (req.query.fields === "kod_stav_registrace" && Object.keys(req.query).length === 1) {
             res.send(await GetStavyRegistraceKody());
         } else {
-            res.status(404).send(FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(404).send(FormatExceptionMessage(errMessage400));
         }
     } catch (e) {
         let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
@@ -227,7 +227,7 @@ ciselniky_router.get('/atcskupiny', (req, res) => __awaiter(this, void 0, void 0
             res.send(yield GetAtcSkupinyKody());
         }
         else {
-            res.status(404).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(404).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
@@ -315,7 +315,7 @@ ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(this, void 0, 
             res.send(yield GetIndikacniSkupinyKody());
         }
         else {
-            res.status(404).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(404).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
@@ -406,7 +406,7 @@ ciselniky_router.get('/ucinnelatky', (req, res) => __awaiter(this, void 0, void 
             res.send(yield GetUcinneLatkyKodSukl(req.query.kod_sukl));
         }
         else {
-            res.status(404).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(404).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {

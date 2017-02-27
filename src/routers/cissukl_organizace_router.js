@@ -14,7 +14,7 @@ exports.organizace_router = organizace_router;
 organizace_router.get('/organizace', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        res.type('application/json');
+        common_1.SetHeader(res);
         //
         // /organizace
         //
@@ -194,7 +194,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(this, void 0, void 
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
@@ -211,7 +211,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(this, void 0, void 
 organizace_router.get('/organizace/:kodOrganizace', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        res.type('application/json');
+        common_1.SetHeader(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getOrganizaceKodOrganizace.procParams.kod_organizace.val = req.params.kodOrganizace;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceKodOrganizace);
@@ -221,7 +221,7 @@ organizace_router.get('/organizace/:kodOrganizace', (req, res) => __awaiter(this
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {

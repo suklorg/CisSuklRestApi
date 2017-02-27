@@ -11,10 +11,15 @@ const express = require("express");
 const common_1 = require("../common");
 let ciselniky_router = express.Router();
 exports.ciselniky_router = ciselniky_router;
+/*
+ciselniky_router.get('/docs', async (req: express.Request, res: express.Response): Promise<void> => {
+    res.sendFile(__dirname + '\\public\\docs\\index.html');
+});
+*/
 ciselniky_router.get('/ucinnelatky', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        res.type('application/json');
+        common_1.SetHeader(res);
         if (Object.keys(req.query).length === 0) {
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getUcinneLatky);
         }
@@ -30,7 +35,7 @@ ciselniky_router.get('/ucinnelatky', (req, res) => __awaiter(this, void 0, void 
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
@@ -47,7 +52,7 @@ ciselniky_router.get('/ucinnelatky', (req, res) => __awaiter(this, void 0, void 
 ciselniky_router.get('/ucinnelatky/:kodUcinnaLatka', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        res.type('application/json');
+        common_1.SetHeader(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getUcinneLatkyKodUcinnaLatka.procParams.kod_ucinna_latka.val = req.params.kodUcinnaLatka;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getUcinneLatkyKodUcinnaLatka);
@@ -57,7 +62,7 @@ ciselniky_router.get('/ucinnelatky/:kodUcinnaLatka', (req, res) => __awaiter(thi
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
@@ -75,7 +80,7 @@ ciselniky_router.get('/ucinnelatky/:kodUcinnaLatka', (req, res) => __awaiter(thi
 ciselniky_router.get('/atcskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        res.type('application/json');
+        common_1.SetHeader(res);
         if (Object.keys(req.query).length === 0) {
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getAtcSkupiny);
         }
@@ -87,7 +92,7 @@ ciselniky_router.get('/atcskupiny', (req, res) => __awaiter(this, void 0, void 0
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
@@ -104,7 +109,7 @@ ciselniky_router.get('/atcskupiny', (req, res) => __awaiter(this, void 0, void 0
 ciselniky_router.get('/atcskupiny/:kodAtcSkupina', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        res.type('application/json');
+        common_1.SetHeader(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getAtcSkupinyKodAtcSkupina.procParams.kod_atc_skupina.val = req.params.kodAtcSkupina;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getAtcSkupinyKodAtcSkupina);
@@ -114,7 +119,7 @@ ciselniky_router.get('/atcskupiny/:kodAtcSkupina', (req, res) => __awaiter(this,
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
@@ -131,7 +136,7 @@ ciselniky_router.get('/atcskupiny/:kodAtcSkupina', (req, res) => __awaiter(this,
 ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        res.type('application/json');
+        common_1.SetHeader(res);
         if (Object.keys(req.query).length === 0) {
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getIndikacniSkupiny);
         }
@@ -143,7 +148,7 @@ ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(this, void 0, 
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
@@ -160,7 +165,7 @@ ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(this, void 0, 
 ciselniky_router.get('/indikacniskupiny/:kodIndikacniSkupina', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        res.type('application/json');
+        common_1.SetHeader(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getIndikacniSkupinyKodIndikacniSkupina.procParams.kod_indikacni_skupina.val = req.params.kodIndikacniSkupina;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getIndikacniSkupinyKodIndikacniSkupina);
@@ -170,7 +175,7 @@ ciselniky_router.get('/indikacniskupiny/:kodIndikacniSkupina', (req, res) => __a
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
@@ -187,7 +192,7 @@ ciselniky_router.get('/indikacniskupiny/:kodIndikacniSkupina', (req, res) => __a
 ciselniky_router.get('/stavyregistrace', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        res.type('application/json');
+        common_1.SetHeader(res);
         if (Object.keys(req.query).length === 0) {
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getStavyRegistrace);
         }
@@ -199,7 +204,7 @@ ciselniky_router.get('/stavyregistrace', (req, res) => __awaiter(this, void 0, v
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
@@ -216,7 +221,7 @@ ciselniky_router.get('/stavyregistrace', (req, res) => __awaiter(this, void 0, v
 ciselniky_router.get('/stavyregistrace/:kodStavRegistrace', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        res.type('application/json');
+        common_1.SetHeader(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getStavyRegistraceKodStavRegistrace.procParams.kod_stav_registrace.val = req.params.kodStavRegistrace;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getStavyRegistraceKodStavRegistrace);
@@ -226,7 +231,7 @@ ciselniky_router.get('/stavyregistrace/:kodStavRegistrace', (req, res) => __awai
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {

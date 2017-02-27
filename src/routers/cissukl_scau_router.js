@@ -81,7 +81,7 @@ scau_router.get('/scau', (req, res) => __awaiter(this, void 0, void 0, function*
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
@@ -108,7 +108,7 @@ scau_router.get('/scau/:kodSukl', (req, res) => __awaiter(this, void 0, void 0, 
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {

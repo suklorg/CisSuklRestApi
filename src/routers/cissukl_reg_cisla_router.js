@@ -66,7 +66,7 @@ reg_cisla_router.get('/zmenyregistracnicisla', (req, res) => __awaiter(this, voi
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
@@ -149,6 +149,8 @@ reg_cisla_router.get('/registracnicisla', (req, res) => __awaiter(this, void 0, 
     let oraExecuteResult;
     try {
         res.type('application/json');
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
         if (typeof req.query.cislo_jednaci !== "undefined" && typeof req.query.cislo_jednaci !== "object" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getCislaJednaciCisloJednaci.procParams.cislo_jednaci.val = req.query.cislo_jednaci;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCislaJednaciCisloJednaci);
@@ -162,7 +164,7 @@ reg_cisla_router.get('/registracnicisla', (req, res) => __awaiter(this, void 0, 
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {

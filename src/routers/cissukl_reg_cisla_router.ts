@@ -2,7 +2,7 @@
 
 import * as express from "express";
 //import { getConnection, IConnection, BIND_IN, BIND_OUT, CURSOR, NUMBER, STRING } from "oracledb";
-import { FormatExceptionMessage, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult } from "../common";
+import { FormatExceptionMessage, FormatException, errMessage400, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult } from "../common";
 import * as cis from "../common";
  
 let reg_cisla_router: express.Router = express.Router();
@@ -66,7 +66,7 @@ reg_cisla_router.get('/zmenyregistracnicisla', async (req: express.Request, res:
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(FormatExceptionMessage("Pro dané URL není služba implementována."))
+            res.status(400).send(FormatExceptionMessage(errMessage400))
         }
     } catch (e) {
         if (e instanceof cis.AppError) {
@@ -153,6 +153,9 @@ reg_cisla_router.get('/registracnicisla', async (req: express.Request, res: expr
 
     try {
         res.type('application/json');
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+
 
         if (typeof req.query.cislo_jednaci !== "undefined" && typeof req.query.cislo_jednaci !== "object" && Object.keys(req.query).length === 1) {
             oraProcs.getCislaJednaciCisloJednaci.procParams.cislo_jednaci.val = req.query.cislo_jednaci;
@@ -168,7 +171,7 @@ reg_cisla_router.get('/registracnicisla', async (req: express.Request, res: expr
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(FormatExceptionMessage("Pro dané URL není služba implementována."))
+            res.status(400).send(FormatExceptionMessage(errMessage400))
         }
     } catch (e) {
         if (e instanceof AppError) {

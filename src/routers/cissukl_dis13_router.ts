@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 import * as express from "express";
-import { FormatExceptionMessage, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult } from "../common";
+import { FormatExceptionMessage, errMessage400, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult } from "../common";
 
 let dis13_router: express.Router = express.Router();
 
@@ -43,7 +43,7 @@ dis13_router.get('/dodavky', async (req: express.Request, res: express.Response)
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(FormatExceptionMessage("Pro dané URL není služba implementována."))
+            res.status(400).send(FormatExceptionMessage(errMessage400))
         }
     } catch (e) {
         if (e instanceof AppError) {

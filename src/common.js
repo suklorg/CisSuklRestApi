@@ -22,7 +22,7 @@ var common;
         }
     }
     common.AppError = AppError;
-    ///*
+    //*
     common.connectionAttributes = {
         user: "cis2016",
         password: "Amtax67779",
@@ -45,6 +45,7 @@ var common;
 
     };
     */
+    common.errMessage400 = "Pro dané URL není služba implementována.";
     common.defOffset = 0;
     common.defLimit = 20;
     ;
@@ -74,6 +75,13 @@ var common;
         });
     }
     common.ExecuteProcedure = ExecuteProcedure;
+    ;
+    function SetHeader(res) {
+        res.type('application/json');
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    }
+    common.SetHeader = SetHeader;
     ;
     common.oraProcs = {
         getScau: {

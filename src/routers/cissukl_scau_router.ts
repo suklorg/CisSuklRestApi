@@ -2,7 +2,7 @@
 
 import * as express from "express";
 //import { getConnection, IConnection, BIND_IN, BIND_OUT, CURSOR, NUMBER, STRING } from "oracledb";
-import { FormatExceptionMessage, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, defLimit, defOffset } from "../common";
+import { FormatExceptionMessage, FormatException, errMessage400, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, defLimit, defOffset } from "../common";
 import * as cis from "../common";
 
 //let oracledb = require('oracledb');
@@ -109,7 +109,7 @@ scau_router.get('/scau', async (req: express.Request, res: express.Response): Pr
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(FormatExceptionMessage("Pro dané URL není služba implementována."))
+            res.status(400).send(FormatExceptionMessage(errMessage400))
         }
         
     } catch (e) {
@@ -142,7 +142,7 @@ scau_router.get('/scau/:kodSukl', async (req: express.Request, res: express.Resp
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(FormatExceptionMessage("Pro dané URL není služba implementována."))
+            res.status(400).send(FormatExceptionMessage(errMessage400))
         }
     } catch (e) {
         if (e instanceof AppError) {

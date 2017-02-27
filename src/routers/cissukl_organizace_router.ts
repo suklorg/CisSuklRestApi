@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 import * as express from "express";
-import { defLimit, defOffset, FormatExceptionMessage, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult } from "../common";
+import { defLimit, defOffset, FormatExceptionMessage, errMessage400, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult , SetHeader} from "../common";
 
 
 let organizace_router: express.Router = express.Router();
@@ -11,7 +11,7 @@ organizace_router.get('/organizace', async (req: express.Request, res: express.R
     let oraExecuteResult: IOraExecuteResult;
 
     try {
-        res.type('application/json');
+        SetHeader(res);
         //
         // /organizace
         //
@@ -261,7 +261,7 @@ organizace_router.get('/organizace', async (req: express.Request, res: express.R
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(FormatExceptionMessage("Pro dané URL není služba implementována."))
+            res.status(400).send(FormatExceptionMessage(errMessage400))
         }
     } catch (e) {
         if (e instanceof AppError) {
@@ -280,7 +280,7 @@ organizace_router.get('/organizace/:kodOrganizace', async (req: express.Request,
     let oraExecuteResult: IOraExecuteResult;
 
     try {
-        res.type('application/json');
+        SetHeader(res);
 
         if (Object.keys(req.query).length === 0) {
             oraProcs.getOrganizaceKodOrganizace.procParams.kod_organizace.val = req.params.kodOrganizace;
@@ -292,7 +292,7 @@ organizace_router.get('/organizace/:kodOrganizace', async (req: express.Request,
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(FormatExceptionMessage("Pro dané URL není služba implementována."))
+            res.status(400).send(FormatExceptionMessage(errMessage400))
         }
     } catch (e) {
         if (e instanceof AppError) {

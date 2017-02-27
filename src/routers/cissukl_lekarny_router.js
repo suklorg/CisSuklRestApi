@@ -16,7 +16,12 @@ exports.lekarny_router = lekarny_router;
 lekarny_router.get('/lekarny', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
+        /*
         res.type('application/json');
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+        */
+        common_1.SetHeader(res);
         if (Object.keys(req.query).length === 0) {
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLekarny);
         }
@@ -42,7 +47,7 @@ lekarny_router.get('/lekarny', (req, res) => __awaiter(this, void 0, void 0, fun
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
@@ -59,7 +64,7 @@ lekarny_router.get('/lekarny', (req, res) => __awaiter(this, void 0, void 0, fun
 lekarny_router.get('/lekarny/:kod_pracoviste', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        res.type('application/json');
+        common_1.SetHeader(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getLekarnyKodPracoviste.procParams.kod_pracoviste.val = req.params.kod_pracoviste;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLekarnyKodPracoviste);
@@ -69,7 +74,7 @@ lekarny_router.get('/lekarny/:kod_pracoviste', (req, res) => __awaiter(this, voi
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {

@@ -33,6 +33,26 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="public\cissukl.swagger.json" />
+    <Content Include="public\docs\css\print.css" />
+    <Content Include="public\docs\css\reset.css" />
+    <Content Include="public\docs\css\screen.css" />
+    <Content Include="public\docs\css\style.css" />
+    <Content Include="public\docs\css\typography.css" />
+    <Content Include="public\docs\fonts\DroidSans-Bold.ttf" />
+    <Content Include="public\docs\fonts\DroidSans.ttf" />
+    <Content Include="public\docs\images\collapse.gif" />
+    <Content Include="public\docs\images\expand.gif" />
+    <Content Include="public\docs\images\explorer_icons.png" />
+    <Content Include="public\docs\images\favicon-16x16.png" />
+    <Content Include="public\docs\images\favicon-32x32.png" />
+    <Content Include="public\docs\images\favicon.ico" />
+    <Content Include="public\docs\images\logo_small.png" />
+    <Content Include="public\docs\images\pet_store_api.png" />
+    <Content Include="public\docs\images\throbber.gif" />
+    <Content Include="public\docs\images\wordnik_api.png" />
+    <Content Include="public\docs\index.html" />
+    <Content Include="public\docs\o2c.html" />
     <Content Include="Scripts\typings.json" />
     <Content Include="Scripts\typings\globals\express-serve-static-core\typings.json" />
     <Content Include="Scripts\typings\globals\express\typings.json" />
@@ -68,6 +88,13 @@
     <TypeScriptCompile Include="src\routers\cissukl_scau_router.ts" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="public\" />
+    <Folder Include="public\docs\" />
+    <Folder Include="public\docs\css\" />
+    <Folder Include="public\docs\fonts\" />
+    <Folder Include="public\docs\images\" />
+    <Folder Include="public\docs\lang\" />
+    <Folder Include="public\docs\lib\" />
     <Folder Include="scripts\" />
     <Folder Include="scripts\typings\" />
     <Folder Include="scripts\typings\globals\" />
@@ -83,6 +110,38 @@
     <Folder Include="src\routers\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="public\docs\lang\ca.js" />
+    <Compile Include="public\docs\lang\en.js" />
+    <Compile Include="public\docs\lang\es.js" />
+    <Compile Include="public\docs\lang\fr.js" />
+    <Compile Include="public\docs\lang\geo.js" />
+    <Compile Include="public\docs\lang\it.js" />
+    <Compile Include="public\docs\lang\ja.js" />
+    <Compile Include="public\docs\lang\ko-kr.js" />
+    <Compile Include="public\docs\lang\pl.js" />
+    <Compile Include="public\docs\lang\pt.js" />
+    <Compile Include="public\docs\lang\ru.js" />
+    <Compile Include="public\docs\lang\tr.js" />
+    <Compile Include="public\docs\lang\translator.js" />
+    <Compile Include="public\docs\lang\zh-cn.js" />
+    <Compile Include="public\docs\lib\backbone-min.js" />
+    <Compile Include="public\docs\lib\es5-shim.js" />
+    <Compile Include="public\docs\lib\handlebars-4.0.5.js" />
+    <Compile Include="public\docs\lib\highlight.9.1.0.pack.js" />
+    <Compile Include="public\docs\lib\highlight.9.1.0.pack_extended.js" />
+    <Compile Include="public\docs\lib\jquery-1.8.0.min.js" />
+    <Compile Include="public\docs\lib\jquery.ba-bbq.min.js" />
+    <Compile Include="public\docs\lib\jquery.slideto.min.js" />
+    <Compile Include="public\docs\lib\jquery.wiggle.min.js" />
+    <Compile Include="public\docs\lib\js-yaml.min.js" />
+    <Compile Include="public\docs\lib\jsoneditor.min.js" />
+    <Compile Include="public\docs\lib\lodash.min.js" />
+    <Compile Include="public\docs\lib\marked.js" />
+    <Compile Include="public\docs\lib\object-assign-pollyfill.js" />
+    <Compile Include="public\docs\lib\sanitize-html.min.js" />
+    <Compile Include="public\docs\lib\swagger-oauth.js" />
+    <Compile Include="public\docs\swagger-ui.js" />
+    <Compile Include="public\docs\swagger-ui.min.js" />
     <Compile Include="src\common.js" />
     <Compile Include="src\routers\cissukl_ectd_router.js" />
     <Compile Include="src\routers\cissukl_router.js" />

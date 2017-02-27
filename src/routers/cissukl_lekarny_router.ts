@@ -2,7 +2,7 @@
 
 import * as express from "express";
 //import { getConnection, IConnection, BIND_IN, BIND_OUT, CURSOR, NUMBER, STRING } from "oracledb";
-import { FormatExceptionMessage, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult } from "../common";
+import { FormatExceptionMessage, errMessage400, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, SetHeader } from "../common";
 import * as cis from "../common";
  
 let lekarny_router: express.Router = express.Router();
@@ -13,7 +13,13 @@ lekarny_router.get('/lekarny', async (req: express.Request, res: express.Respons
     let oraExecuteResult: cis.IOraExecuteResult;
 
     try {
+        /*
         res.type('application/json');
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+        */
+        SetHeader(res);
+
 
         if (Object.keys(req.query).length === 0) {
             oraExecuteResult = await ExecuteProcedure(oraProcs.getLekarny);
@@ -43,7 +49,7 @@ lekarny_router.get('/lekarny', async (req: express.Request, res: express.Respons
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(FormatExceptionMessage("Pro dané URL není služba implementována."))
+            res.status(400).send(FormatExceptionMessage(errMessage400))
         }
     } catch (e) {
         if (e instanceof cis.AppError) {
@@ -63,7 +69,8 @@ lekarny_router.get('/lekarny/:kod_pracoviste', async (req: express.Request, res:
     let oraExecuteResult: cis.IOraExecuteResult;
 
     try {
-        res.type('application/json');
+
+        SetHeader(res);
 
         if (Object.keys(req.query).length === 0) {
             oraProcs.getLekarnyKodPracoviste.procParams.kod_pracoviste.val = req.params.kod_pracoviste;
@@ -75,7 +82,7 @@ lekarny_router.get('/lekarny/:kod_pracoviste', async (req: express.Request, res:
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(FormatExceptionMessage("Pro dané URL není služba implementována."))
+            res.status(400).send(FormatExceptionMessage(errMessage400))
         }
     } catch (e) {
         if (e instanceof cis.AppError) {

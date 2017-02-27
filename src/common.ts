@@ -1,5 +1,7 @@
 ﻿"use strict";
 
+import * as express from "express";
+
 import { IConnectionAttributes, IExecuteOptions, IConnection, getConnection, OBJECT, NUMBER, STRING, DATE, CURSOR, BIND_IN, BIND_OUT } from "oracledb";
 
 let oracledb = require('oracledb');
@@ -18,13 +20,14 @@ namespace common {
             return this.name + ': ' + this.message;
         }
         }
-///*
+//*
     export const connectionAttributes: IConnectionAttributes = {
         user: "cis2016",
         password: "Amtax67779",
         connectString: "util"
     };
 //*/
+
 /*
     export const connectionAttributes: IConnectionAttributes = {
         user: "cis_sukl",
@@ -42,6 +45,8 @@ namespace common {
 
     };
     */
+
+    export const errMessage400: string = "Pro dané URL není služba implementována.";
 
     export const defOffset: number = 0;
     export const defLimit: number = 20;
@@ -92,6 +97,11 @@ namespace common {
 
     };
 
+    export function SetHeader(res: express.Response) {
+        res.type('application/json');
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    };
 
     export const oraProcs = {
 

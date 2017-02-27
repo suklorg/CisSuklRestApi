@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 import * as express from "express";
-import { FormatExceptionMessage, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, defLimit, defOffset } from "../common";
+import { FormatExceptionMessage, errMessage400, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, defLimit, defOffset, SetHeader } from "../common";
 
 let lp_router: express.Router = express.Router();
 
@@ -15,7 +15,7 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
         else if (req.query.fields === "kod_sukl" && Object.keys(req.query).length === 1) {
             res.send(await GetLecivePripravkyKody());
         } else {
-            res.status(404).send(FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(404).send(FormatExceptionMessage(errMessage400));
         }
 
     } catch (e) {
@@ -32,7 +32,8 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
     let oraExecuteResult: IOraExecuteResult;
 
     try {
-        res.type('application/json');
+        SetHeader(res);
+        //res.type('application/json');
         //
         // /lecivepripravky
         //
@@ -252,7 +253,7 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(FormatExceptionMessage("Pro dané URL není služba implementována."))
+            res.status(400).send(FormatExceptionMessage(errMessage400))
         }
     } catch (e) {
         if (e instanceof AppError) {
@@ -271,7 +272,8 @@ lp_router.get('/lecivepripravky/:kodSukl', async (req: express.Request, res: exp
     let oraExecuteResult: IOraExecuteResult;
 
     try {
-        res.type('application/json');
+        SetHeader(res);
+        //res.type('application/json');
 
         if (Object.keys(req.query).length === 0) {
             oraProcs.getLecivePripravkyKodSukl.procParams.kod_sukl.val = req.params.kodSukl;
@@ -283,7 +285,7 @@ lp_router.get('/lecivepripravky/:kodSukl', async (req: express.Request, res: exp
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(FormatExceptionMessage("Pro dané URL není služba implementována."))
+            res.status(400).send(FormatExceptionMessage(errMessage400))
         }
     } catch (e) {
         if (e instanceof AppError) {
@@ -305,7 +307,8 @@ lp_router.get('/neregistrovanelecivepripravky', async (req: express.Request, res
     let oraExecuteResult: IOraExecuteResult;
 
     try {
-        res.type('application/json');
+        SetHeader(res);
+        //res.type('application/json');
 
         if (Object.keys(req.query).length === 0) {
             oraExecuteResult = await ExecuteProcedure(oraProcs.getNeregistrovaneLecivePripravky);
@@ -321,7 +324,7 @@ lp_router.get('/neregistrovanelecivepripravky', async (req: express.Request, res
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(FormatExceptionMessage("Pro dané URL není služba implementována."))
+            res.status(400).send(FormatExceptionMessage(errMessage400))
         }
     } catch (e) {
         if (e instanceof AppError) {
@@ -336,6 +339,72 @@ lp_router.get('/neregistrovanelecivepripravky', async (req: express.Request, res
 });
 
 
+lp_router.get('/ukoncenaregistracelecivepripravky', async (req: express.Request, res: express.Response): Promise<void> => {
 
+    let oraExecuteResult: IOraExecuteResult;
+
+    try {
+        SetHeader(res);
+        //res.type('application/json');
+
+        if (Object.keys(req.query).length === 0) {
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getNeregistrovaneLecivePripravky);
+        }
+        else if (typeof req.query.obdobi_od !== "undefined" && Object.keys(req.query).length === 1) {
+            oraProcs.getNeregistrovaneLecivePripravkyObdobiOd.procParams.obdobi_od.val = req.query.obdobi_od;
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getNeregistrovaneLecivePripravkyObdobiOd);
+        }
+
+
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(errMessage400))
+        }
+    } catch (e) {
+        if (e instanceof AppError) {
+            res.status(e.status).send(FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(e.message));
+        };
+        console.log(e.message);
+    }
+
+});
+
+
+lp_router.get('/slozenilecivepripravky', async (req: express.Request, res: express.Response): Promise<void> => {
+
+    let oraExecuteResult: IOraExecuteResult;
+
+    try {
+        SetHeader(res);
+
+        if (req.query.kod_sukl !== "undefined" && Object.keys(req.query).length === 1) {
+            oraProcs.getUcinneLatkyKodSukl.procParams.kod_sukl.val = req.query.kod_sukl;
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getUcinneLatkyKodSukl);
+        }
+
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(errMessage400))
+        }
+    } catch (e) {
+        if (e instanceof AppError) {
+            res.status(e.status).send(FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(e.message));
+        };
+        console.log(e.message);
+    }
+
+});
 
 export { lp_router };

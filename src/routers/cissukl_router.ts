@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 import * as express from "express";
-import { connectionAttributes, oraOutFormat, FormatExceptionMessage, oraProcs }  from "../common";
+import { connectionAttributes, oraOutFormat, FormatExceptionMessage, errMessage400, oraProcs }  from "../common";
 
 //import { getLogger } from 'log4js';
 
@@ -31,7 +31,7 @@ ciselniky_router.get('/lecivepripravky', async (req: express.Request, res: expre
         else if (req.query.fields === "kod_sukl" && Object.keys(req.query).length === 1) {
             res.send(await GetLecivePripravkyKody());
         } else {
-            res.status(404).send(FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(404).send(FormatExceptionMessage(errMessage400));
         }
 
     } catch (e) {
@@ -130,7 +130,7 @@ ciselniky_router.get('/stavyregistrace', async (req: express.Request, res: expre
         else if (req.query.fields === "kod_stav_registrace" && Object.keys(req.query).length === 1) {
             res.send(await GetStavyRegistraceKody());
         } else {
-            res.status(404).send(FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(404).send(FormatExceptionMessage(errMessage400));
         }
     } catch (e) {
         let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
@@ -229,7 +229,7 @@ ciselniky_router.get('/atcskupiny', async (req: express.Request, res: express.Re
         else if (req.query.fields === "kod_atc_skupina" && Object.keys(req.query).length === 1) {
             res.send(await GetAtcSkupinyKody());
         } else {
-            res.status(404).send(FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(404).send(FormatExceptionMessage(errMessage400));
         }
 
     } catch (e) {
@@ -319,7 +319,7 @@ ciselniky_router.get('/indikacniskupiny', async (req: express.Request, res: expr
         else if (req.query.fields === "kod_indikacni_skupina" && Object.keys(req.query).length === 1) {
             res.send(await GetIndikacniSkupinyKody());
         } else {
-            res.status(404).send(FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(404).send(FormatExceptionMessage(errMessage400));
         }
     } catch (e) {
         let s: string = e.message.replace(/"/g, '\\\"').replace(/\n/g, '');
@@ -411,7 +411,7 @@ ciselniky_router.get('/ucinnelatky', async (req: express.Request, res: express.R
         else if (typeof req.query.kod_sukl !== "undefined" && typeof req.query.kod_sukl !== "object" && Object.keys(req.query).length === 1) {
             res.send(await GetUcinneLatkyKodSukl(req.query.kod_sukl));
         } else {
-            res.status(404).send(FormatExceptionMessage("Pro dané URL není služba implementována."));
+            res.status(404).send(FormatExceptionMessage(errMessage400));
         }
 
     } catch (e) {
