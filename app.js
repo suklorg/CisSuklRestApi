@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const cissukl_organizace_router_1 = require("./src/routers/cissukl_organizace_router");
 const cissukl_reg_cisla_router_1 = require("./src/routers/cissukl_reg_cisla_router");
@@ -22,9 +23,9 @@ app.get('/swagger.json', function (req, res) {
 app.use('/cissuklapi/v1', cissukl_ciselniky_router_1.ciselniky_router);
 app.use('/cissuklapi/v1', cissukl_reg_cisla_router_1.reg_cisla_router);
 app.use('/cissuklapi/v1', cissukl_lekarny_router_1.lekarny_router);
-app.use('/cissuklapi/v1', cissukl_lp_router_1.lp_router);
 app.use('/cissuklapi/v1', cissukl_dis13_router_1.dis13_router);
 app.use('/cissuklapi/v1', cissukl_organizace_router_1.organizace_router);
+app.use('/cissuklapi/v1', cissukl_lp_router_1.lp_router);
 app.use('/cissuklapi/v1', cissukl_scau_router_1.scau_router);
 app.get('/docs', function (req, res) {
     res.sendFile(__dirname + '\\public\\docs\\index.html');

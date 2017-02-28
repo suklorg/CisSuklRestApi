@@ -28,9 +28,9 @@ app.get('/swagger.json', function (req, res) {
 app.use('/cissuklapi/v1', ciselniky_router);
 app.use('/cissuklapi/v1', reg_cisla_router);
 app.use('/cissuklapi/v1', lekarny_router);
-app.use('/cissuklapi/v1', lp_router);
 app.use('/cissuklapi/v1', dis13_router);
 app.use('/cissuklapi/v1', organizace_router);
+app.use('/cissuklapi/v1', lp_router);
 app.use('/cissuklapi/v1', scau_router);
 
 app.get('/docs', function (req, res) {
