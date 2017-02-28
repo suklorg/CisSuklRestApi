@@ -22668,7 +22668,8 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
       // Localhost override
       this.model.validatorUrl = null;
     } else {
-      this.model.validatorUrl = '//online.swagger.io/validator';
+        //this.model.validatorUrl = '//online.swagger.io/validator';
+        this.model.validatorUrl = null;
     }
 
     // JSonEditor requires type='object' to be present on defined types, we add it if it's missing

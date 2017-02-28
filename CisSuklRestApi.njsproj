@@ -64,6 +64,14 @@
     <Content Include="scripts\typings\modules\swagger-jsdoc\README.md" />
     <Content Include="scripts\typings\modules\swagger-jsdoc\types-metadata.json" />
     <Content Include="src\common.js.map" />
+    <Content Include="src\node-swagger-api\.gitignore" />
+    <Content Include="src\node-swagger-api\bin\www" />
+    <Content Include="src\node-swagger-api\package.json" />
+    <Content Include="src\node-swagger-api\public\stylesheets\style.css" />
+    <Content Include="src\node-swagger-api\puppies.sql" />
+    <Content Include="src\node-swagger-api\views\error.jade" />
+    <Content Include="src\node-swagger-api\views\index.jade" />
+    <Content Include="src\node-swagger-api\views\layout.jade" />
     <Content Include="src\routers\cissukl_ectd_router.js.map" />
     <Content Include="src\routers\cissukl_router.js.map" />
     <Content Include="tsconfig.json" />
@@ -107,6 +115,12 @@
     <Folder Include="Scripts\typings\modules\oracledb\" />
     <Folder Include="scripts\typings\modules\swagger-jsdoc\" />
     <Folder Include="src\" />
+    <Folder Include="src\node-swagger-api\" />
+    <Folder Include="src\node-swagger-api\bin\" />
+    <Folder Include="src\node-swagger-api\public\" />
+    <Folder Include="src\node-swagger-api\public\stylesheets\" />
+    <Folder Include="src\node-swagger-api\routes\" />
+    <Folder Include="src\node-swagger-api\views\" />
     <Folder Include="src\routers\" />
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +157,9 @@
     <Compile Include="public\docs\swagger-ui.js" />
     <Compile Include="public\docs\swagger-ui.min.js" />
     <Compile Include="src\common.js" />
+    <Compile Include="src\node-swagger-api\app.js" />
+    <Compile Include="src\node-swagger-api\queries.js" />
+    <Compile Include="src\node-swagger-api\routes\index.js" />
     <Compile Include="src\routers\cissukl_ectd_router.js" />
     <Compile Include="src\routers\cissukl_router.js" />
   </ItemGroup>

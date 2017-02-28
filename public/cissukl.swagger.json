@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "title": "Číselníky SÚKL"
   },
-  "host": "localhost:8000",
+  "host": "test-s-node:8000",
   "basePath": "/cissuklapi/v1",
   "consumes": [
     "application/json"
