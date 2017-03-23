@@ -335,7 +335,7 @@ lp_router.get('/slozenilecivepripravky', (req, res) => __awaiter(this, void 0, v
         }
         /////
         if (typeof oraExecuteResult !== "undefined") {
-            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.setHeader('X-Total-Count', oraExecuteResult.totalCount.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
