@@ -2,7 +2,7 @@
 
 import * as express from "express";
 //import { getConnection, IConnection, BIND_IN, BIND_OUT, CURSOR, NUMBER, STRING } from "oracledb";
-import { FormatExceptionMessage, FormatException, errMessage400, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, defLimit, defOffset } from "../common";
+import { FormatExceptionMessage, FormatException, errMessage400, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, defLimit, defOffset, SetHeader } from "../common";
 import * as cis from "../common";
 
 //let oracledb = require('oracledb');
@@ -17,7 +17,7 @@ scau_router.get('/scau', async (req: express.Request, res: express.Response): Pr
     //oracledb.fetchAsString = [oracledb.DATE, oracledb.NUMBER];
 
     try {
-        res.type('application/json');
+        SetHeader(res);
 
         //
         // /scau
@@ -27,6 +27,21 @@ scau_router.get('/scau', async (req: express.Request, res: express.Response): Pr
             oraProcs.getScau.procParams.limit.val = defLimit;
             oraExecuteResult = await ExecuteProcedure(oraProcs.getScau);
         }
+        //
+        //// /scau?kod_sukl={kod_sukl}
+        //
+        else if (typeof req.query.kod_sukl !== "undefined" && Object.keys(req.query).length === 1) {
+            oraProcs.getScauKodSukl.procParams.kod_sukl.val = req.query.kod_sukl;
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getScauKodSukl);
+        } 
+        //
+        //// /scau?kod_sukl={kod_sukl}&obdobi={obdobi}
+        //
+        else if (typeof req.query.kod_sukl !== "undefined" && typeof req.query.obdobi !== "undefined" && Object.keys(req.query).length === 2) {
+            oraProcs.getScauKodSuklObdobi.procParams.kod_sukl.val = req.query.kod_sukl;
+            oraProcs.getScauKodSuklObdobi.procParams.obdobi.val = req.query.obdobi;
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getScauKodSuklObdobi);
+        } 
         //
         //// ?fields=...
         //
@@ -105,7 +120,8 @@ scau_router.get('/scau', async (req: express.Request, res: express.Response): Pr
         }
 
         if (typeof oraExecuteResult !== "undefined") {
-            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            
+            res.setHeader('X-Total-Count', oraExecuteResult.totalCount.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
@@ -130,7 +146,7 @@ scau_router.get('/scau/:kodSukl', async (req: express.Request, res: express.Resp
     let oraExecuteResult: IOraExecuteResult;
 
     try {
-        res.type('application/json');
+        SetHeader(res);
 
         if (Object.keys(req.query).length === 0) {
             oraProcs.getScauKodSukl.procParams.kod_sukl.val = req.params.kodSukl;

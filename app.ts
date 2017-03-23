@@ -33,11 +33,11 @@ app.use('/cissuklapi/v1', organizace_router);
 app.use('/cissuklapi/v1', lp_router);
 app.use('/cissuklapi/v1', scau_router);
 
-app.get('/docs', function (req, res) {
+app.get('/docs', function (req: express.Request, res: express.Response): void {
     res.sendFile(__dirname + '\\public\\docs\\index.html');
 });
 
-app.get('*', function (req, res) {
+app.get('*', function (req: express.Request, res: express.Response): void {
     res.status(400).send(FormatExceptionMessage(errMessage400));
 });
 

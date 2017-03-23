@@ -18,7 +18,7 @@ scau_router.get('/scau', (req, res) => __awaiter(this, void 0, void 0, function*
     let oraExecuteResult;
     //oracledb.fetchAsString = [oracledb.DATE, oracledb.NUMBER];
     try {
-        res.type('application/json');
+        common_1.SetHeader(res);
         //
         // /scau
         //
@@ -26,6 +26,15 @@ scau_router.get('/scau', (req, res) => __awaiter(this, void 0, void 0, function*
             common_1.oraProcs.getScau.procParams.offset.val = common_1.defOffset;
             common_1.oraProcs.getScau.procParams.limit.val = common_1.defLimit;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getScau);
+        }
+        else if (typeof req.query.kod_sukl !== "undefined" && Object.keys(req.query).length === 1) {
+            common_1.oraProcs.getScauKodSukl.procParams.kod_sukl.val = req.query.kod_sukl;
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getScauKodSukl);
+        }
+        else if (typeof req.query.kod_sukl !== "undefined" && typeof req.query.obdobi !== "undefined" && Object.keys(req.query).length === 2) {
+            common_1.oraProcs.getScauKodSuklObdobi.procParams.kod_sukl.val = req.query.kod_sukl;
+            common_1.oraProcs.getScauKodSuklObdobi.procParams.obdobi.val = req.query.obdobi;
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getScauKodSuklObdobi);
         }
         else if (typeof req.query.fields !== "undefined") {
             //
@@ -79,7 +88,7 @@ scau_router.get('/scau', (req, res) => __awaiter(this, void 0, void 0, function*
             //*/
         }
         if (typeof oraExecuteResult !== "undefined") {
-            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.setHeader('X-Total-Count', oraExecuteResult.totalCount.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
@@ -100,7 +109,7 @@ scau_router.get('/scau', (req, res) => __awaiter(this, void 0, void 0, function*
 scau_router.get('/scau/:kodSukl', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        res.type('application/json');
+        common_1.SetHeader(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getScauKodSukl.procParams.kod_sukl.val = req.params.kodSukl;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getScauKodSukl);

@@ -299,10 +299,41 @@ lp_router.get('/slozenilecivepripravky', (req, res) => __awaiter(this, void 0, v
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);
-        if (req.query.kod_sukl !== "undefined" && Object.keys(req.query).length === 1) {
-            common_1.oraProcs.getUcinneLatkyKodSukl.procParams.kod_sukl.val = req.query.kod_sukl;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getUcinneLatkyKodSukl);
+        if (typeof req.query.kod_sukl !== "undefined" && Object.keys(req.query).length === 1) {
+            common_1.oraProcs.getSlozeniLecivePripravkyKodSukl.procParams.kod_sukl.val = req.query.kod_sukl;
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getSlozeniLecivePripravkyKodSukl);
         }
+        else {
+            //
+            // /slozenilecivepripravky
+            //
+            if (Object.keys(req.query).length === 0) {
+                common_1.oraProcs.getSlozeniLecivePripravky.procParams.offset.val = common_1.defOffset;
+                common_1.oraProcs.getSlozeniLecivePripravky.procParams.limit.val = common_1.defLimit;
+                oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getSlozeniLecivePripravky);
+            }
+            else {
+                //
+                // /slozenilecivepripravky?limit={limit}
+                //
+                if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 1) {
+                    common_1.oraProcs.getSlozeniLecivePripravky.procParams.offset.val = common_1.defOffset;
+                    common_1.oraProcs.getSlozeniLecivePripravky.procParams.limit.val = Number(req.query.limit);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getSlozeniLecivePripravky);
+                }
+                else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 1) {
+                    common_1.oraProcs.getSlozeniLecivePripravky.procParams.offset.val = Number(req.query.offset);
+                    common_1.oraProcs.getSlozeniLecivePripravky.procParams.limit.val = common_1.defLimit;
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getSlozeniLecivePripravky);
+                }
+                else if (typeof req.query.offset !== "undefined" && typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 2) {
+                    common_1.oraProcs.getSlozeniLecivePripravky.procParams.offset.val = Number(req.query.offset);
+                    common_1.oraProcs.getSlozeniLecivePripravky.procParams.limit.val = Number(req.query.limit);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getSlozeniLecivePripravky);
+                }
+            }
+        }
+        /////
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);

@@ -131,9 +131,22 @@ namespace common {
         },
 
         getScauKodSukl: {
-            procName: "BEGIN cis_sukl_scau.GetScauKodSukl( :kod_sukl, :count, :cursor ); END;",
+            procName: "BEGIN cis_sukl_scau.GetScauKodSukl( :kod_sukl, :total_count, :count, :cursor ); END;",
             procParams: {
                 kod_sukl: { val: '', type: STRING, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+        getScauKodSuklObdobi: {
+            procName: "BEGIN cis_sukl_scau.GetScauKodSuklObdobi( :kod_sukl, :obdobi, :total_count, :count, :cursor ); END;",
+            procParams: {
+                kod_sukl: { val: '', type: STRING, dir: BIND_IN },
+                obdobi: { val: '', type: STRING, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
                 count: { type: NUMBER, dir: BIND_OUT },
                 cursor: { type: CURSOR, dir: BIND_OUT }
 
@@ -264,6 +277,26 @@ namespace common {
             }
         },
 
+        getSlozeniLecivePripravky: {
+            procName: "BEGIN cis_sukl_lp.GetSlozeniLecivePripravky( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: NUMBER, dir: BIND_IN },
+                limit: { val: 5, type: NUMBER, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+            }
+        },
+
+        getSlozeniLecivePripravkyKodSukl: {
+            procName: "BEGIN cis_sukl_lp.GetSlozeniLecPripravkyKodSukl( :kod_sukl, :count, :cursor ); END;",
+            procParams: {
+                kod_sukl: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
 
 
         getAtcSkupiny: {
