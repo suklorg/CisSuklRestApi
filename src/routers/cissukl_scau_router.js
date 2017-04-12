@@ -88,7 +88,7 @@ scau_router.get('/scau', (req, res) => __awaiter(this, void 0, void 0, function*
             //*/
         }
         if (typeof oraExecuteResult !== "undefined") {
-            res.setHeader('X-Total-Count', oraExecuteResult.totalCount.toString());
+            //res.setHeader('X-Total-Count', oraExecuteResult.totalCount.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {

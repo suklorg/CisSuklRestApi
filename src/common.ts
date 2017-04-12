@@ -1,5 +1,7 @@
 ﻿"use strict";
 
+import * as connAttributes from './connectionAttributes.json';
+
 import * as express from "express";
 
 import { IConnectionAttributes, IExecuteOptions, IConnection, getConnection, OBJECT, NUMBER, STRING, DATE, CURSOR, BIND_IN, BIND_OUT } from "oracledb";
@@ -20,7 +22,15 @@ namespace common {
         toString() {
             return this.name + ': ' + this.message;
         }
-        }
+    }
+    
+ 
+
+    export const connectionAttributes: IConnectionAttributes = {
+        user: (<any>connAttributes).user,
+        password: (<any>connAttributes).password,
+        connectString: (<any>connAttributes).connectString
+    };
 /*
     export const connectionAttributes: IConnectionAttributes = {
         user: "cis2016",
@@ -29,7 +39,7 @@ namespace common {
     };
 /*/
 
-//*
+/*
     export const connectionAttributes: IConnectionAttributes = {
         user: "cis_sukl",
         password: "cis_sukl",
@@ -289,9 +299,10 @@ namespace common {
         },
 
         getSlozeniLecivePripravkyKodSukl: {
-            procName: "BEGIN cis_sukl_lp.GetSlozeniLecPripravkyKodSukl( :kod_sukl, :count, :cursor ); END;",
+            procName: "BEGIN cis_sukl_lp.GetSlozeniLecPripravkyKodSukl( :kod_sukl, :total_count, :count, :cursor ); END;",
             procParams: {
                 kod_sukl: { val: '', type: STRING, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
                 count: { type: NUMBER, dir: BIND_OUT },
                 cursor: { type: CURSOR, dir: BIND_OUT }
 

@@ -4,4 +4,5 @@
 /// <reference path="globals/node/index.d.ts" />
 /// <reference path="globals/serve-static/index.d.ts" />
 /// <reference path="modules/oracledb/index.d.ts" />
-/// <reference path="modules/swagger-jsdoc/index.d.ts" />
+/// <reference path="modules/body-parser/index.d.ts" />
+/// <reference path="cissukl/index.d.ts" />

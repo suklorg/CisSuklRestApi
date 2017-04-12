@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+const connAttributes = require("./connectionAttributes.json");
 const oracledb_1 = require("oracledb");
 let oracledb = require('oracledb');
 var common;
@@ -22,6 +23,11 @@ var common;
         }
     }
     common.AppError = AppError;
+    common.connectionAttributes = {
+        user: connAttributes.user,
+        password: connAttributes.password,
+        connectString: connAttributes.connectString
+    };
     /*
         export const connectionAttributes: IConnectionAttributes = {
             user: "cis2016",
@@ -29,12 +35,12 @@ var common;
             connectString: "util"
         };
     /*/
-    //*
-    common.connectionAttributes = {
-        user: "cis_sukl",
-        password: "cis_sukl",
-        connectString: "dlptest"
-    };
+    /*
+        export const connectionAttributes: IConnectionAttributes = {
+            user: "cis_sukl",
+            password: "cis_sukl",
+            connectString: "dlptest"
+        };
     //*/
     common.oraOutFormat = {
         outFormat: oracledb_1.OBJECT
@@ -236,9 +242,10 @@ var common;
             }
         },
         getSlozeniLecivePripravkyKodSukl: {
-            procName: "BEGIN cis_sukl_lp.GetSlozeniLecPripravkyKodSukl( :kod_sukl, :count, :cursor ); END;",
+            procName: "BEGIN cis_sukl_lp.GetSlozeniLecPripravkyKodSukl( :kod_sukl, :total_count, :count, :cursor ); END;",
             procParams: {
                 kod_sukl: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
                 count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
                 cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
             }
