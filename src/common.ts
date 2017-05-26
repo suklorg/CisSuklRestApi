@@ -116,6 +116,102 @@ namespace common {
 
     export const oraProcs = {
 
+
+        getLecivePripravkySRegScau: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravkySRegScau( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: NUMBER, dir: BIND_IN },
+                limit: { val: 5, type: NUMBER, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+            }
+        },
+
+        getLecivePripravkyKodySRegScau: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravkyKodySRegScau( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: NUMBER, dir: BIND_IN },
+                limit: { val: 5, type: NUMBER, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+        getLecivePripravkyKodSuklSRegScau: {
+            procName: "BEGIN cis_sukl_lp.GetLecPripravkyKodSuklSRegScau( :kod_sukl, :total_count, :count, :cursor ); END;",
+            procParams: {
+                kod_sukl: { val: '', type: STRING, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+
+        getLecivePripravkyKodSukl: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravkyKodSukl( :kod_sukl, :count, :cursor ); END;",
+            procParams: {
+                kod_sukl: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+
+
+
+        getParalelniKodyKodSuklScau: {
+            procName: "BEGIN cis_sukl_pk.GetParKodyKodSuklScau(:kod_sukl, :total_count, :count, :cursor ); END;",
+            procParams: {
+                kod_sukl: { val: '', type: STRING, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+            }
+        },
+
+
+        getCenyPuvodce: {
+            procName: "BEGIN cis_sukl_cp.GetCenyPuvodce( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: NUMBER, dir: BIND_IN },
+                limit: { val: 5, type: NUMBER, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+        getCenyPuvodceKody: {
+            procName: "BEGIN cis_sukl_cp.GetCenyPuvodceKody( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: NUMBER, dir: BIND_IN },
+                limit: { val: 5, type: NUMBER, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+        getCenyPuvodceKodSukl: {
+            procName: "BEGIN cis_sukl_cp.GetCenyPuvodceKodSukl( :kod_sukl, :total_count, :count, :cursor ); END;",
+            procParams: {
+                kod_sukl: { val: '', type: STRING, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+
         getScau: {
             procName: "BEGIN cis_sukl_scau.GetScau( :offset, :limit, :total_count, :count, :cursor ); END;",
             procParams: {
@@ -429,29 +525,6 @@ namespace common {
             }
         },
 
-        getLecivePripravkyKody: {
-            procName: "BEGIN cis_sukl_lp.GetLecivePripravkyKody( :offset, :limit, :total_count, :count, :cursor ); END;",
-            procParams: {
-                offset: { val: 0, type: NUMBER, dir: BIND_IN },
-                limit: { val: 5, type: NUMBER, dir: BIND_IN },
-                total_count: { type: NUMBER, dir: BIND_OUT },
-                count: { type: NUMBER, dir: BIND_OUT },
-                cursor: { type: CURSOR, dir: BIND_OUT }
-
-            }
-        },
-        getLecivePripravky: {
-            procName: "BEGIN cis_sukl_lp.GetLecivePripravky( :offset, :limit, :total_count, :count, :cursor ); END;",
-            procParams: {
-                offset: { val: 0, type: NUMBER, dir: BIND_IN },
-                limit: { val: 5, type: NUMBER, dir: BIND_IN },
-                total_count: { type: NUMBER, dir: BIND_OUT },
-                count: { type: NUMBER, dir: BIND_OUT },
-                cursor: { type: CURSOR, dir: BIND_OUT }
-            }
-        },
-
-
         getLecivePripravkyKodyPlatnostOd: {
             procName: "BEGIN cis_sukl_lp.GetLecPripravkyKodyPlatnostOd( :platnost_od, :offset, :limit, :total_count, :count, :cursor ); END;",
             procParams: {
@@ -475,16 +548,30 @@ namespace common {
             }
         },
 
+            getLecivePripravky: {
+                procName: "BEGIN cis_sukl_lp.GetLecivePripravky( :offset, :limit, :total_count, :count, :cursor ); END;",
+                procParams: {
+                    offset: { val: 0, type: NUMBER, dir: BIND_IN },
+                    limit: { val: 5, type: NUMBER, dir: BIND_IN },
+                    total_count: { type: NUMBER, dir: BIND_OUT },
+                    count: { type: NUMBER, dir: BIND_OUT },
+                    cursor: { type: CURSOR, dir: BIND_OUT }
+                }
+            },
 
-        getLecivePripravkyKodSukl: {
-            procName: "BEGIN cis_sukl_lp.GetLecivePripravkyKodSukl( :kod_sukl, :count, :cursor ); END;",
-            procParams: {
-                kod_sukl: { val: '', type: STRING, dir: BIND_IN },
-                count: { type: NUMBER, dir: BIND_OUT },
-                cursor: { type: CURSOR, dir: BIND_OUT }
+            getLecivePripravkyKody: {
+                procName: "BEGIN cis_sukl_lp.GetLecivePripravkyKody( :offset, :limit, :total_count, :count, :cursor ); END;",
+                procParams: {
+                    offset: { val: 0, type: NUMBER, dir: BIND_IN },
+                    limit: { val: 5, type: NUMBER, dir: BIND_IN },
+                    total_count: { type: NUMBER, dir: BIND_OUT },
+                    count: { type: NUMBER, dir: BIND_OUT },
+                    cursor: { type: CURSOR, dir: BIND_OUT }
 
-            }
-        },
+                }
+            },
+
+
 
         getNeregistrovaneLecivePripravky: {
             procName: "BEGIN cis_sukl_lp.GetNeregLecPripravky( :count, :cursor ); END;",

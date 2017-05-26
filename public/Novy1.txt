@@ -1,0 +1,18 @@
+
+/cissuklapi/v1/lecivepripravky?kod_sukl=0192848&stavy_registrace=stavy_registrace_scau
+KOD_SUKL, NAZEV, DOPLNEK, REGISTRACNI_CISLO
+KOD_ORGANIZACE_DRZITEL = ASPIRL
+
+
+/cissuklapi/v1/organizace/ASPIRL
+
+NAZEV = Aspen Pharma Trading Limited, Dublin
+
+/cissuklapi/v1/cenypuvodce?kod_sukl=0192848
+
+CENA_PUVODCE = 103.7400000000001
+
+cissuklapi/v1/paralelnikody?kod_sukl=192848
+
+KOD_SUKL = 0187658
+KOD_SUKL = 0003481

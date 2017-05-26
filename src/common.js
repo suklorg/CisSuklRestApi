@@ -90,6 +90,81 @@ var common;
     common.SetHeader = SetHeader;
     ;
     common.oraProcs = {
+        getLecivePripravkySRegScau: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravkySRegScau( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                limit: { val: 5, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getLecivePripravkyKodySRegScau: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravkyKodySRegScau( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                limit: { val: 5, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getLecivePripravkyKodSuklSRegScau: {
+            procName: "BEGIN cis_sukl_lp.GetLecPripravkyKodSuklSRegScau( :kod_sukl, :total_count, :count, :cursor ); END;",
+            procParams: {
+                kod_sukl: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getLecivePripravkyKodSukl: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravkyKodSukl( :kod_sukl, :count, :cursor ); END;",
+            procParams: {
+                kod_sukl: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getParalelniKodyKodSuklScau: {
+            procName: "BEGIN cis_sukl_pk.GetParKodyKodSuklScau(:kod_sukl, :total_count, :count, :cursor ); END;",
+            procParams: {
+                kod_sukl: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getCenyPuvodce: {
+            procName: "BEGIN cis_sukl_cp.GetCenyPuvodce( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                limit: { val: 5, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getCenyPuvodceKody: {
+            procName: "BEGIN cis_sukl_cp.GetCenyPuvodceKody( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                limit: { val: 5, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getCenyPuvodceKodSukl: {
+            procName: "BEGIN cis_sukl_cp.GetCenyPuvodceKodSukl( :kod_sukl, :total_count, :count, :cursor ); END;",
+            procParams: {
+                kod_sukl: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
         getScau: {
             procName: "BEGIN cis_sukl_scau.GetScau( :offset, :limit, :total_count, :count, :cursor ); END;",
             procParams: {
@@ -348,26 +423,6 @@ var common;
                 cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
             }
         },
-        getLecivePripravkyKody: {
-            procName: "BEGIN cis_sukl_lp.GetLecivePripravkyKody( :offset, :limit, :total_count, :count, :cursor ); END;",
-            procParams: {
-                offset: { val: 0, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
-                limit: { val: 5, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
-                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
-                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
-                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
-            }
-        },
-        getLecivePripravky: {
-            procName: "BEGIN cis_sukl_lp.GetLecivePripravky( :offset, :limit, :total_count, :count, :cursor ); END;",
-            procParams: {
-                offset: { val: 0, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
-                limit: { val: 5, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
-                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
-                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
-                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
-            }
-        },
         getLecivePripravkyKodyPlatnostOd: {
             procName: "BEGIN cis_sukl_lp.GetLecPripravkyKodyPlatnostOd( :platnost_od, :offset, :limit, :total_count, :count, :cursor ); END;",
             procParams: {
@@ -390,10 +445,22 @@ var common;
                 cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
             }
         },
-        getLecivePripravkyKodSukl: {
-            procName: "BEGIN cis_sukl_lp.GetLecivePripravkyKodSukl( :kod_sukl, :count, :cursor ); END;",
+        getLecivePripravky: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravky( :offset, :limit, :total_count, :count, :cursor ); END;",
             procParams: {
-                kod_sukl: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                offset: { val: 0, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                limit: { val: 5, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getLecivePripravkyKody: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravkyKody( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                limit: { val: 5, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
                 count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
                 cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
             }

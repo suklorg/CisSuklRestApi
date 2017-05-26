@@ -9,5 +9,10 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": true
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "typings"
+  ]
+
 }

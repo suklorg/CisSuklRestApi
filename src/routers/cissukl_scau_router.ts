@@ -121,7 +121,7 @@ scau_router.get('/scau', async (req: express.Request, res: express.Response): Pr
 
         if (typeof oraExecuteResult !== "undefined") {
             
-            //res.setHeader('X-Total-Count', oraExecuteResult.totalCount.toString());
+            res.setHeader('X-Total-Count', oraExecuteResult.totalCount.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {

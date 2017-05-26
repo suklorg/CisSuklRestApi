@@ -7,7 +7,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 //import { getConnection, IConnection, BIND_IN, BIND_OUT, CURSOR, NUMBER, STRING } from "oracledb";
 const common_1 = require("../common");
@@ -85,10 +84,9 @@ scau_router.get('/scau', (req, res) => __awaiter(this, void 0, void 0, function*
                 common_1.oraProcs.getScau.procParams.limit.val = Number(req.query.limit);
                 oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getScau);
             }
-            //*/
         }
         if (typeof oraExecuteResult !== "undefined") {
-            //res.setHeader('X-Total-Count', oraExecuteResult.totalCount.toString());
+            res.setHeader('X-Total-Count', oraExecuteResult.totalCount.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {

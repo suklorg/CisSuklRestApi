@@ -79,6 +79,7 @@
     <TypeScriptCompile Include="app.ts" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <TypeScriptCompile Include="cissukl_cp_routers.ts" />
     <TypeScriptCompile Include="Scripts\typings\globals\express-serve-static-core\index.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\globals\express\index.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\globals\mime\index.d.ts" />
@@ -90,6 +91,7 @@
     <TypeScriptCompile Include="src\common.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_cp_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_dis13_router.ts" />
+    <TypeScriptCompile Include="src\routers\cissukl_pk_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_reg_cisla_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_lekarny_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_ciselniky_router.ts" />
@@ -163,6 +165,7 @@
     <Compile Include="src\node-swagger-api\app.js" />
     <Compile Include="src\node-swagger-api\queries.js" />
     <Compile Include="src\node-swagger-api\routes\index.js" />
+    <Compile Include="src\routers\cissukl_cp_router.js" />
     <Compile Include="src\routers\cissukl_ectd_router.js" />
     <Compile Include="src\routers\cissukl_router.js" />
   </ItemGroup>
