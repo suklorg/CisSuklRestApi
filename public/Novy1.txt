@@ -16,3 +16,6 @@ cissuklapi/v1/paralelnikody?kod_sukl=192848
 
 KOD_SUKL = 0187658
 KOD_SUKL = 0003481
+
+
+https://test-s-forms.sukl.cz/fas/formservice/filler.open?name=s-forms_rozcestnik.fo

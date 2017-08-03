@@ -14,9 +14,11 @@ const cissukl_pk_router_1 = require("./src/routers/cissukl_pk_router");
 const common_1 = require("./src/common");
 let port = 8000;
 let app = express();
+///*
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
+//*/
 //console.log('dirname: ' + __dirname + '\\public\\docs\\index.html');
 /*
 app.get('/swagger.json', function (req, res) {
@@ -33,9 +35,11 @@ app.use('/cissuklapi/v1', cissukl_lp_router_1.lp_router);
 app.use('/cissuklapi/v1', cissukl_scau_router_1.scau_router);
 app.use('/cissuklapi/v1', cissukl_cp_router_1.cp_router);
 app.use('/cissuklapi/v1', cissukl_pk_router_1.pk_router);
-app.get('/docs', function (req, res) {
-    res.sendFile(__dirname + '\\public\\docs\\index.html');
+/*
+app.get('/cissuklapi/vi', function (req: express.Request, res: express.Response): void {
+    res.sendFile(__dirname + '\\public\\cissuklapi\\index.html');
 });
+*/
 app.get('*', function (req, res) {
     res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
 });

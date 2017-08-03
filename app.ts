@@ -16,12 +16,12 @@ import { FormatExceptionMessage, errMessage400 } from "./src/common";
 let port: number = 8000;
 
 let app: express.Express = express();
-
+///*
 
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
-
+//*/
 //console.log('dirname: ' + __dirname + '\\public\\docs\\index.html');
 /*
 app.get('/swagger.json', function (req, res) {
@@ -40,11 +40,11 @@ app.use('/cissuklapi/v1', scau_router);
 app.use('/cissuklapi/v1', cp_router);
 app.use('/cissuklapi/v1', pk_router);
 
-
-app.get('/docs', function (req: express.Request, res: express.Response): void {
-    res.sendFile(__dirname + '\\public\\docs\\index.html');
+/*
+app.get('/cissuklapi/vi', function (req: express.Request, res: express.Response): void {
+    res.sendFile(__dirname + '\\public\\cissuklapi\\index.html');
 });
-
+*/
 app.get('*', function (req: express.Request, res: express.Response): void {
     res.status(400).send(FormatExceptionMessage(errMessage400));
 });

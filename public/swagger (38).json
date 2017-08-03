@@ -4,132 +4,16 @@
     "version": "1.0.0",
     "title": "Číselníky SÚKL"
   },
-  "host": "localhost:8000",
+  "host": "len-20927:8000",
   "basePath": "/cissuklapi/v1",
   "consumes": [
     "application/json"
   ],
   "paths": {
-    "/cenypuvodce": {
-      "get": {
-        "tags": [
-          "Ceny puvodce"
-        ],
-        "description": "Vrací seznam cen původce",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "fields",
-            "in": "query",
-            "description": "Kód SÚKL léčivého přípravku",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "kod_sukl"
-            ]
-          },
-          {
-            "name": "kod_sukl",
-            "in": "query",
-            "description": "Kód SÚKL léčivého přípravku",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Limit, přednastavená hodnota limit=20",
-            "required": false,
-            "type": "number"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "Offset, přednastavená hodnota offset=0",
-            "required": false,
-            "type": "number"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operace proběhla bez chyby",
-            "headers": {
-              "x-total-count": {
-                "description": "Celkový počet nalezených záznamů",
-                "type": "integer"
-              }
-            },
-            "schema": {
-              "$ref": "#/definitions/CenyPuvodce"
-            }
-          },
-          "400": {
-            "description": "Pro dané URL není služba implementována",
-            "schema": {
-              "$ref": "#/definitions/Error400"
-            }
-          },
-          "404": {
-            "description": "Nenalezeny žádné záznamy",
-            "schema": {
-              "$ref": "#/definitions/Error404"
-            }
-          }
-        }
-      }
-    },
-    "/cenypuvodce/{kod_sukl}": {
-      "get": {
-        "tags": [
-          "Ceny puvodce"
-        ],
-        "description": "Vrací cenu původce k danému kódu SÚKL",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "kod_sukl",
-            "in": "path",
-            "description": "Kód SÚKL",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "headers": {
-              "x-total-count": {
-                "description": "Celkový počet nalezených záznamů",
-                "type": "integer"
-              }
-            },
-            "description": "Operace proběhla bez chyby",
-            "schema": {
-              "$ref": "#/definitions/CenyPuvodce"
-            }
-          },
-          "400": {
-            "description": "Pro dané URL není služba implementována",
-            "schema": {
-              "$ref": "#/definitions/Error400"
-            }
-          },
-          "404": {
-            "description": "Nenalezeny žádné záznamy",
-            "schema": {
-              "$ref": "#/definitions/Error404"
-            }
-          }
-        }
-      }
-    },
     "/paralelnikody": {
       "get": {
         "tags": [
-          "Paralelni kody"
+          "Paralelní kódy"
         ],
         "description": "Vrací seznam kódů SÚKL, které jsou paralení k danému kódu SÚKL. Vrácené kódy SÚKL se nacházejí v aktuálním Seznamu cen a úhrad.",
         "produces": [
@@ -141,7 +25,10 @@
             "in": "query",
             "description": "Kód SÚKL",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "kod_sukl"
+            ]
           }
         ],
         "responses": {
@@ -175,7 +62,7 @@
     "/paralelnikody/{kod_sukl}": {
       "get": {
         "tags": [
-          "Paralelni kody"
+          "Ciselniky"
         ],
         "description": "Vrací seznam kódů SÚKL, které jsou paralení k danému kódu SÚKL. Vrácené kódy SÚKL se nacházejí v aktuálním Seznamu cen a úhrad.",
         "produces": [
@@ -521,16 +408,6 @@
             "type": "string",
             "enum": [
               "kod_sukl"
-            ]
-          },
-          {
-            "name": "stavy_registrace",
-            "in": "query",
-            "description": "Vybrané stavy registrace",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "stavy_registrace_scau"
             ]
           },
           {
@@ -1225,28 +1102,12 @@
         }
       }
     },
-    "CenyPuvodce": {
-      "type": "object",
-      "properties": {
-        "KOD_SUKL": {
-          "type": "string",
-          "example": "0027193",
-          "description": "Kód SÚKL",
-          "maxLength": 7
-        },
-        "CENA_PUVODCE": {
-          "type": "number",
-          "example": "79623,21",
-          "description": "Cena původce"
-        }
-      }
-    },
     "ParalelniKody": {
       "type": "object",
       "properties": {
         "KOD_SUKL": {
           "type": "string",
-          "example": "0026329",
+          "example": 200,
           "description": "Kód SÚKL",
           "maxLength": 7
         }
