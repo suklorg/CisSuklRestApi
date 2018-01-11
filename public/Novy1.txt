@@ -16,6 +16,46 @@ cissuklapi/v1/paralelnikody?kod_sukl=192848
 
 KOD_SUKL = 0187658
 KOD_SUKL = 0003481
-
+                                                                           \
+DATA SOURCE=s-forms-db01:1521/forms;PASSWORD=mdtxF223;PERSIST SECURITY INFO=True;USER ID=ISMAHEL                                                                           
+                                                                           
 
 https://test-s-forms.sukl.cz/fas/formservice/filler.open?name=s-forms_rozcestnik.fo
+
+https://forms.sukl.cz/fas/formservice/filler.open?name=s-forms_rozcestnik.fo
+
+https://opendata.sukl.cz/soubory/SODERECEPT/DLPAKTUALNI.zip
+
+https://opendata.sukl.cz/soubory/DLPAKTUALNI.zip
+
+
+https://forms.sukl.cz/formflow/aforms.php?action=fill&id_form=22&id_fldr=20
+
+(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=s-forms-db01.sukl.cz)(PORT=1521))(CONNECT_DATA=(SID=forms)))
+
+Dobrý den,
+Posílám komentáøe:
+
+•         Po naètení Léèivého pøípravku, který nemá registraèní èíslo, se v oddìlení Léèivý pøípravek, položka Registraèní èíslo léèivého pøípravku vypíše null. Pøiklad kód SÚKL = 0217002.
+Správnì zùstane položka Registraèní èíslo léèivého pøípravku nevyplnìna
+Stále se vypisuje null.
+?  Zapracováno
+•         Formuláø umožòuje zadat vícekrát stejný kód SÚKL. V dùsledku toho je možné zadat v jednom hlášení rùzné ceny pùvodce pro jeden kód SÚKL. To není cílem formuláøe.
+Správnì formuláø neumožní vytvoøit více oddìlení Léèivý pøípravek se stejným kódem SÚKL
+Zrušit hlášení Zadali jste kód pøípravku, který je ve stejné skupinì jako jeden již zadaný pøípravek. Jedno hlášení nesmí obsahovat více pøípravkù ze stejné skupiny. Zadejte tento pøípravek v novém hlášení.
+Toto hlášení je urèené pro kódy z oddìlení Totožné léèivé pøípravky, ne pro kód, který už byl jednou zadán. Pøi zadání stejného kódu by se nemìlo stát „nic“, kód už je naèten,
+?  Zapracováno 
+pøípadnì vyplnìna cena. Nejlepší by bylo, aby se pøesunul na zaèátek seznamu, ale to by bylo asi pracné
+?  Nezapracováno: Zde je pøedpoklad vícepráce. Nutná analýza konkrétní funkcionality, následná úprava formuláøe. Pøedpokládaná pracnost do 2MD.
+
+Pøesouvat záznam na zaèátek seznamu nebudeme, místo pùvodního hlášení Zadali jste kód pøípravku, který je ve stejné skupinì jako jeden již zadaný pøípravek. Jedno hlášení nesmí obsahovat více pøípravkù ze stejné skupiny. Zadejte tento pøípravek v novém hlášení vložte prosím hlášení Zadali jste kód pøípravku, který je již ve formuláøi naèten.
+
+Problém se ztracenými konci øádkù v notifikaèních e-mailech budeme pøípadnì øešit až na produkèním prostøedí, na testovacím prostøedí to tolik nevadí.
+
+Kde se v IE nastavuje, aby se formuláø zobrazoval v nové záložce a ne v novém oknì?
+
+
+Dìkuji.
+
+
+Ivan Šmahel

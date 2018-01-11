@@ -10,7 +10,7 @@
     "application/json"
   ],
   "paths": {
-    "/sodlecivepripravky": {
+    "/lecivepripravky": {
       "get": {
         "tags": [
           "Lecive pripravky"
@@ -31,6 +31,16 @@
             ]
           },
           {
+            "name": "stavy_registrace",
+            "in": "query",
+            "description": "Vybrané stavy registrace",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "stavy_registrace_scau"
+            ]
+          },
+          {
             "name": "je_regulovany",
             "in": "query",
             "description": "Příznak, zda je léčivý přípravek regulovaný",
@@ -40,6 +50,13 @@
               "A",
               "N"
             ]
+          },
+          {
+            "name": "platnost_od",
+            "in": "query",
+            "description": "Datum, od kdy jsou informace o léčivém přípravku platné",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "limit",
@@ -66,7 +83,53 @@
               }
             },
             "schema": {
-              "$ref": "#/definitions/SODLecivePripravky"
+              "$ref": "#/definitions/LecivePripravky"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/lecivepripravky/{kod_sukl}": {
+      "get": {
+        "tags": [
+          "Lecive pripravky"
+        ],
+        "description": "Vrací seznam informací o léčivých přípravcích",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "kod_sukl",
+            "in": "path",
+            "description": "Kód SÚKL léčivého přípravku",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/LecivePripravky"
             }
           },
           "400": {
@@ -106,13 +169,13 @@
         }
       }
     },
-    "SODLecivePripravky": {
+    "LecivePripravky": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/SODLecivyPripravek"
+        "$ref": "#/definitions/LecivyPripravek"
       }
     },
-    "SODLecivyPripravek": {
+    "LecivyPripravek": {
       "type": "object",
       "properties": {
         "KOD_SUKL": {
@@ -286,12 +349,6 @@
           "description": "Příznak, zda má držitel povinnost předkládat Ústavu před propuštěním na trh vzorky každé šarže přípravku k přezkoušení, hodnoty \"A\" - ano, \"N\" - ne",
           "maxLength": 1
         },
-        "SEZNAM_KOD_UCINNA_LATKA": {
-          "type": "string",
-          "example": "12,223",
-          "description": "Seznam kódů učinných látek pro daný léčivý přípravek",
-          "maxLength": 1000
-        },
         "KOD_ZPUSOB_VYDEJE": {
           "type": "string",
           "example": "F",
@@ -316,12 +373,6 @@
           "description": "Kód nařízení vlády",
           "maxLength": 2
         },
-        "SEZNAM_KOD_EAN": {
-          "type": "string",
-          "example": "8584005110206",
-          "description": "Seznam kódů EAN pro daný léčivý přípravek",
-          "maxLength": 1000
-        },
         "BRAILLOVO_PISMO": {
           "type": "string",
           "example": "S",
@@ -345,22 +396,11 @@
           "example": "N",
           "description": "příznak, zda má léčivý přípravek regulované ceny, hodnoty \"A\" - ano, \"N\" - ne",
           "maxLength": 1
-        },
-        "JE_DODAVKA": {
-          "type": "string",
-          "example": "N",
-          "description": "příznak, zda má léčivý přípravek hlášenou distribuci, hodnoty \"A\" - ano, \"N\" - ne",
-          "maxLength": 1
-        },
-        "NAZEV_REGISTROVANY": {
-          "type": "string",
-          "example": "ACYLCOFFIN",
-          "description": "Registrovaný název léčivého přípravku",
-          "maxLength": 70
+      }
+      
         }
       }
-    }
-  },
+    },
   "produces": [
     "application/json"
   ],

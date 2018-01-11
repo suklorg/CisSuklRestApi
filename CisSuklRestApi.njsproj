@@ -91,6 +91,7 @@
     <TypeScriptCompile Include="src\common.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_cp_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_dis13_router.ts" />
+    <TypeScriptCompile Include="src\routers\cissukl_lp_sod_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_pk_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_reg_cisla_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_lekarny_router.ts" />

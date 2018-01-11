@@ -11,6 +11,7 @@ const cissukl_dis13_router_1 = require("./src/routers/cissukl_dis13_router");
 const cissukl_scau_router_1 = require("./src/routers/cissukl_scau_router");
 const cissukl_cp_router_1 = require("./src/routers/cissukl_cp_router");
 const cissukl_pk_router_1 = require("./src/routers/cissukl_pk_router");
+const cissukl_lp_sod_router_1 = require("./src/routers/cissukl_lp_sod_router");
 const common_1 = require("./src/common");
 let port = 8000;
 let app = express();
@@ -35,6 +36,7 @@ app.use('/cissuklapi/v1', cissukl_lp_router_1.lp_router);
 app.use('/cissuklapi/v1', cissukl_scau_router_1.scau_router);
 app.use('/cissuklapi/v1', cissukl_cp_router_1.cp_router);
 app.use('/cissuklapi/v1', cissukl_pk_router_1.pk_router);
+app.use('/cissuklapi/v1', cissukl_lp_sod_router_1.lp_sod_router);
 /*
 app.get('/cissuklapi/vi', function (req: express.Request, res: express.Response): void {
     res.sendFile(__dirname + '\\public\\cissuklapi\\index.html');

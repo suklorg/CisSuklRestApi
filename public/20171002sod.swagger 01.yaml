@@ -1,0 +1,334 @@
+info:
+  description: Popis RESTful API
+  version: 1.0.0
+  title: Číselníky SÚKL
+host: 'localhost:8000'
+basePath: /cissuklapi/v1
+consumes:
+  - application/json
+paths:
+  /sodlecivepripravky:
+    get:
+      tags:
+        - Lecive pripravky
+      description: Vrací seznam informací o léčivých přípravcích
+      produces:
+        - application/json
+      parameters:
+        - name: fields
+          in: query
+          description: Kód SÚKL léčivého přípravku
+          required: false
+          type: string
+          enum:
+            - kod_sukl
+        - name: stavy_registrace
+          in: query
+          description: Vybrané stavy registrace
+          required: false
+          type: string
+          enum:
+            - stavy_registrace_scau
+        - name: je_regulovany
+          in: query
+          description: 'Příznak, zda je léčivý přípravek regulovaný'
+          required: false
+          type: string
+          enum:
+            - A
+            - 'N'
+        - name: platnost_od
+          in: query
+          description: 'Datum, od kdy jsou informace o léčivém přípravku platné'
+          required: false
+          type: string
+        - name: limit
+          in: query
+          description: 'Limit, přednastavená hodnota limit=20'
+          required: false
+          type: number
+        - name: offset
+          in: query
+          description: 'Offset, přednastavená hodnota offset=0'
+          required: false
+          type: number
+      responses:
+        '200':
+          description: Operace proběhla bez chyby
+          headers:
+            x-total-count:
+              description: Celkový počet nalezených záznamů
+              type: integer
+          schema:
+            $ref: '#/definitions/LecivePripravky'
+        '400':
+          description: Pro dané URL není služba implementována
+          schema:
+            $ref: '#/definitions/Error400'
+        '404':
+          description: Nenalezeny žádné záznamy
+          schema:
+            $ref: '#/definitions/Error404'
+  '/lecivepripravky/{kod_sukl}':
+    get:
+      tags:
+        - Lecive pripravky
+      description: Vrací seznam informací o léčivých přípravcích
+      produces:
+        - application/json
+      parameters:
+        - name: kod_sukl
+          in: path
+          description: Kód SÚKL léčivého přípravku
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Operace proběhla bez chyby
+          headers:
+            x-total-count:
+              description: Celkový počet nalezených záznamů
+              type: integer
+          schema:
+            $ref: '#/definitions/LecivePripravky'
+        '400':
+          description: Pro dané URL není služba implementována
+          schema:
+            $ref: '#/definitions/Error400'
+        '404':
+          description: Nenalezeny žádné záznamy
+          schema:
+            $ref: '#/definitions/Error404'
+definitions:
+  Error400:
+    type: object
+    properties:
+      error:
+        type: string
+        example: Pro dané URL není služba implementována
+        maxLength: 256
+  Error404:
+    type: object
+    properties:
+      error:
+        type: string
+        example: Nenalezeny žádné záznamy
+        maxLength: 256
+  LecivePripravky:
+    type: array
+    items:
+      $ref: '#/definitions/LecivyPripravek'
+  LecivyPripravek:
+    type: object
+    properties:
+      KOD_SUKL:
+        type: string
+        example: 0000009
+        description: Kód SÚKL léčivého přípravku
+        maxLength: 7
+      NAZEV:
+        type: string
+        example: ACYLCOFFIN
+        description: Název léčivého přípravku
+        maxLength: 70
+      SILA:
+        type: string
+        example: 450MG/50MG
+        description: Síla
+        maxLength: 24
+      KOD_LEKOVA_FORMA:
+        type: string
+        example: TBL NOB
+        description: Farmaceutická forma
+        maxLength: 27
+      BALENI:
+        type: string
+        example: '10'
+        description: Balení
+        maxLength: 22
+      KOD_CESTA_PODANI:
+        type: string
+        example: POR
+        description: Kód cesty podání
+        maxLength: 15
+      DOPLNEK:
+        type: string
+        example: 450MG/50MG TBL NOB 10
+        description: Doplněk
+        maxLength: 75
+      KOD_OBAL:
+        type: string
+        example: BLI
+        description: Kód obalu
+        maxLength: 3
+      REGISTRACNI_CISLO:
+        type: string
+        example: 07/049/69-S/C
+        description: Registrační číslo
+        maxLength: 16
+      KOD_REGISTRACNI_PROCEDURA:
+        type: string
+        example: NAR
+        description: Kód registrační procedury
+        maxLength: 3
+      KOD_STAV_REGISTRACE:
+        type: string
+        example: R
+        description: Kód stavu registrace
+        maxLength: 2
+      KOD_DRUH_REGISTRACE:
+        type: string
+        example: 'null'
+        description: Kód druhu registrace
+        maxLength: 3
+      KOD_ORGANIZACE_DRZITEL:
+        type: string
+        example: ZNBSK
+        description: Kód držitele rozhodnutí o registraci
+        maxLength: 7
+      KOD_ZEME_DRZITEL:
+        type: string
+        example: SK
+        description: Kód země držitele
+        maxLength: 3
+      KOD_ORGANIZACE_DRZITEL_SREG_B:
+        type: string
+        example: 'null'
+        description: Kód původního držitele rozhodnutí o registraci
+        maxLength: 7
+      KOD_ZEME_DRZITEL_SREG_B:
+        type: string
+        example: 'null'
+        description: Kód země původního držitele
+        maxLength: 3
+      SOUBEZNY_DOVOZ:
+        type: string
+        example: 'null'
+        description: Identifikační číslo souběžného dovozu
+        maxLength: 11
+      KOD_ORGANIZACE_DOVOZCE:
+        type: string
+        example: 'null'
+        description: Kód dovozce pro souběžný dovoz
+        maxLength: 7
+      KOD_ZEME_DOVOZCE:
+        type: string
+        example: 'null'
+        description: Kód země dovozce pro souběžný dovoz
+        maxLength: 3
+      PLATNOST_REGISTRACE_DO:
+        type: string
+        format: date
+        example: 'null'
+        description: Datum platnosti registrace
+      NEOMEZENA_PLATNOST_REGISTRACE:
+        type: string
+        example: A
+        description: >-
+          příznak, zda má registrace neomezenou platnost, hodnoty "A" - ano, "N"
+          - ne
+        maxLength: 1
+      UVADENI_DO:
+        type: string
+        format: date
+        example: 'null'
+        description: >-
+          Datum, do kdy se může léčivý přípravek se stavem registrace B uvádět
+          na trh
+      KOD_INDIKACNI_SKUPINA:
+        type: number
+        example: 7
+        description: Kód indikační skupiny
+      KOD_ATC_SKUPINA:
+        type: string
+        example: N02BA51
+        description: Kód ATC skupiny
+        maxLength: 7
+      DDD_MNOZSTVI:
+        type: number
+        example: 6
+        description: Definovaná denní dávka - množství
+      DDD_JEDNOTKA:
+        type: string
+        example: DF
+        description: Definovaná denní dávka - jednotka
+        maxLength: 2
+      DDD_BALENI:
+        type: number
+        example: 2.963
+        description: Počet definovaných denních dávek v balení
+      DDD_ZDROJ:
+        type: string
+        example: NO17
+        description: Definovaná denní dávka - zdroj WHO
+        maxLength: 4
+      POVINNE_VZORKY:
+        type: string
+        example: 'N'
+        description: >-
+          Příznak, zda má držitel povinnost předkládat Ústavu před propuštěním
+          na trh vzorky každé šarže přípravku k přezkoušení, hodnoty "A" - ano,
+          "N" - ne
+        maxLength: 1
+      KOD_UCINNA_LATKA:
+        type: string
+        example: '12,223'
+        description: Seznam kódů učinných látek pro daný léčivý přípravek
+        maxLength: 1000
+      KOD_ZPUSOB_VYDEJE:
+        type: string
+        example: F
+        description: Kód způsobu výdeje
+        maxLength: 1
+      KOD_ZAVISLOST:
+        type: string
+        example: 'null'
+        description: Kód závislosti
+        maxLength: 2
+      KOD_DOPING:
+        type: string
+        example: 'null'
+        description: Kód dopingu
+        maxLength: 7
+      KOD_NARIZENI_VLADY:
+        type: string
+        example: 'null'
+        description: Kód nařízení vlády
+        maxLength: 2
+      KOD_EAN:
+        type: string
+        example: '8584005110206'
+        description: Seznam kódů EAN pro daný léčivý přípravek
+        maxLength: 1000
+      BRAILLOVO_PISMO:
+        type: string
+        example: S
+        description: 'Příznak, nabývá tyto hodnoty  "S" - , "V" -, "N" -'
+        maxLength: 1
+      EXPIRACE:
+        type: string
+        example: '36'
+        description: Dopba použitelnosti
+        maxLength: 3
+      EXPIRACE_JEDNOTKA:
+        type: string
+        example: M
+        description: Jednotka doby použitelnost
+        maxLength: 1
+      JE_REGULOVANY:
+        type: string
+        example: 'N'
+        description: >-
+          příznak, zda má léčivý přípravek regulované ceny, hodnoty "A" - ano,
+          "N" - ne
+        maxLength: 1
+      JE_DODAVKA:
+        type: string
+        example: 'N'
+        description: >-
+          příznak, zda má léčivý přípravek hlášenou distribuci, hodnoty "A" -
+          ano, "N" - ne
+        maxLength: 1
+produces:
+  - application/json
+swagger: '2.0'
