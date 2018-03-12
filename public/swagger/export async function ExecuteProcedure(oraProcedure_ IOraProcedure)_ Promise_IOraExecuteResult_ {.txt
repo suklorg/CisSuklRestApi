@@ -1,0 +1,26 @@
+    export async function ExecuteProcedure(oraProcedure: IOraProcedure): Promise<IOraExecuteResult> {
+
+        //oracledb.fetchAsString = [DATE, NUMBER];
+
+        let oraExecuteResult: IOraExecuteResult = new OraExecuteResult();
+
+        let connection: IConnection = await getConnection(connectionAttributes);
+        try {
+
+            let result: any = await connection.execute(oraProcedure.procName, oraProcedure.procParams, oraOutFormat);
+
+            oraExecuteResult.count = result.outBinds.count;
+            oraExecuteResult.totalCount = result.outBinds.total_count;
+            if (oraExecuteResult.count <= 0) {
+                throw new AppError(404, 'Nenalezeny žádné záznamy.')
+            }
+
+            oraExecuteResult.resultSet = JSON.stringify(await result.outBinds.cursor.getRows(result.outBinds.count), null, 4);
+            return oraExecuteResult;
+
+        } finally {
+            connection.close();
+        }
+
+    };
+

@@ -1,4 +1,8 @@
 
+ node --max_old_space_size=4096 app.js
+ node --max_old_space_size=4096 --optimize_for_size --max_executable_size=4096 --stack_size=4096 app.js
+ node --max_old_space_size=4096 --optimize_for_size app.js
+
 /cissuklapi/v1/lecivepripravky?kod_sukl=0192848&stavy_registrace=stavy_registrace_scau
 KOD_SUKL, NAZEV, DOPLNEK, REGISTRACNI_CISLO
 KOD_ORGANIZACE_DRZITEL = ASPIRL

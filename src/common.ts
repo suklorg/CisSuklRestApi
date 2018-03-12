@@ -8,6 +8,8 @@ import { IConnectionAttributes, IExecuteOptions, IConnection, getConnection, OBJ
 
 let oracledb = require('oracledb');
 
+let buffer = require('buffer');
+
 namespace common {
 
 
@@ -90,7 +92,7 @@ namespace common {
 
         let connection: IConnection = await getConnection(connectionAttributes);
         try {
-
+            //console.log('ahoj: ');
             let result: any = await connection.execute(oraProcedure.procName, oraProcedure.procParams, oraOutFormat);
 
             oraExecuteResult.count = result.outBinds.count;
@@ -98,8 +100,35 @@ namespace common {
             if (oraExecuteResult.count <= 0) {
                 throw new AppError(404, 'Nenalezeny žádné záznamy.')
             }
-
-            oraExecuteResult.resultSet = JSON.stringify(await result.outBinds.cursor.getRows(result.outBinds.count), null, 4);
+            var d = new Date().getTime();
+            //console.log('start: ' + d.valueOf());
+            var obj = await result.outBinds.cursor.getRows(result.outBinds.count);
+            //console.log('stop1 : ' + (new Date().getTime().valueOf() - d.valueOf()));
+            var i: number;
+            var resultSetJson: string;
+            var resultSetJson1: string;
+            //var len = buffer.constants.MAX_STRING_LENGTH;
+            resultSetJson = '[';
+            //resultSetJson1 = '[';
+            for (i = 0; i < obj.length; i++)
+            {
+                resultSetJson = resultSetJson + JSON.stringify(obj[i], null, 0);
+               // resultSetJson1 = resultSetJson1 + JSON.stringify(obj[i], null, 0);
+                //console.log('inx: ' + i + ' length: ' + resultSetJson.length);
+                //console.log('inx: ' + i + 'length1: ' + resultSetJson1.length);
+                if (i < (obj.length - 1))
+                {
+                    resultSetJson = resultSetJson + ',';
+                    //resultSetJson1 = resultSetJson1 + ';';
+                }
+            }
+            //console.log('inx: ' + i + ' length: ' + resultSetJson.length);
+            resultSetJson = resultSetJson  + ']';
+            //resultSetJson1 = resultSetJson1 + ']';
+            //oraExecuteResult.resultSet = JSON.stringify(await result.outBinds.cursor.getRows(result.outBinds.count), null, 4);
+            //oraExecuteResult.resultSet = JSON.stringify(obj, null, 0);
+            oraExecuteResult.resultSet = resultSetJson;
+            //console.log('stop2 : ' + (new Date().getTime().valueOf() - d.valueOf()));
             return oraExecuteResult;
 
         } finally {
@@ -115,6 +144,42 @@ namespace common {
     };
 
     export const oraProcs = {
+
+        getLecivePripravky2: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravky2( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: NUMBER, dir: BIND_IN },
+                limit: { val: 5, type: NUMBER, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+            }
+        },
+
+
+        getLecivePripravky2Kody: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravky2Kody( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: NUMBER, dir: BIND_IN },
+                limit: { val: 5, type: NUMBER, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+        getLecivePripravky2KodSukl: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravky2KodSukl( :kod_sukl, :total_count, :count, :cursor ); END;",
+            procParams: {
+                kod_sukl: { val: '', type: STRING, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
 
 
         getSodLecivePripravky: {
@@ -142,9 +207,10 @@ namespace common {
         },
 
         getSodLecivePripravkyKodSukl: {
-            procName: "BEGIN cis_sukl_lp.GetSodLecivePripravkyKodSukl( :kod_sukl, :count, :cursor ); END;",
+            procName: "BEGIN cis_sukl_lp.GetSodLecivePripravkyKodSukl( :kod_sukl, :total_count, :count, :cursor ); END;",
             procParams: {
                 kod_sukl: { val: '', type: STRING, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
                 count: { type: NUMBER, dir: BIND_OUT },
                 cursor: { type: CURSOR, dir: BIND_OUT }
 
