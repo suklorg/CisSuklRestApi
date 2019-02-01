@@ -1,0 +1,88 @@
+              p_typ   AS typ_,
+              'I'     AS stav_
+
+
+CREATE OR REPLACE FUNCTION dlp_ciselniky.load_sez_omezeni (
+  p_typ varchar
+)
+RETURNS void AS
+$body$
+BEGIN
+
+
+  if p_typ = 'M'
+  then
+    DELETE FROM dlp_ciselniky.sez_omezeni;
+  end if;
+
+  if p_typ = 'T'
+  then
+    DELETE FROM dlp_ciselniky.sez_omezeni WHERE typ_ = 'T';
+  end if;
+
+  INSERT INTO dlp_ciselniky.sez_omezeni (kod_sukl, omezeni typ_, stav_)
+  (SELECT code kod,
+    omez, 
+    p_typ   AS typ_,
+   'I'     AS stav_
+  FROM dl_otc_omez t 
+  ORDER BY code;
+  );
+END;
+$body$
+LANGUAGE 'plpgsql'
+VOLATILE
+CALLED ON NULL INPUT
+SECURITY INVOKER
+COST 100;
+
+
+ALTER FUNCTION dlp_ciselniky.load_sez_omezeni (p_typ varchar)
+  OWNER TO dlpuser;
+
+
+kod_sukl,
+nazev,
+sila,
+kod_lekova_forma,
+baleni,
+kod_cesta_podani,
+doplnek,
+kod_obal,
+registracni_cislo,
+kod_registracni_procedura,
+kod_stav_registrace,
+kod_druh_registrace,
+kod_organizace_drzitel,
+kod_zeme_drzitel,      
+kod_organizace_drzitel_sreg_b,
+kod_zeme_drzitel_sreg_b,
+soubezny_dovoz,
+kod_organizace_dovozce,
+kod_zeme_dovozce,
+platnost_registrace_do,
+neomezena_platnost_registrace,
+uvadeni_do,
+kod_indikacni_skupina,
+kod_atc_skupina,
+ddd_mnozstvi,
+ddd_jednotka,
+ddd_baleni,
+ddd_zdroj,
+povinne_vzorky,
+seznam_kod_ucinna_latka,
+kod_zpusob_vydeje,
+kod_zavislost,
+kod_doping,
+kod_narizeni_vlady,
+seznam_kod_ean,
+braillovo_pismo,
+expirace,
+expirace_jednotka,
+je_regulovany,
+je_dodavka,
+nazev_registrovany,
+upozorneni,
+patri_mezi,
+potize
+

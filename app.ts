@@ -13,6 +13,7 @@ import { cp_router } from "./src/routers/cissukl_cp_router";
 import { pk_router } from "./src/routers/cissukl_pk_router";
 import { lp_sod_router } from "./src/routers/cissukl_lp_sod_router";
 import { lp_naz2_router } from "./src/routers/cissukl_lp_naz2_router";
+import { cdnu_router } from "./src/routers/cissukl_cdnu_router";
 import { FormatExceptionMessage, errMessage400 } from "./src/common";
 
 let port: number = 8000;
@@ -43,6 +44,7 @@ app.use('/cissuklapi/v1', cp_router);
 app.use('/cissuklapi/v1', pk_router);
 app.use('/cissuklapi/v1', lp_sod_router);
 app.use('/cissuklapi/v1', lp_naz2_router);
+app.use('/cissuklapi/v1', cdnu_router);
 
 /*
 app.get('/cissuklapi/vi', function (req: express.Request, res: express.Response): void {

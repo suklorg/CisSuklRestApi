@@ -1,3 +1,23 @@
+<a href="http://www.sukl.cz/modules/medication/download.php?file=https://www.ema.europa.eu/documents/product-information/odefsey-epar-product-information_cs.pdf&type=spc&as=odefsey-spc">odefsey.pdf</a>
+<a href="http://www.ema.europa.eu/docs/cs_CZ/document_library/EPAR_-_Product_Information/human/004090/WC500255529.pdf" onclick="window.open(this.href); return false;" title="WC500255529.pdf">kymriah.pdf</a>
+
+
+ https://stackoverflow.com/questions/23698646/create-a-foreign-table-pointing-to-a-view
+
+
+https://opendata.sukl.cz/soubory/SODERECEPT/SCAUAKTUALNI.zip
+https://opendata.sukl.cz/soubory/SODERECEPT/DLPAKTUALNI.zip
+https://opendata.sukl.cz/soubory/SODERECEPT/LEKARNYAKTUALNI.zip
+https://opendata.sukl.cz/soubory/SODERECEPT/DISTRIBUTORIAKTUALNI.zip
+
+odkaz na testovací web níže
+web.sukl.dev7.qcm.cz/modules/marketreport
+uživatelské jméno: sukl
+heslo: 62Dhf3a
+
+00000002033
+(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=test-s-dlp-db.sukl.cz)(Port=1521)))(CONNECT_DATA=(SERVICE_NAME=AISLP)))
+
 
  node --max_old_space_size=4096 app.js
  node --max_old_space_size=4096 --optimize_for_size --max_executable_size=4096 --stack_size=4096 app.js

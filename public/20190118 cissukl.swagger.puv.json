@@ -10,40 +10,6 @@
     "application/json"
   ],
   "paths": {
-    "/cdnu": {
-      "post": {
-        "tags": [
-          "CDNU ctecka"
-        ],
-        "description": "Zapíše do DLP číslo jednací, identifikátor uuid a registrační číslo",
-        "summary": "Zapíše do DLP identifikátor uuid",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "description": "JSON s číslem jednacím, identifikátorem uuid a registračním číslem",
-            "in": "body",
-            "name": "dataz",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CDNUUuid"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Záznam byl vytvořen"
-          },
-          "400": {
-            "description": "Chyba databáze"
-          },
-          "415": {
-            "description": "JSON s parametry je nevalidní"
-          }
-        }
-      }
-    },
     "/lecivepripravky2": {
       "get": {
         "tags": [
@@ -1396,26 +1362,6 @@
           "type": "string",
           "example": "Nenalezeny žádné záznamy",
           "maxLength": 256
-        }
-      }
-    },
-    "CDNUUuid": {
-      "type": "object",
-      "properties": {
-        "cislo_jednaci": {
-          "type": "string",
-          "example": "1/2019",
-          "description": "Číslo jednací"
-        },
-        "uuid": {
-          "type": "string",
-          "example": "25635f23-a3a4-4ce0-9994-99c5f074960f",
-          "description": "Identifikátor uuid"
-        },
-        "registracni_cislo": {
-          "type": "string",
-          "example": "58/311/97-C/A",
-          "description": "Registrační číslo"
         }
       }
     },

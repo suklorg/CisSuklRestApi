@@ -95,6 +95,7 @@
     <TypeScriptCompile Include="scripts\typings\modules\body-parser\index.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\modules\oracledb\index.d.ts" />
     <TypeScriptCompile Include="src\common.ts" />
+    <TypeScriptCompile Include="src\routers\cissukl_cdnu_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_cp_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_dis13_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_lp_naz2_router.ts" />

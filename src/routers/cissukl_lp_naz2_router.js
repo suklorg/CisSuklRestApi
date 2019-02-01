@@ -25,42 +25,66 @@ lp_naz2_router.get('/lecivepripravky2', (req, res) => __awaiter(this, void 0, vo
             common_1.oraProcs.getLecivePripravky2.procParams.limit.val = common_1.defLimit;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravky2);
         }
+        //
+        //// lecivepripravky2?limit={limit}
+        //
         else if ((typeof req.query.limit !== "undefined") && (Object.keys(req.query).length === 1)) {
             common_1.oraProcs.getLecivePripravky2.procParams.offset.val = common_1.defOffset;
             common_1.oraProcs.getLecivePripravky2.procParams.limit.val = Number(req.query.limit);
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravky2);
         }
+        //
+        //// lecivepripravky2?offset={offset}
+        //
         else if ((typeof req.query.offset !== "undefined") && (Object.keys(req.query).length === 1)) {
             common_1.oraProcs.getLecivePripravky2.procParams.offset.val = Number(req.query.offset);
             common_1.oraProcs.getLecivePripravky2.procParams.limit.val = common_1.defLimit;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravky2);
         }
+        //
+        //// lecivepripravky2?limit={limit}&offset={offset}
+        //
         else if ((typeof req.query.limit !== "undefined") && (typeof req.query.offset !== "undefined") && (Object.keys(req.query).length === 2)) {
             common_1.oraProcs.getLecivePripravky2.procParams.offset.val = Number(req.query.offset);
             common_1.oraProcs.getLecivePripravky2.procParams.limit.val = Number(req.query.limit);
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravky2);
         }
+        //
+        //// lecivepripravky2?kod_sukl={kod_sukl}
+        //
         else if ((typeof req.query.kod_sukl !== "undefined") && (Object.keys(req.query).length === 1)) {
             common_1.oraProcs.getLecivePripravky2KodSukl.procParams.kod_sukl.val = req.query.kod_sukl;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravky2KodSukl);
         }
+        //
+        //// lecivepripravky2?fields=kod_sukl
+        //
         else if ((typeof req.query.fields !== "undefined") && (req.query.fields === "kod_sukl") && (Object.keys(req.query).length === 1)) {
             common_1.oraProcs.getLecivePripravky2Kody.procParams.offset.val = common_1.defOffset;
             common_1.oraProcs.getLecivePripravky2Kody.procParams.limit.val = common_1.defLimit;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravky2Kody);
         }
+        //
+        //// lecivepripravky2?fields=kod_sukl&limit={limit}
+        //
         else if ((typeof req.query.fields !== "undefined") && (req.query.fields === "kod_sukl") &&
             (typeof req.query.limit !== "undefined") && (Object.keys(req.query).length === 2)) {
             common_1.oraProcs.getLecivePripravky2Kody.procParams.offset.val = common_1.defOffset;
             common_1.oraProcs.getLecivePripravky2Kody.procParams.limit.val = Number(req.query.limit);
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravky2Kody);
         }
+        //
+        //// lecivepripravky2?fields=kod_sukl&offset={offset}
+        //
         else if ((typeof req.query.fields !== "undefined") && (req.query.fields === "kod_sukl") &&
             (typeof req.query.offset !== "undefined") && (Object.keys(req.query).length === 2)) {
             common_1.oraProcs.getLecivePripravky2Kody.procParams.offset.val = Number(req.query.offset);
             common_1.oraProcs.getLecivePripravky2Kody.procParams.limit.val = common_1.defLimit;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravky2Kody);
         }
+        //
+        //// lecivepripravky2?fields=kod_sukl&limit={limit}&offset={offset}
+        //
         else if ((typeof req.query.fields !== "undefined") && (req.query.fields === "kod_sukl") &&
             (typeof req.query.limit !== "undefined") && (typeof req.query.offset !== "undefined") && (Object.keys(req.query).length === 3)) {
             common_1.oraProcs.getLecivePripravky2Kody.procParams.offset.val = Number(req.query.offset);

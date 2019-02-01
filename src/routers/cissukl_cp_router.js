@@ -27,10 +27,26 @@ cp_router.get('/cenypuvodce', (req, res) => __awaiter(this, void 0, void 0, func
             common_1.oraProcs.getCenyPuvodce.procParams.limit.val = common_1.defLimit;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCenyPuvodce);
         }
+        //
+        //// /cenypuvodce?kod_sukl={kod_sukl}
+        //
         else if (typeof req.query.kod_sukl !== "undefined" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getCenyPuvodceKodSukl.procParams.kod_sukl.val = req.query.kod_sukl;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCenyPuvodceKodSukl);
         }
+        //
+        //// /cenypuvodce?kod_sukl={kod_sukl}&obdobi={obdobi}
+        //
+        /*
+        else if (typeof req.query.kod_sukl !== "undefined" && typeof req.query.obdobi !== "undefined" && Object.keys(req.query).length === 2) {
+            oraProcs.getCenyPuvodceKodSuklObdobi.procParams.kod_sukl.val = req.query.kod_sukl;
+            oraProcs.getCenyPuvodceKodSuklObdobi.procParams.obdobi.val = req.query.obdobi;
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getCenyPuvodceKodSuklObdobi);
+        }
+        */
+        //
+        //// ?fields=...
+        //
         else if (typeof req.query.fields !== "undefined") {
             //
             //// ?fields=kod_sukl
@@ -44,16 +60,25 @@ cp_router.get('/cenypuvodce', (req, res) => __awaiter(this, void 0, void 0, func
                     common_1.oraProcs.getCenyPuvodceKody.procParams.limit.val = common_1.defLimit;
                     oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCenyPuvodceKody);
                 }
+                //
+                // /cenypuvodce?fields=kod_sukl&limit={limit}
+                //
                 else if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 2) {
                     common_1.oraProcs.getCenyPuvodceKody.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getCenyPuvodceKody.procParams.limit.val = Number(req.query.limit);
                     oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCenyPuvodceKody);
                 }
+                //
+                // /cenypuvodce?fields=kod_sukl&offset={offset}
+                //
                 else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 2) {
                     common_1.oraProcs.getCenyPuvodceKody.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getCenyPuvodceKody.procParams.limit.val = common_1.defLimit;
                     oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCenyPuvodceKody);
                 }
+                //
+                // /cenypuvodce?fields=kod_sukl&limit={limit}&offset={offset}
+                //
                 else if (typeof req.query.offset !== "undefined" && typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 3) {
                     common_1.oraProcs.getCenyPuvodceKody.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getCenyPuvodceKody.procParams.limit.val = Number(req.query.limit);
@@ -61,6 +86,9 @@ cp_router.get('/cenypuvodce', (req, res) => __awaiter(this, void 0, void 0, func
                 }
             }
         }
+        //
+        //// NENI ?fields=kod_sukl
+        //-----------------------------------------------------------------
         else {
             //
             // /cenypuvodce?limit={limit}
@@ -70,11 +98,17 @@ cp_router.get('/cenypuvodce', (req, res) => __awaiter(this, void 0, void 0, func
                 common_1.oraProcs.getCenyPuvodce.procParams.limit.val = Number(req.query.limit);
                 oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCenyPuvodce);
             }
+            //
+            // /cenypuvodce?offset={offset}
+            //
             else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 1) {
                 common_1.oraProcs.getCenyPuvodce.procParams.offset.val = Number(req.query.offset);
                 common_1.oraProcs.getCenyPuvodce.procParams.limit.val = common_1.defLimit;
                 oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCenyPuvodce);
             }
+            //
+            // /cenypuvodce?limit={limit}&offset={offset}
+            //
             else if (typeof req.query.offset !== "undefined" && typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 2) {
                 common_1.oraProcs.getCenyPuvodce.procParams.offset.val = Number(req.query.offset);
                 common_1.oraProcs.getCenyPuvodce.procParams.limit.val = Number(req.query.limit);

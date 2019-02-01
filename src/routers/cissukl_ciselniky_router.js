@@ -27,6 +27,7 @@ ciselniky_router.get('/ucinnelatky', (req, res) => __awaiter(this, void 0, void 
         else if (req.query.fields === "kod_ucinna_latka" && Object.keys(req.query).length === 1) {
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getUcinneLatkyKody);
         }
+        //        else if (typeof req.query.obdobi_od !== "undefined" && Object.keys(req.query).length === 1) {
         else if (req.query.kod_sukl !== "undefined" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getUcinneLatkyKodSukl.procParams.kod_sukl.val = req.query.kod_sukl;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getUcinneLatkyKodSukl);
