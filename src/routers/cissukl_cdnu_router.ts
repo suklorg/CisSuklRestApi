@@ -25,7 +25,7 @@ class RegCislo implements IRegCislo {
 
 
 cdnu_router.post('/cdnu', async (req: express.Request, res: express.Response): Promise<void> => {
-
+null
     let oraExecuteResult: IOraExecuteResult;
 
     let connectionAttributes: IConnectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlptest" };
@@ -36,14 +36,25 @@ cdnu_router.post('/cdnu', async (req: express.Request, res: express.Response): P
         let cisloJednaci: number = req.body.cislo_jednaci;
         let uuid: string = req.body.uuid;
         let registracniCislo: string = req.body.registracni_cislo;
-        let regCislo: RegCislo = GetRegCislo(registracniCislo);
+        let regCislo: RegCislo = new RegCislo();
+        if (registracniCislo != null) {
+            regCislo = GetRegCislo(registracniCislo);
 
-        if (regCislo == null)
-        {
-            res.status(415).send('Špatný formát vstupních dat.');
-            return;
+            if (regCislo == null) {
+                res.status(415).send('Špatný formát vstupních dat.');
+                return;
+            }
+
         }
-
+ /*
+        else
+        {
+            regCislo.rg = null;
+            regCislo.rsq = null;
+            regCislo.ry = null;
+            regCislo.rr = null;
+        }
+ */
         let result: any = await connection.execute('insert into dl_bl_uuid (cislo_jednaci, uuid, rg, rsq, ry, rr, registracni_cislo) values (:cislo_jednaci, :uuid, :rg, :rsq, :ry, :rr, :registracni_cislo)',
             { cislo_jednaci: cisloJednaci, uuid: uuid, rg: regCislo.rg, rsq: regCislo.rsq, ry: regCislo.ry, rr: regCislo.rr, registracni_cislo: registracniCislo }, { autoCommit: true });
 

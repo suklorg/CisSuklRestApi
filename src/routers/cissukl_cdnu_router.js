@@ -18,6 +18,7 @@ class RegCislo {
 }
 ;
 cdnu_router.post('/cdnu', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    null;
     let oraExecuteResult;
     let connectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlptest" };
     let connection = yield oracledb_1.getConnection(connectionAttributes);
@@ -26,11 +27,23 @@ cdnu_router.post('/cdnu', (req, res) => __awaiter(this, void 0, void 0, function
         let cisloJednaci = req.body.cislo_jednaci;
         let uuid = req.body.uuid;
         let registracniCislo = req.body.registracni_cislo;
-        let regCislo = GetRegCislo(registracniCislo);
-        if (regCislo == null) {
-            res.status(415).send('Špatný formát vstupních dat.');
-            return;
+        let regCislo = new RegCislo();
+        if (registracniCislo != null) {
+            regCislo = GetRegCislo(registracniCislo);
+            if (regCislo == null) {
+                res.status(415).send('Špatný formát vstupních dat.');
+                return;
+            }
         }
+        /*
+               else
+               {
+                   regCislo.rg = null;
+                   regCislo.rsq = null;
+                   regCislo.ry = null;
+                   regCislo.rr = null;
+               }
+        */
         let result = yield connection.execute('insert into dl_bl_uuid (cislo_jednaci, uuid, rg, rsq, ry, rr, registracni_cislo) values (:cislo_jednaci, :uuid, :rg, :rsq, :ry, :rr, :registracni_cislo)', { cislo_jednaci: cisloJednaci, uuid: uuid, rg: regCislo.rg, rsq: regCislo.rsq, ry: regCislo.ry, rr: regCislo.rr, registracni_cislo: registracniCislo }, { autoCommit: true });
         res.sendStatus(201);
     }
