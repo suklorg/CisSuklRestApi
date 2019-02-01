@@ -85,7 +85,7 @@ var common;
                 resultSetJson = '[';
                 //resultSetJson1 = '[';
                 for (i = 0; i < obj.length; i++) {
-                    resultSetJson = resultSetJson + JSON.stringify(obj[i], null, 0);
+                    resultSetJson = resultSetJson + JSON.stringify(obj[i], null, 4);
                     // resultSetJson1 = resultSetJson1 + JSON.stringify(obj[i], null, 0);
                     //console.log('inx: ' + i + ' length: ' + resultSetJson.length);
                     //console.log('inx: ' + i + 'length1: ' + resultSetJson1.length);
