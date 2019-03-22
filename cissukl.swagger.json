@@ -1,0 +1,79 @@
+{
+  "swagger": "2.0",
+  "basePath": "/dlpciselniky",
+  "consumes": [
+    "application/json"
+  ],
+  "info": {
+    "version": "1.0.0",
+    "title": "Číselníky SÚKL API",
+    "x-logo": {
+      "url": "https://testapi.sukl.cz/sukl.png"
+    }
+  },
+  "definitions": {
+    "atcSkupina": {
+      "title": "Kód ATC skupiny",
+      "type": "object",
+      "description": "Kód ATC skupiny",
+      "properties": {
+        "KOD_STAV_REGISTRACE": {
+          "description": "Kód ATC skupiny",
+          "maxLength": 7,
+          "minLength": 1,
+          "type": "string",
+          "example": "A001AA01"
+        },
+        "NAZEV": {
+          "description": "Název kódu ATC skupiny",
+          "type": "string",
+          "example": "fluorid sodný"
+        },
+        "NAZEV_EN": {
+          "description": "Název kódu ATC skupiny anglicky",
+          "type": "string",
+          "example": "sodium fluoride"
+        },
+        "JE_SUKL_ATC_SKUPINA": {
+          "description": "PPříznak, zda je ATC skupina vytvořena na SÚKL",
+          "type": "string",
+          "example": "sodium fluoride"
+        }
+      },
+      "required": [
+        "KOD_ATC_SKUPINA",
+        "NAZEV",
+        "NAZEV_EN",
+        "JE_SUKL_ATC_SKUPINA"
+      ]
+    },
+    "atcSkupinyPole": {
+      "description": "Pole ATC skupin",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/definitions/atcSkupina"
+      }
+    }
+  },
+  "paths": {
+    "/atcskupiny": {
+      "get": {
+        "tags": [
+          "Číselník ATC skupiny"
+        ],
+        "operationId": "dlp_restapi.get_atc_skupiny",
+        "summary": "Vrátí seznam kódů ATC skupin a jejich popis",
+        "description": "Vrátí seznam kódů ATC skupin a jejich popis",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/atcSkupinyPole"
+            }
+          }
+        }
+      }
+    }
+  }
+}

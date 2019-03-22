@@ -63,48 +63,36 @@ var common;
     }
     function ExecuteProcedure(oraProcedure) {
         return __awaiter(this, void 0, void 0, function* () {
-            //oracledb.fetchAsString = [DATE, NUMBER];
+            common.logger.info('start ExecuteProcedure ' + oraProcedure.procName);
             let oraExecuteResult = new OraExecuteResult();
             let connection = yield oracledb_1.getConnection(common.connectionAttributes);
             try {
-                //console.log('ahoj: ');
                 let result = yield connection.execute(oraProcedure.procName, oraProcedure.procParams, common.oraOutFormat);
+                common.logger.info('exec  ExecuteProcedure ' + oraProcedure.procName);
                 oraExecuteResult.count = result.outBinds.count;
                 oraExecuteResult.totalCount = result.outBinds.total_count;
                 if (oraExecuteResult.count <= 0) {
                     throw new AppError(404, 'Nenalezeny žádné záznamy.');
                 }
-                var d = new Date().getTime();
-                //console.log('start: ' + d.valueOf());
                 var obj = yield result.outBinds.cursor.getRows(result.outBinds.count);
-                //console.log('stop1 : ' + (new Date().getTime().valueOf() - d.valueOf()));
                 var i;
                 var resultSetJson;
-                var resultSetJson1;
-                //var len = buffer.constants.MAX_STRING_LENGTH;
                 resultSetJson = '[';
-                //resultSetJson1 = '[';
                 for (i = 0; i < obj.length; i++) {
                     resultSetJson = resultSetJson + JSON.stringify(obj[i], null, 4);
-                    // resultSetJson1 = resultSetJson1 + JSON.stringify(obj[i], null, 0);
-                    //console.log('inx: ' + i + ' length: ' + resultSetJson.length);
-                    //console.log('inx: ' + i + 'length1: ' + resultSetJson1.length);
                     if (i < (obj.length - 1)) {
                         resultSetJson = resultSetJson + ',';
-                        //resultSetJson1 = resultSetJson1 + ';';
                     }
                 }
-                //console.log('inx: ' + i + ' length: ' + resultSetJson.length);
                 resultSetJson = resultSetJson + ']';
-                //resultSetJson1 = resultSetJson1 + ']';
-                //oraExecuteResult.resultSet = JSON.stringify(await result.outBinds.cursor.getRows(result.outBinds.count), null, 4);
-                //oraExecuteResult.resultSet = JSON.stringify(obj, null, 0);
                 oraExecuteResult.resultSet = resultSetJson;
-                //console.log('stop2 : ' + (new Date().getTime().valueOf() - d.valueOf()));
+                //puvodní volani
+                //oraExecuteResult.resultSet = JSON.stringify(await result.outBinds.cursor.getRows(result.outBinds.count), null, 4);
                 return oraExecuteResult;
             }
             finally {
                 connection.close();
+                common.logger.info('end   ExecuteProcedure ' + oraProcedure.procName);
             }
         });
     }
@@ -118,6 +106,35 @@ var common;
     common.SetHeader = SetHeader;
     ;
     common.oraProcs = {
+        getLecivePripravky3: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravky3( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                limit: { val: 5, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getLecivePripravky3Kody: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravky3Kody( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                limit: { val: 5, type: oracledb_1.NUMBER, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getLecivePripravky3KodSukl: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravky3KodSukl( :kod_sukl, :total_count, :count, :cursor ); END;",
+            procParams: {
+                kod_sukl: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
         getLecivePripravky2: {
             procName: "BEGIN cis_sukl_lp.GetLecivePripravky2( :offset, :limit, :total_count, :count, :cursor ); END;",
             procParams: {
@@ -653,6 +670,46 @@ var common;
     }
     common.FormatException = FormatException;
     ;
+    //--------------------------------
+    const fs = require('fs');
+    const path = require('path');
+    ///*
+    //import { createLogger, format, transports } from 'winston';
+    const { createLogger, format, transports, level } = require('winston');
+    const env = process.env.NODE_ENV || 'development';
+    const logDir = 'log';
+    // Create the log directory if it does not exist
+    if (!fs.existsSync(logDir)) {
+        fs.mkdirSync(logDir);
+    }
+    const filename = path.join(logDir, 'results.log');
+    const { combine, timestamp, label, prettyPrint } = format;
+    /*
+    export class CutomLogger {
+        static logger = createLogger({
+            level: 'info',
+            format: format.combine(
+                format.timestamp({
+                    format: 'YYYY-MM-DD HH:mm:ss'
+                }),
+                format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
+            ),        transports: [
+                new transports.File({ filename }),
+                new transports.Console()
+            ]
+        });
+    }
+    
+    */
+    common.logger = createLogger({
+        level: 'development' ? 'debug' : 'info',
+        format: format.combine(format.timestamp({
+            format: 'YYYY-MM-DD HH:mm:ss.SSSS'
+        }), format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)), transports: [
+            //new transports.File({ filename }),
+            new transports.Console()
+        ]
+    });
 })(common || (common = {}));
 ;
 module.exports = common;

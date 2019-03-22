@@ -86,53 +86,44 @@ namespace common {
 
     export async function ExecuteProcedure(oraProcedure: IOraProcedure): Promise<IOraExecuteResult> {
 
-        //oracledb.fetchAsString = [DATE, NUMBER];
-
+        logger.info('start ExecuteProcedure ' + oraProcedure.procName);
         let oraExecuteResult: IOraExecuteResult = new OraExecuteResult();
 
         let connection: IConnection = await getConnection(connectionAttributes);
         try {
-            //console.log('ahoj: ');
             let result: any = await connection.execute(oraProcedure.procName, oraProcedure.procParams, oraOutFormat);
-
+            logger.info('exec  ExecuteProcedure ' + oraProcedure.procName);
             oraExecuteResult.count = result.outBinds.count;
             oraExecuteResult.totalCount = result.outBinds.total_count;
             if (oraExecuteResult.count <= 0) {
                 throw new AppError(404, 'Nenalezeny žádné záznamy.')
             }
-            var d = new Date().getTime();
-            //console.log('start: ' + d.valueOf());
+
+
             var obj = await result.outBinds.cursor.getRows(result.outBinds.count);
-            //console.log('stop1 : ' + (new Date().getTime().valueOf() - d.valueOf()));
             var i: number;
             var resultSetJson: string;
-            var resultSetJson1: string;
-            //var len = buffer.constants.MAX_STRING_LENGTH;
             resultSetJson = '[';
-            //resultSetJson1 = '[';
             for (i = 0; i < obj.length; i++)
             {
                 resultSetJson = resultSetJson + JSON.stringify(obj[i], null, 4);
-               // resultSetJson1 = resultSetJson1 + JSON.stringify(obj[i], null, 0);
-                //console.log('inx: ' + i + ' length: ' + resultSetJson.length);
-                //console.log('inx: ' + i + 'length1: ' + resultSetJson1.length);
                 if (i < (obj.length - 1))
                 {
                     resultSetJson = resultSetJson + ',';
-                    //resultSetJson1 = resultSetJson1 + ';';
                 }
             }
-            //console.log('inx: ' + i + ' length: ' + resultSetJson.length);
             resultSetJson = resultSetJson  + ']';
-            //resultSetJson1 = resultSetJson1 + ']';
-            //oraExecuteResult.resultSet = JSON.stringify(await result.outBinds.cursor.getRows(result.outBinds.count), null, 4);
-            //oraExecuteResult.resultSet = JSON.stringify(obj, null, 0);
+
             oraExecuteResult.resultSet = resultSetJson;
-            //console.log('stop2 : ' + (new Date().getTime().valueOf() - d.valueOf()));
+
+            //puvodní volani
+            //oraExecuteResult.resultSet = JSON.stringify(await result.outBinds.cursor.getRows(result.outBinds.count), null, 4);
+
             return oraExecuteResult;
 
         } finally {
             connection.close();
+            logger.info('end   ExecuteProcedure ' + oraProcedure.procName);
         }
 
     };
@@ -144,6 +135,43 @@ namespace common {
     };
 
     export const oraProcs = {
+
+        getLecivePripravky3: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravky3( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: NUMBER, dir: BIND_IN },
+                limit: { val: 5, type: NUMBER, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+            }
+        },
+
+
+        getLecivePripravky3Kody: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravky3Kody( :offset, :limit, :total_count, :count, :cursor ); END;",
+            procParams: {
+                offset: { val: 0, type: NUMBER, dir: BIND_IN },
+                limit: { val: 5, type: NUMBER, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+        getLecivePripravky3KodSukl: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravky3KodSukl( :kod_sukl, :total_count, :count, :cursor ); END;",
+            procParams: {
+                kod_sukl: { val: '', type: STRING, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+
 
         getLecivePripravky2: {
             procName: "BEGIN cis_sukl_lp.GetLecivePripravky2( :offset, :limit, :total_count, :count, :cursor ); END;",
@@ -791,6 +819,60 @@ namespace common {
     export function FormatException(e: AppError): string  {
         return JSON.parse('{ "status" : "' + e.status + '", "error" : "' + e.message + '"}');
     };
-};
 
+//--------------------------------
+const fs = require('fs');
+const path = require('path');
+///*
+
+
+//import { createLogger, format, transports } from 'winston';
+
+
+const { createLogger, format, transports, level } = require('winston');
+
+const env = process.env.NODE_ENV || 'development';
+const logDir = 'log';
+
+// Create the log directory if it does not exist
+if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir);
+}
+
+const filename = path.join(logDir, 'results.log');
+const { combine, timestamp, label, prettyPrint } = format;
+/*
+export class CutomLogger {
+    static logger = createLogger({
+        level: 'info',
+        format: format.combine(
+            format.timestamp({
+                format: 'YYYY-MM-DD HH:mm:ss'
+            }),
+            format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
+        ),        transports: [
+            new transports.File({ filename }),
+            new transports.Console()
+        ]
+    });
+}
+
+*/
+
+
+export const logger = createLogger({
+
+    level: 'development' ? 'debug' : 'info',
+    format: format.combine(
+        format.timestamp({
+            format: 'YYYY-MM-DD HH:mm:ss.SSSS'
+        }),
+        format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
+    ), transports: [
+        //new transports.File({ filename }),
+        new transports.Console()
+    ]
+});
+
+};
 export = common;

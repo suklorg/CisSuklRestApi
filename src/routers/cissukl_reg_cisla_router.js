@@ -154,7 +154,9 @@ reg_cisla_router.get('/registracnicisla', (req, res) => __awaiter(this, void 0, 
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
         if (typeof req.query.cislo_jednaci !== "undefined" && typeof req.query.cislo_jednaci !== "object" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getCislaJednaciCisloJednaci.procParams.cislo_jednaci.val = req.query.cislo_jednaci;
+            common_1.logger.info('start registracnicisla param cislo jednaci: ' + req.query.cislo_jednaci);
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCislaJednaciCisloJednaci);
+            common_1.logger.info('stop  registracnicisla param cislo jednaci: ' + req.query.cislo_jednaci);
         }
         else if (typeof req.query.mrp_cislo !== "undefined" && typeof req.query.mrp_cislo !== "object" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getCislaJednaciMrpCislo.procParams.mrp_cislo.val = req.query.mrp_cislo;
