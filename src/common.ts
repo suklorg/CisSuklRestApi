@@ -25,7 +25,8 @@ namespace common {
             return this.name + ': ' + this.message;
         }
     }
-    
+
+
  
 
     export const connectionAttributes: IConnectionAttributes = {
