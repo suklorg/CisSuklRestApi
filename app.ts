@@ -62,6 +62,7 @@ app.get('*', function (req: express.Request, res: express.Response): void {
 
 app.listen(port);
 
+
 //CutomLogger.logger.info('CisSuklApi: ' + port);
 logger.info('CisSuklApi: ' + port);
 //logger.debug('CisSuklApi: ' + port);
