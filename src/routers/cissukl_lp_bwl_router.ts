@@ -6,6 +6,8 @@ import { FormatExceptionMessage, errMessage400, FormatException, oraProcs, AppEr
 let lp_bwl_router: express.Router = express.Router();
 
 
+
+
 lp_bwl_router.get('/lecivepripravky3', async (req: express.Request, res: express.Response): Promise<void> => {
 
     let oraExecuteResult: IOraExecuteResult;
