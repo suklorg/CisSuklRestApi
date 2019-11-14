@@ -56,6 +56,41 @@ var common;
     common.defOffset = 0;
     common.defLimit = 20;
     ;
+    class ProcParamsItems {
+        //constructor(val: any, type: string, dir: string)
+        constructor(procParamsItems) {
+            if (procParamsItems.val)
+                this.val = procParamsItems.val;
+            this.type = procParamsItems.type;
+            this.dir = procParamsItems.dir;
+        }
+    }
+    common.ProcParamsItems = ProcParamsItems;
+    ;
+    class ProcParams {
+        constructor(procParams) {
+            if (procParams.kod_sukl)
+                this.kod_sukl = new ProcParamsItems(procParams.kod_sukl);
+            if (procParams.offset)
+                this.offset = new ProcParamsItems(procParams.offset);
+            if (procParams.limit)
+                this.limit = new ProcParamsItems(procParams.limit);
+            if (procParams.total_count)
+                this.total_count = new ProcParamsItems(procParams.total_count);
+            this.count = new ProcParamsItems(procParams.count);
+            this.cursor = new ProcParamsItems(procParams.cursor);
+        }
+    }
+    common.ProcParams = ProcParams;
+    ;
+    class OraProcedure {
+        constructor(oraProcedure) {
+            this.procName = oraProcedure.procName;
+            this.procParams = new ProcParams(oraProcedure.procParams);
+        }
+    }
+    common.OraProcedure = OraProcedure;
+    ;
     ;
     class OraExecuteResult {
         constructor() { }
@@ -69,25 +104,32 @@ var common;
             try {
                 let result = yield connection.execute(oraProcedure.procName, oraProcedure.procParams, common.oraOutFormat);
                 common.logger.info('exec  ExecuteProcedure ' + oraProcedure.procName);
+                common.logger.info('exec  ExecuteParams ' + oraProcedure.procParams);
                 oraExecuteResult.count = result.outBinds.count;
                 oraExecuteResult.totalCount = result.outBinds.total_count;
                 if (oraExecuteResult.count <= 0) {
                     throw new AppError(404, 'Nenalezeny žádné záznamy.');
                 }
-                var obj = yield result.outBinds.cursor.getRows(result.outBinds.count);
-                var i;
-                var resultSetJson;
-                resultSetJson = '[';
-                for (i = 0; i < obj.length; i++) {
-                    resultSetJson = resultSetJson + JSON.stringify(obj[i], null, 4);
-                    if (i < (obj.length - 1)) {
-                        resultSetJson = resultSetJson + ',';
-                    }
-                }
-                resultSetJson = resultSetJson + ']';
-                oraExecuteResult.resultSet = resultSetJson;
+                /*
+                            var obj = await result.outBinds.cursor.getRows(result.outBinds.count);
+                            var i: number;
+                            var resultSetJson: string;
+                            resultSetJson = '[';
+                            for (i = 0; i < obj.length; i++)
+                            {
+                                resultSetJson = resultSetJson + JSON.stringify(obj[i], null, 4);
+                                if (i < (obj.length - 1))
+                                {
+                                    resultSetJson = resultSetJson + ',';
+                                }
+                            }
+                            resultSetJson = resultSetJson  + ']';
+                
+                            oraExecuteResult.resultSet = resultSetJson;
+                */
                 //puvodní volani
-                //oraExecuteResult.resultSet = JSON.stringify(await result.outBinds.cursor.getRows(result.outBinds.count), null, 4);
+                oraExecuteResult.resultSet = JSON.stringify(yield result.outBinds.cursor.getRows(result.outBinds.count), null, 4);
+                //logger.info(oraExecuteResult.resultSet);
                 return oraExecuteResult;
             }
             finally {
@@ -106,6 +148,72 @@ var common;
     common.SetHeader = SetHeader;
     ;
     common.oraProcs = {
+        getRegistracniProcedury: {
+            procName: "BEGIN cis_sukl_cis.GetRegistracniProcedury( :count, :cursor ); END;",
+            procParams: {
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getRegistracniProceduryKody: {
+            procName: "BEGIN cis_sukl_cis.GetRegistracniProceduryKody( :count, :cursor ); END;",
+            procParams: {
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getRegistracniProceduryKodRegistracniProcedura: {
+            procName: "BEGIN cis_sukl_cis.GetRegistracniProceduryKodRegP( :kod_registracni_procedura, :count, :cursor ); END;",
+            procParams: {
+                kod_registracni_procedura: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getCestyPodani: {
+            procName: "BEGIN cis_sukl_cis.GetCestyPodani( :count, :cursor ); END;",
+            procParams: {
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getCestyPodaniKody: {
+            procName: "BEGIN cis_sukl_cis.GetCestyPodaniKody( :count, :cursor ); END;",
+            procParams: {
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getCestyPodaniKodCestaPodani: {
+            procName: "BEGIN cis_sukl_cis.GetCestyPodaniKodCesPod( :kod_cesta_podani, :count, :cursor ); END;",
+            procParams: {
+                kod_cesta_podani: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getLekoveFormy: {
+            procName: "BEGIN cis_sukl_cis.GetLekoveFormy( :count, :cursor ); END;",
+            procParams: {
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getLekoveFormyKody: {
+            procName: "BEGIN cis_sukl_cis.GetLekoveFormyKody( :count, :cursor ); END;",
+            procParams: {
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getLekoveFormyKodLekovaForma: {
+            procName: "BEGIN cis_sukl_cis.GetLekoveFormyKodLekForm( :kod_lekova_forma, :count, :cursor ); END;",
+            procParams: {
+                kod_lekova_forma: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
         getLecivePripravky3: {
             procName: "BEGIN cis_sukl_lp.GetLecivePripravky3( :offset, :limit, :total_count, :count, :cursor ); END;",
             procParams: {

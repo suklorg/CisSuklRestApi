@@ -72,11 +72,86 @@ namespace common {
     export const defOffset: number = 0;
     export const defLimit: number = 20;
 
-    export interface IOraProcedure {
-        procName: string;
-        procParams: Object;
+    export interface IProcParamsItems {
+        val?: any;
+        type: any;
+        dir: any;
 
     };
+
+    export class ProcParamsItems implements IProcParamsItems {
+        val?: any;
+        type: string;
+        dir: string;
+        //constructor(val: any, type: string, dir: string)
+        constructor(procParamsItems: IProcParamsItems) {
+            if (procParamsItems.val)
+                this.val = procParamsItems.val;
+            this.type = procParamsItems.type;
+            this.dir = procParamsItems.dir;
+        }
+
+
+    };
+
+
+    export interface IProcParams {
+        kod_sukl?: IProcParamsItems;
+        offset?: IProcParamsItems;
+        limit?: IProcParamsItems;
+        total_count?: IProcParamsItems;
+        count: IProcParamsItems;
+        cursor: IProcParamsItems;
+    }
+
+    export class ProcParams implements IProcParams {
+        kod_sukl?: IProcParamsItems;
+        offset?: IProcParamsItems;
+        limit?: IProcParamsItems;
+        total_count?: IProcParamsItems;
+        count: IProcParamsItems;
+        cursor: IProcParamsItems;
+
+        constructor(procParams: IProcParams) {
+            if (procParams.kod_sukl)
+                this.kod_sukl = new ProcParamsItems(procParams.kod_sukl);
+            if (procParams.offset)
+                this.offset = new ProcParamsItems(procParams.offset);
+            if (procParams.limit)
+                this.limit = new ProcParamsItems(procParams.limit);
+            if (procParams.total_count)
+                this.total_count = new ProcParamsItems(procParams.total_count);
+            this.count = new ProcParamsItems(procParams.count);
+            this.cursor = new ProcParamsItems(procParams.cursor);
+        }
+    }
+
+    /*
+    procParams: {
+        offset: { val: 0, type: NUMBER, dir: BIND_IN },
+        limit: { val: 5, type: NUMBER, dir: BIND_IN },
+        total_count: { type: NUMBER, dir: BIND_OUT },
+        count: { type: NUMBER, dir: BIND_OUT },
+        cursor: { type: CURSOR, dir: BIND_OUT }
+
+     */
+    export interface IOraProcedure {
+        procName: string;
+        procParams: IProcParams;
+
+    };
+
+    export class OraProcedure implements IOraProcedure {
+        procName: string;
+        procParams: IProcParams;
+        constructor(oraProcedure: IOraProcedure) {
+            this.procName = oraProcedure.procName;
+            this.procParams = new ProcParams(oraProcedure.procParams);
+        }
+
+    };
+
+
 
     export interface IOraExecuteResult {
         resultSet: string;
@@ -101,13 +176,14 @@ namespace common {
         try {
             let result: any = await connection.execute(oraProcedure.procName, oraProcedure.procParams, oraOutFormat);
             logger.info('exec  ExecuteProcedure ' + oraProcedure.procName);
+            logger.info('exec  ExecuteParams ' + oraProcedure.procParams);
             oraExecuteResult.count = result.outBinds.count;
             oraExecuteResult.totalCount = result.outBinds.total_count;
             if (oraExecuteResult.count <= 0) {
                 throw new AppError(404, 'Nenalezeny žádné záznamy.')
             }
 
-
+/*
             var obj = await result.outBinds.cursor.getRows(result.outBinds.count);
             var i: number;
             var resultSetJson: string;
@@ -123,10 +199,10 @@ namespace common {
             resultSetJson = resultSetJson  + ']';
 
             oraExecuteResult.resultSet = resultSetJson;
-
+*/
             //puvodní volani
-            //oraExecuteResult.resultSet = JSON.stringify(await result.outBinds.cursor.getRows(result.outBinds.count), null, 4);
-
+            oraExecuteResult.resultSet = JSON.stringify(await result.outBinds.cursor.getRows(result.outBinds.count), null, 4);
+            //logger.info(oraExecuteResult.resultSet);
             return oraExecuteResult;
 
         } finally {
@@ -143,6 +219,87 @@ namespace common {
     };
 
     export const oraProcs = {
+
+        getRegistracniProcedury: {
+            procName: "BEGIN cis_sukl_cis.GetRegistracniProcedury( :count, :cursor ); END;",
+            procParams: {
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        getRegistracniProceduryKody: {
+            procName: "BEGIN cis_sukl_cis.GetRegistracniProceduryKody( :count, :cursor ); END;",
+            procParams: {
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        getRegistracniProceduryKodRegistracniProcedura: {
+            procName: "BEGIN cis_sukl_cis.GetRegistracniProceduryKodRegP( :kod_registracni_procedura, :count, :cursor ); END;",
+            procParams: {
+                kod_registracni_procedura: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+
+        getCestyPodani: {
+            procName: "BEGIN cis_sukl_cis.GetCestyPodani( :count, :cursor ); END;",
+            procParams: {
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        getCestyPodaniKody: {
+            procName: "BEGIN cis_sukl_cis.GetCestyPodaniKody( :count, :cursor ); END;",
+            procParams: {
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        getCestyPodaniKodCestaPodani: {
+            procName: "BEGIN cis_sukl_cis.GetCestyPodaniKodCesPod( :kod_cesta_podani, :count, :cursor ); END;",
+            procParams: {
+                kod_cesta_podani: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+
+        getLekoveFormy: {
+            procName: "BEGIN cis_sukl_cis.GetLekoveFormy( :count, :cursor ); END;",
+            procParams: {
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        getLekoveFormyKody: {
+            procName: "BEGIN cis_sukl_cis.GetLekoveFormyKody( :count, :cursor ); END;",
+            procParams: {
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        getLekoveFormyKodLekovaForma: {
+            procName: "BEGIN cis_sukl_cis.GetLekoveFormyKodLekForm( :kod_lekova_forma, :count, :cursor ); END;",
+            procParams: {
+                kod_lekova_forma: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
 
         getLecivePripravky3: {
             procName: "BEGIN cis_sukl_lp.GetLecivePripravky3( :offset, :limit, :total_count, :count, :cursor ); END;",

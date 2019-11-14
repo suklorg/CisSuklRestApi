@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 import * as express from "express";
-import { FormatExceptionMessage, errMessage400, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, defLimit, defOffset, SetHeader } from "../common";
+import { FormatExceptionMessage, errMessage400, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, defLimit, defOffset, SetHeader, OraProcedure } from "../common";
 
 let lp_router: express.Router = express.Router();
 
@@ -359,13 +359,22 @@ lp_router.get('/lecivepripravky/:kodSukl', async (req: express.Request, res: exp
 
     let oraExecuteResult: IOraExecuteResult;
 
+    let oraProcedure: OraProcedure = new OraProcedure(oraProcs.getLecivePripravkyKodSukl);
+    
+
     try {
         SetHeader(res);
         //res.type('application/json');
 
         if (Object.keys(req.query).length === 0) {
+            /*
             oraProcs.getLecivePripravkyKodSukl.procParams.kod_sukl.val = req.params.kodSukl;
             oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodSukl);
+            */
+            //*
+            oraProcedure.procParams.kod_sukl.val = req.params.kodSukl;
+            oraExecuteResult = await ExecuteProcedure(oraProcedure);
+            //*/
         }
 
         if (typeof oraExecuteResult !== "undefined") {

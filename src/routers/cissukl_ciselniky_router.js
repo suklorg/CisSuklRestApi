@@ -17,6 +17,203 @@ ciselniky_router.get('/docs', async (req: express.Request, res: express.Response
     res.sendFile(__dirname + '\\public\\docs\\index.html');
 });
 */
+ciselniky_router.get('/cestypodani', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
+    try {
+        common_1.SetHeader(res);
+        if (Object.keys(req.query).length === 0) {
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCestyPodani);
+        }
+        else if (req.query.fields === "kod_cesta_podani" && Object.keys(req.query).length === 1) {
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCestyPodaniKody);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+        }
+    }
+    catch (e) {
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
+    }
+}));
+ciselniky_router.get('/cestypodani/:kodCestaPodani', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
+    try {
+        common_1.SetHeader(res);
+        if (Object.keys(req.query).length === 0) {
+            common_1.oraProcs.getCestyPodaniKodCestaPodani.procParams.kod_cesta_podani.val = req.params.kodCestaPodani;
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCestyPodaniKodCestaPodani);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+        }
+    }
+    catch (e) {
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
+    }
+}));
+ciselniky_router.get('/lekoveformy', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
+    try {
+        common_1.SetHeader(res);
+        if (Object.keys(req.query).length === 0) {
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLekoveFormy);
+        }
+        else if (req.query.fields === "kod_lekova_forma" && Object.keys(req.query).length === 1) {
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLekoveFormyKody);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+        }
+    }
+    catch (e) {
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
+    }
+}));
+ciselniky_router.get('/lekoveformy/:kodLekovaForma', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
+    try {
+        common_1.SetHeader(res);
+        if (Object.keys(req.query).length === 0) {
+            common_1.oraProcs.getLekoveFormyKodLekovaForma.procParams.kod_lekova_forma.val = req.params.kodLekovaForma;
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLekoveFormyKodLekovaForma);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+        }
+    }
+    catch (e) {
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
+    }
+}));
+ciselniky_router.get('/registracniprocedury', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
+    try {
+        common_1.SetHeader(res);
+        if (Object.keys(req.query).length === 0) {
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getRegistracniProcedury);
+        }
+        else if (req.query.fields === "kod_registracni_procedura" && Object.keys(req.query).length === 1) {
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getRegistracniProceduryKody);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+        }
+    }
+    catch (e) {
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
+    }
+}));
+ciselniky_router.get('/registracniprocedury/:kodRegistracniProcedura', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
+    try {
+        common_1.SetHeader(res);
+        if (Object.keys(req.query).length === 0) {
+            common_1.oraProcs.getRegistracniProceduryKodRegistracniProcedura.procParams.kod_registracni_procedura.val = req.params.kodRegistracniProcedura;
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getRegistracniProceduryKodRegistracniProcedura);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+        }
+    }
+    catch (e) {
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
+    }
+}));
+ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
+    try {
+        common_1.SetHeader(res);
+        if (Object.keys(req.query).length === 0) {
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getIndikacniSkupiny);
+        }
+        else if (req.query.fields === "kod_indikacni_skupina" && Object.keys(req.query).length === 1) {
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getIndikacniSkupinyKody);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+        }
+    }
+    catch (e) {
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
+    }
+}));
 ciselniky_router.get('/ucinnelatky', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let oraExecuteResult;
     try {

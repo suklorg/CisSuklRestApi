@@ -10,6 +10,243 @@ ciselniky_router.get('/docs', async (req: express.Request, res: express.Response
     res.sendFile(__dirname + '\\public\\docs\\index.html');
 });
 */
+
+ciselniky_router.get('/cestypodani', async (req: express.Request, res: express.Response): Promise<void> => {
+
+    let oraExecuteResult: IOraExecuteResult;
+
+    try {
+        SetHeader(res);
+
+        if (Object.keys(req.query).length === 0) {
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getCestyPodani);
+        }
+        else if (req.query.fields === "kod_cesta_podani" && Object.keys(req.query).length === 1) {
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getCestyPodaniKody);
+        }
+
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(errMessage400))
+        }
+    } catch (e) {
+        if (e instanceof AppError) {
+            res.status(e.status).send(FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(e.message));
+        };
+        console.log(e.message);
+    }
+
+});
+
+
+ciselniky_router.get('/cestypodani/:kodCestaPodani', async (req: express.Request, res: express.Response): Promise<void> => {
+
+    let oraExecuteResult: IOraExecuteResult;
+
+    try {
+        SetHeader(res);
+
+        if (Object.keys(req.query).length === 0) {
+            oraProcs.getCestyPodaniKodCestaPodani.procParams.kod_cesta_podani.val = req.params.kodCestaPodani;
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getCestyPodaniKodCestaPodani);
+        }
+
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(errMessage400))
+        }
+    } catch (e) {
+        if (e instanceof AppError) {
+            res.status(e.status).send(FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(e.message));
+        };
+        console.log(e.message);
+    }
+
+});
+
+
+
+ciselniky_router.get('/lekoveformy', async (req: express.Request, res: express.Response): Promise<void> => {
+
+    let oraExecuteResult: IOraExecuteResult;
+
+    try {
+        SetHeader(res);
+
+        if (Object.keys(req.query).length === 0) {
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getLekoveFormy);
+        }
+        else if (req.query.fields === "kod_lekova_forma" && Object.keys(req.query).length === 1) {
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getLekoveFormyKody);
+        }
+
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(errMessage400))
+        }
+    } catch (e) {
+        if (e instanceof AppError) {
+            res.status(e.status).send(FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(e.message));
+        };
+        console.log(e.message);
+    }
+
+});
+
+
+ciselniky_router.get('/lekoveformy/:kodLekovaForma', async (req: express.Request, res: express.Response): Promise<void> => {
+
+    let oraExecuteResult: IOraExecuteResult;
+
+    try {
+        SetHeader(res);
+
+        if (Object.keys(req.query).length === 0) {
+            oraProcs.getLekoveFormyKodLekovaForma.procParams.kod_lekova_forma.val = req.params.kodLekovaForma;
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getLekoveFormyKodLekovaForma);
+        }
+
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(errMessage400))
+        }
+    } catch (e) {
+        if (e instanceof AppError) {
+            res.status(e.status).send(FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(e.message));
+        };
+        console.log(e.message);
+    }
+
+});
+
+
+ciselniky_router.get('/registracniprocedury', async (req: express.Request, res: express.Response): Promise<void> => {
+
+    let oraExecuteResult: IOraExecuteResult;
+
+    try {
+        SetHeader(res);
+
+        if (Object.keys(req.query).length === 0) {
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getRegistracniProcedury);
+        }
+        else if (req.query.fields === "kod_registracni_procedura" && Object.keys(req.query).length === 1) {
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getRegistracniProceduryKody);
+        }
+
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(errMessage400))
+        }
+    } catch (e) {
+        if (e instanceof AppError) {
+            res.status(e.status).send(FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(e.message));
+        };
+        console.log(e.message);
+    }
+
+});
+
+
+ciselniky_router.get('/registracniprocedury/:kodRegistracniProcedura', async (req: express.Request, res: express.Response): Promise<void> => {
+
+    let oraExecuteResult: IOraExecuteResult;
+
+    try {
+        SetHeader(res);
+
+        if (Object.keys(req.query).length === 0) {
+            oraProcs.getRegistracniProceduryKodRegistracniProcedura.procParams.kod_registracni_procedura.val = req.params.kodRegistracniProcedura;
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getRegistracniProceduryKodRegistracniProcedura);
+        }
+
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(errMessage400))
+        }
+    } catch (e) {
+        if (e instanceof AppError) {
+            res.status(e.status).send(FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(e.message));
+        };
+        console.log(e.message);
+    }
+
+});
+
+
+
+ciselniky_router.get('/indikacniskupiny', async (req: express.Request, res: express.Response): Promise<void> => {
+
+    let oraExecuteResult: IOraExecuteResult;
+
+    try {
+        SetHeader(res);
+
+        if (Object.keys(req.query).length === 0) {
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getIndikacniSkupiny);
+        }
+        else if (req.query.fields === "kod_indikacni_skupina" && Object.keys(req.query).length === 1) {
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getIndikacniSkupinyKody);
+        }
+
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(errMessage400))
+        }
+    } catch (e) {
+        if (e instanceof AppError) {
+            res.status(e.status).send(FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(e.message));
+        };
+        console.log(e.message);
+    }
+
+});
+
+
+
+
 ciselniky_router.get('/ucinnelatky', async (req: express.Request, res: express.Response): Promise<void> => {
 
     let oraExecuteResult: IOraExecuteResult;

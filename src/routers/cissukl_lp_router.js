@@ -349,12 +349,19 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(this, void 0, void 0, 
 }));
 lp_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let oraExecuteResult;
+    let oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getLecivePripravkyKodSukl);
     try {
         common_1.SetHeader(res);
         //res.type('application/json');
         if (Object.keys(req.query).length === 0) {
-            common_1.oraProcs.getLecivePripravkyKodSukl.procParams.kod_sukl.val = req.params.kodSukl;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyKodSukl);
+            /*
+            oraProcs.getLecivePripravkyKodSukl.procParams.kod_sukl.val = req.params.kodSukl;
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodSukl);
+            */
+            //*
+            oraProcedure.procParams.kod_sukl.val = req.params.kodSukl;
+            oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
+            //*/
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
