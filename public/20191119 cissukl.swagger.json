@@ -2749,10 +2749,10 @@
           "description": "příznak, zda je léčivý přípravek na white listu, hodnoty \"A\" - ano, \"N\" - ne",
           "maxLength": 1
         },
-        "JE_OCHRANNY_PRVEK": {
+        "JE_BLACK_LIST": {
           "type": "string",
           "example": "N",
-          "description": "příznak, zda léčivý přípravek má povinnost mít ochranný prvek, hodnoty \"A\" - ano, \"N\" - ne",
+          "description": "příznak, zda je léčivý přípravek na black listu, hodnoty \"A\" - ano, \"N\" - ne",
           "maxLength": 1
         }
       }
