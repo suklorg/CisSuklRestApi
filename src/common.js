@@ -71,6 +71,8 @@ var common;
         constructor(procParams) {
             if (procParams.kod_sukl)
                 this.kod_sukl = new ProcParamsItems(procParams.kod_sukl);
+            if (procParams.stavy_registrace)
+                this.stavy_registrace = new ProcParamsItems(procParams.stavy_registrace);
             if (procParams.offset)
                 this.offset = new ProcParamsItems(procParams.offset);
             if (procParams.limit)

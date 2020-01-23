@@ -27,9 +27,56 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
 });
 */
 
+lp_router.get('/lecivepripravky/:kodSukl', async (req: express.Request, res: express.Response): Promise<void> => {
+
+    let oraExecuteResult: IOraExecuteResult;
+
+    let oraProcedure: OraProcedure = new OraProcedure(oraProcs.getLecivePripravkyKodSukl);
+
+
+    try {
+        SetHeader(res);
+        //res.type('application/json');
+
+        if (Object.keys(req.query).length === 0) {
+            /*
+            oraProcs.getLecivePripravkyKodSukl.procParams.kod_sukl.val = req.params.kodSukl;
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodSukl);
+            */
+            //*
+            oraProcedure.procParams.kod_sukl.val = req.params.kodSukl;
+            oraExecuteResult = await ExecuteProcedure(oraProcedure);
+            //*/
+        }
+
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(errMessage400))
+        }
+    } catch (e) {
+        if (e instanceof AppError) {
+            res.status(e.status).send(FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(e.message));
+        };
+        console.log(e.message);
+    }
+
+});
+
+
+
+
+
 lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Response): Promise<void> => {
 
     let oraExecuteResult: IOraExecuteResult;
+
+    let oraProcedure: OraProcedure; // = new OraProcedure(oraProcs.getLecivePripravkyKodSukl);
 
     try {
         SetHeader(res);
@@ -48,8 +95,13 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
         //
         else if ((typeof req.query.kod_sukl !== "undefined") && (typeof req.query.stavy_registrace !== "undefined") && (req.query.stavy_registrace === "stavy_registrace_scau") &&
             (Object.keys(req.query).length === 2)) {
-            oraProcs.getLecivePripravkyKodSuklSRegScau.procParams.kod_sukl.val = req.query.kod_sukl;
-            oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodSuklSRegScau);
+            oraProcedure = new OraProcedure(oraProcs.getLecivePripravkyKodSuklSRegScau);
+            oraProcedure.procParams.kod_sukl.val = req.query.kod_sukl;
+            //oraProcedure.procParams.stavy_registrace.val = req.query.stavy_registrace;
+            
+            
+            //oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodSuklSRegScau);
+            oraExecuteResult = await ExecuteProcedure(oraProcedure);
         }
 
 

@@ -97,6 +97,7 @@ namespace common {
 
     export interface IProcParams {
         kod_sukl?: IProcParamsItems;
+        stavy_registrace?: IProcParamsItems;
         offset?: IProcParamsItems;
         limit?: IProcParamsItems;
         total_count?: IProcParamsItems;
@@ -106,6 +107,7 @@ namespace common {
 
     export class ProcParams implements IProcParams {
         kod_sukl?: IProcParamsItems;
+        stavy_registrace?: IProcParamsItems;
         offset?: IProcParamsItems;
         limit?: IProcParamsItems;
         total_count?: IProcParamsItems;
@@ -115,6 +117,8 @@ namespace common {
         constructor(procParams: IProcParams) {
             if (procParams.kod_sukl)
                 this.kod_sukl = new ProcParamsItems(procParams.kod_sukl);
+            if (procParams.stavy_registrace)
+                this.stavy_registrace = new ProcParamsItems(procParams.stavy_registrace);
             if (procParams.offset)
                 this.offset = new ProcParamsItems(procParams.offset);
             if (procParams.limit)
