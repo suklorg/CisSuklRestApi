@@ -17,6 +17,66 @@ ciselniky_router.get('/docs', async (req: express.Request, res: express.Response
     res.sendFile(__dirname + '\\public\\docs\\index.html');
 });
 */
+ciselniky_router.get('/obaly', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
+    let oraProcedure;
+    try {
+        common_1.SetHeader(res);
+        if (Object.keys(req.query).length === 0) {
+            oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getObaly);
+            oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
+        }
+        else if (req.query.fields === "kod_obal" && Object.keys(req.query).length === 1) {
+            oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getObalyKody);
+            oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+        }
+    }
+    catch (e) {
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
+    }
+}));
+ciselniky_router.get('/obaly/:kodObal', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    let oraExecuteResult;
+    let oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getObalyKodObal);
+    try {
+        common_1.SetHeader(res);
+        if (Object.keys(req.query).length === 0) {
+            oraProcedure.procParams.kod_obal.val = req.params.kodObal;
+            oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
+        }
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+        }
+    }
+    catch (e) {
+        if (e instanceof common_1.AppError) {
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+        }
+        ;
+        console.log(e.message);
+    }
+}));
 ciselniky_router.get('/cestypodani', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let oraExecuteResult;
     try {

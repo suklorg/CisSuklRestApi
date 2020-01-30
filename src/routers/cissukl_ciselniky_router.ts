@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 import * as express from "express";
-import { FormatExceptionMessage, FormatException, errMessage400, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, SetHeader } from "../common";
+import { FormatExceptionMessage, FormatException, errMessage400, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, SetHeader, OraProcedure } from "../common";
 
 
 let ciselniky_router: express.Router = express.Router();
@@ -10,6 +10,77 @@ ciselniky_router.get('/docs', async (req: express.Request, res: express.Response
     res.sendFile(__dirname + '\\public\\docs\\index.html');
 });
 */
+
+ciselniky_router.get('/obaly', async (req: express.Request, res: express.Response): Promise<void> => {
+
+    let oraExecuteResult: IOraExecuteResult;
+    let oraProcedure: OraProcedure;
+
+    try {
+        SetHeader(res);
+
+        if (Object.keys(req.query).length === 0) {
+            oraProcedure = new OraProcedure(oraProcs.getObaly);
+            oraExecuteResult = await ExecuteProcedure(oraProcedure);
+        }
+        else if (req.query.fields === "kod_obal" && Object.keys(req.query).length === 1) {
+            oraProcedure = new OraProcedure(oraProcs.getObalyKody);
+            oraExecuteResult = await ExecuteProcedure(oraProcedure);
+        }
+
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(errMessage400))
+        }
+    } catch (e) {
+        if (e instanceof AppError) {
+            res.status(e.status).send(FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(e.message));
+        };
+        console.log(e.message);
+    }
+
+});
+
+
+ciselniky_router.get('/obaly/:kodObal', async (req: express.Request, res: express.Response): Promise<void> => {
+
+    let oraExecuteResult: IOraExecuteResult;
+    let oraProcedure: OraProcedure = new OraProcedure(oraProcs.getObalyKodObal);
+
+    try {
+        SetHeader(res);
+
+        if (Object.keys(req.query).length === 0) {
+            oraProcedure.procParams.kod_obal.val = req.params.kodObal;
+            oraExecuteResult = await ExecuteProcedure(oraProcedure);
+        }
+
+        if (typeof oraExecuteResult !== "undefined") {
+            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
+            res.send(oraExecuteResult.resultSet);
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(errMessage400))
+        }
+    } catch (e) {
+        if (e instanceof AppError) {
+            res.status(e.status).send(FormatExceptionMessage(e.message));
+        }
+        else {
+            res.status(400).send(FormatExceptionMessage(e.message));
+        };
+        console.log(e.message);
+    }
+
+});
+
+
 
 ciselniky_router.get('/cestypodani', async (req: express.Request, res: express.Response): Promise<void> => {
 

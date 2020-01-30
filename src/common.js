@@ -71,6 +71,8 @@ var common;
         constructor(procParams) {
             if (procParams.kod_sukl)
                 this.kod_sukl = new ProcParamsItems(procParams.kod_sukl);
+            if (procParams.kod_obal)
+                this.kod_obal = new ProcParamsItems(procParams.kod_obal);
             if (procParams.stavy_registrace)
                 this.stavy_registrace = new ProcParamsItems(procParams.stavy_registrace);
             if (procParams.offset)
@@ -150,6 +152,28 @@ var common;
     common.SetHeader = SetHeader;
     ;
     common.oraProcs = {
+        getObaly: {
+            procName: "BEGIN cis_sukl_cis.GetObaly( :count, :cursor ); END;",
+            procParams: {
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getObalyKody: {
+            procName: "BEGIN cis_sukl_cis.GetObalyKody( :count, :cursor ); END;",
+            procParams: {
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getObalyKodObal: {
+            procName: "BEGIN cis_sukl_cis.GetObalyKodObal( :kod_obal, :count, :cursor ); END;",
+            procParams: {
+                kod_obal: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
         getRegistracniProcedury: {
             procName: "BEGIN cis_sukl_cis.GetRegistracniProcedury( :count, :cursor ); END;",
             procParams: {

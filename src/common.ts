@@ -98,6 +98,7 @@ namespace common {
     export interface IProcParams {
         kod_sukl?: IProcParamsItems;
         stavy_registrace?: IProcParamsItems;
+        kod_obal?: IProcParamsItems;
         offset?: IProcParamsItems;
         limit?: IProcParamsItems;
         total_count?: IProcParamsItems;
@@ -108,6 +109,7 @@ namespace common {
     export class ProcParams implements IProcParams {
         kod_sukl?: IProcParamsItems;
         stavy_registrace?: IProcParamsItems;
+        kod_obal?: IProcParamsItems;
         offset?: IProcParamsItems;
         limit?: IProcParamsItems;
         total_count?: IProcParamsItems;
@@ -117,6 +119,8 @@ namespace common {
         constructor(procParams: IProcParams) {
             if (procParams.kod_sukl)
                 this.kod_sukl = new ProcParamsItems(procParams.kod_sukl);
+            if (procParams.kod_obal)
+                this.kod_obal = new ProcParamsItems(procParams.kod_obal);
             if (procParams.stavy_registrace)
                 this.stavy_registrace = new ProcParamsItems(procParams.stavy_registrace);
             if (procParams.offset)
@@ -223,6 +227,34 @@ namespace common {
     };
 
     export const oraProcs = {
+
+        getObaly: {
+            procName: "BEGIN cis_sukl_cis.GetObaly( :count, :cursor ); END;",
+            procParams: {
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        getObalyKody: {
+            procName: "BEGIN cis_sukl_cis.GetObalyKody( :count, :cursor ); END;",
+            procParams: {
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        getObalyKodObal: {
+            procName: "BEGIN cis_sukl_cis.GetObalyKodObal( :kod_obal, :count, :cursor ); END;",
+            procParams: {
+                kod_obal: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+
 
         getRegistracniProcedury: {
             procName: "BEGIN cis_sukl_cis.GetRegistracniProcedury( :count, :cursor ); END;",

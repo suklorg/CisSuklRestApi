@@ -462,101 +462,6 @@
         }
       }
     },
-    "/obaly": {
-      "get": {
-        "tags": [
-          "Ciselniky"
-        ],
-        "description": "Vrací seznam informací o obalech",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "fields",
-            "in": "query",
-            "description": "Kód obal",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "kod_obal"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operace proběhla bez chyby",
-            "headers": {
-              "x-total-count": {
-                "description": "Celkový počet nalezených záznamů",
-                "type": "integer"
-              }
-            },
-            "schema": {
-              "$ref": "#/definitions/Obaly"
-            }
-          },
-          "400": {
-            "description": "Pro dané URL není služba implementována",
-            "schema": {
-              "$ref": "#/definitions/Error400"
-            }
-          },
-          "404": {
-            "description": "Nenalezeny žádné záznamy",
-            "schema": {
-              "$ref": "#/definitions/Error404"
-            }
-          }
-        }
-      }
-    },
-    "/obaly/{kod_obal}": {
-      "get": {
-        "tags": [
-          "Ciselniky"
-        ],
-        "description": "Vrací informace o obalech pro daný kód",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "kod_obal",
-            "in": "path",
-            "description": "Kód obal",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "headers": {
-              "x-total-count": {
-                "description": "Celkový počet nalezených záznamů",
-                "type": "integer"
-              }
-            },
-            "description": "Operace proběhla bez chyby",
-            "schema": {
-              "$ref": "#/definitions/Obaly"
-            }
-          },
-          "400": {
-            "description": "Pro dané URL není služba implementována",
-            "schema": {
-              "$ref": "#/definitions/Error400"
-            }
-          },
-          "404": {
-            "description": "Nenalezeny žádné záznamy",
-            "schema": {
-              "$ref": "#/definitions/Error404"
-            }
-          }
-        }
-      }
-    },
     "/cestypodani": {
       "get": {
         "tags": [
@@ -2970,35 +2875,6 @@
           "example": "registrace postupem vzájemného uznávání (MRP,DCP),ČR jako dotčený stát",
           "description": "Název Registrační procedury",
           "maxLength": 100
-        }
-      }
-    },
-    "Obaly": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Obal"
-      }
-    },
-    "Obal": {
-      "type": "object",
-      "properties": {
-        "KOD_OBAL": {
-          "type": "string",
-          "example": "AMP",
-          "description": "Kód Obal",
-          "maxLength": 15
-        },
-        "NAZEV": {
-          "type": "string",
-          "example": "Ampulka (Ampule)",
-          "description": "Název Obalu česky",
-          "maxLength": 255
-        },
-        "NAZEV_EN": {
-          "type": "string",
-          "example": "Ampoule",
-          "description": "Název Obalu anglicky",
-          "maxLength": 255
         }
       }
     },
