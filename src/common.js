@@ -102,13 +102,13 @@ var common;
     }
     function ExecuteProcedure(oraProcedure) {
         return __awaiter(this, void 0, void 0, function* () {
-            common.logger.info('start ExecuteProcedure ' + oraProcedure.procName);
+            //logger.info('start ExecuteProcedure ' + oraProcedure.procName);
             let oraExecuteResult = new OraExecuteResult();
             let connection = yield oracledb_1.getConnection(common.connectionAttributes);
             try {
                 let result = yield connection.execute(oraProcedure.procName, oraProcedure.procParams, common.oraOutFormat);
-                common.logger.info('exec  ExecuteProcedure ' + oraProcedure.procName);
-                common.logger.info('exec  ExecuteParams ' + oraProcedure.procParams);
+                //logger.info('exec  ExecuteProcedure ' + oraProcedure.procName);
+                //logger.info('exec  ExecuteParams ' + oraProcedure.procParams);
                 oraExecuteResult.count = result.outBinds.count;
                 oraExecuteResult.totalCount = result.outBinds.total_count;
                 if (oraExecuteResult.count <= 0) {
@@ -138,7 +138,7 @@ var common;
             }
             finally {
                 connection.close();
-                common.logger.info('end   ExecuteProcedure ' + oraProcedure.procName);
+                //logger.info('end   ExecuteProcedure ' + oraProcedure.procName);
             }
         });
     }
@@ -809,15 +809,16 @@ var common;
     const path = require('path');
     ///*
     //import { createLogger, format, transports } from 'winston';
-    const { createLogger, format, transports, level } = require('winston');
+    //winston
+    //const { createLogger, format, transports, level } = require('winston');
     const env = process.env.NODE_ENV || 'development';
     const logDir = 'log';
     // Create the log directory if it does not exist
     if (!fs.existsSync(logDir)) {
         fs.mkdirSync(logDir);
     }
-    const filename = path.join(logDir, 'results.log');
-    const { combine, timestamp, label, prettyPrint } = format;
+    //const filename = path.join(logDir, 'results.log');
+    //const { combine, timestamp, label, prettyPrint } = format;
     /*
     export class CutomLogger {
         static logger = createLogger({
@@ -835,15 +836,22 @@ var common;
     }
     
     */
-    common.logger = createLogger({
-        level: 'development' ? 'debug' : 'info',
-        format: format.combine(format.timestamp({
+    /*
+
+export const logger = createLogger({
+
+    level: 'development' ? 'debug' : 'info',
+    format: format.combine(
+        format.timestamp({
             format: 'YYYY-MM-DD HH:mm:ss.SSSS'
-        }), format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)), transports: [
-            //new transports.File({ filename }),
-            new transports.Console()
-        ]
-    });
+        }),
+        format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
+    ), transports: [
+        //new transports.File({ filename }),
+        new transports.Console()
+    ]
+});
+*/
 })(common || (common = {}));
 ;
 module.exports = common;

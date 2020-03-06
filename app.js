@@ -54,7 +54,7 @@ app.get('*', function (req, res) {
 });
 app.listen(port);
 //CutomLogger.logger.info('CisSuklApi: ' + port);
-common_1.logger.info('CisSuklApi: ' + port);
+//logger.info('CisSuklApi: ' + port);
 //logger.debug('CisSuklApi: ' + port);
 console.log('CisSuklApi: ' + port);
 //# sourceMappingURL=app.js.map

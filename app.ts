@@ -17,7 +17,8 @@ import { lp_sod_router } from "./src/routers/cissukl_lp_sod_router";
 import { lp_naz2_router } from "./src/routers/cissukl_lp_naz2_router";
 import { lp_bwl_router } from "./src/routers/cissukl_lp_bwl_router";
 import { cdnu_router } from "./src/routers/cissukl_cdnu_router";
-import { FormatExceptionMessage, errMessage400, logger } from "./src/common";
+
+import { FormatExceptionMessage, errMessage400/*, logger */} from "./src/common";
 
 let port: number = 8000;
 
@@ -64,7 +65,7 @@ app.listen(port);
 
 
 //CutomLogger.logger.info('CisSuklApi: ' + port);
-logger.info('CisSuklApi: ' + port);
+//logger.info('CisSuklApi: ' + port);
 //logger.debug('CisSuklApi: ' + port);
 console.log('CisSuklApi: ' + port);
 

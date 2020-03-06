@@ -177,14 +177,14 @@ namespace common {
 
     export async function ExecuteProcedure(oraProcedure: IOraProcedure): Promise<IOraExecuteResult> {
 
-        logger.info('start ExecuteProcedure ' + oraProcedure.procName);
+        //logger.info('start ExecuteProcedure ' + oraProcedure.procName);
         let oraExecuteResult: IOraExecuteResult = new OraExecuteResult();
 
         let connection: IConnection = await getConnection(connectionAttributes);
         try {
             let result: any = await connection.execute(oraProcedure.procName, oraProcedure.procParams, oraOutFormat);
-            logger.info('exec  ExecuteProcedure ' + oraProcedure.procName);
-            logger.info('exec  ExecuteParams ' + oraProcedure.procParams);
+            //logger.info('exec  ExecuteProcedure ' + oraProcedure.procName);
+            //logger.info('exec  ExecuteParams ' + oraProcedure.procParams);
             oraExecuteResult.count = result.outBinds.count;
             oraExecuteResult.totalCount = result.outBinds.total_count;
             if (oraExecuteResult.count <= 0) {
@@ -215,7 +215,7 @@ namespace common {
 
         } finally {
             connection.close();
-            logger.info('end   ExecuteProcedure ' + oraProcedure.procName);
+            //logger.info('end   ExecuteProcedure ' + oraProcedure.procName);
         }
 
     };
@@ -1030,7 +1030,9 @@ const path = require('path');
 //import { createLogger, format, transports } from 'winston';
 
 
-const { createLogger, format, transports, level } = require('winston');
+    //winston
+
+    //const { createLogger, format, transports, level } = require('winston');
 
 const env = process.env.NODE_ENV || 'development';
 const logDir = 'log';
@@ -1040,8 +1042,8 @@ if (!fs.existsSync(logDir)) {
     fs.mkdirSync(logDir);
 }
 
-const filename = path.join(logDir, 'results.log');
-const { combine, timestamp, label, prettyPrint } = format;
+//const filename = path.join(logDir, 'results.log');
+//const { combine, timestamp, label, prettyPrint } = format;
 /*
 export class CutomLogger {
     static logger = createLogger({
@@ -1060,6 +1062,7 @@ export class CutomLogger {
 
 */
 
+    /*
 
 export const logger = createLogger({
 
@@ -1074,6 +1077,7 @@ export const logger = createLogger({
         new transports.Console()
     ]
 });
+*/
 
 };
 export = common;
