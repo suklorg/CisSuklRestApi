@@ -147,6 +147,7 @@ reg_cisla_router.get('/zmenyregistracnicisla', async (req: express.Request, res:
  *         schema:
  *           $ref: '#/definitions/RegistracniCislaCisloJednaci'
  */
+
 reg_cisla_router.get('/registracnicisla', async (req: express.Request, res: express.Response): Promise<void> => {
 
     let oraExecuteResult: cis.IOraExecuteResult;
