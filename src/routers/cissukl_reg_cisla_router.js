@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -49,7 +50,7 @@ exports.reg_cisla_router = reg_cisla_router;
  *         description: Registrační číslo - Varchar(16)
  *         example: 87/173/03-C
  */
-reg_cisla_router.get('/zmenyregistracnicisla', (req, res) => __awaiter(this, void 0, void 0, function* () {
+reg_cisla_router.get('/zmenyregistracnicisla', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         res.type('application/json');
@@ -146,7 +147,7 @@ reg_cisla_router.get('/zmenyregistracnicisla', (req, res) => __awaiter(this, voi
  *         schema:
  *           $ref: '#/definitions/RegistracniCislaCisloJednaci'
  */
-reg_cisla_router.get('/registracnicisla', (req, res) => __awaiter(this, void 0, void 0, function* () {
+reg_cisla_router.get('/registracnicisla', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         res.type('application/json');
@@ -154,13 +155,17 @@ reg_cisla_router.get('/registracnicisla', (req, res) => __awaiter(this, void 0, 
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
         if (typeof req.query.cislo_jednaci !== "undefined" && typeof req.query.cislo_jednaci !== "object" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getCislaJednaciCisloJednaci.procParams.cislo_jednaci.val = req.query.cislo_jednaci;
-            common_1.logger.info('start registracnicisla param cislo jednaci: ' + req.query.cislo_jednaci);
+            //logger.info('start registracnicisla param cislo jednaci: ' + req.query.cislo_jednaci);
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCislaJednaciCisloJednaci);
-            common_1.logger.info('stop  registracnicisla param cislo jednaci: ' + req.query.cislo_jednaci);
+            //logger.info('stop  registracnicisla param cislo jednaci: ' + req.query.cislo_jednaci);
         }
         else if (typeof req.query.mrp_cislo !== "undefined" && typeof req.query.mrp_cislo !== "object" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getCislaJednaciMrpCislo.procParams.mrp_cislo.val = req.query.mrp_cislo;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCislaJednaciMrpCislo);
+        }
+        else if (typeof req.query.registracni_cislo !== "undefined" && typeof req.query.registracni_cislo !== "object" && Object.keys(req.query).length === 1) {
+            common_1.oraProcs.getCislaJednaciRegCislo.procParams.registracni_cislo.val = req.query.registracni_cislo;
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCislaJednaciRegCislo);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());

@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -218,7 +219,7 @@ async function GetStavyRegistraceKodStavRegistrace(kodStavRegistrace: string): P
 /////
 // atc skupiny
 ////
-ciselniky_router.get('/atcskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/atcskupiny', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -275,7 +276,7 @@ function GetAtcSkupinyKody() {
     });
 }
 /////
-ciselniky_router.get('/atcskupiny/:kodAtcSkupina', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/atcskupiny/:kodAtcSkupina', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         res.type('application/json');
         res.send(yield GetAtcSkupinyKodAtcSkupina(req.params.kodAtcSkupina));
@@ -306,7 +307,7 @@ function GetAtcSkupinyKodAtcSkupina(kodAtcSkupina) {
 /////
 // indikacni skupiny
 ////
-ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -362,7 +363,7 @@ function GetIndikacniSkupinyKody() {
     });
 }
 /////
-ciselniky_router.get('/indikacniskupiny/:kodIndikacniSkupina', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/indikacniskupiny/:kodIndikacniSkupina', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         res.type('application/json');
         res.send(yield GetIndikacniSkupinyKodIndikacniSkupina(Number(req.params.kodIndikacniSkupina)));
@@ -394,7 +395,7 @@ function GetIndikacniSkupinyKodIndikacniSkupina(kodIndikacniSkupina) {
 /////
 // ucinne latky
 ////
-ciselniky_router.get('/ucinnelatky', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/ucinnelatky', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         res.type('application/json');
         if (Object.keys(req.query).length === 0) {
@@ -473,7 +474,7 @@ function GetUcinneLatkyKodSukl(kodSukl) {
     });
 }
 /////
-ciselniky_router.get('/ucinnelatky/:kodUcinnaLatka', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/ucinnelatky/:kodUcinnaLatka', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         res.type('application/json');
         res.send(yield GetUcinneLatkyKodUcinnaLatka(req.params.kodUcinnaLatka));

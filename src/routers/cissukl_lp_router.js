@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -33,7 +34,7 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
 
 });
 */
-lp_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(this, void 0, void 0, function* () {
+lp_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     let oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getLecivePripravkyKodSukl);
     try {
@@ -68,7 +69,7 @@ lp_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(this, void 0,
         console.log(e.message);
     }
 }));
-lp_router.get('/lecivepripravky', (req, res) => __awaiter(this, void 0, void 0, function* () {
+lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     let oraProcedure; // = new OraProcedure(oraProcs.getLecivePripravkyKodSukl);
     try {
@@ -386,7 +387,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(this, void 0, void 0, 
         console.log(e.message);
     }
 }));
-lp_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(this, void 0, void 0, function* () {
+lp_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     let oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getLecivePripravkyKodSukl);
     try {
@@ -421,7 +422,7 @@ lp_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(this, void 0,
         console.log(e.message);
     }
 }));
-lp_router.get('/neregistrovanelecivepripravky', (req, res) => __awaiter(this, void 0, void 0, function* () {
+lp_router.get('/neregistrovanelecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);
@@ -452,7 +453,7 @@ lp_router.get('/neregistrovanelecivepripravky', (req, res) => __awaiter(this, vo
         console.log(e.message);
     }
 }));
-lp_router.get('/ukoncenaregistracelecivepripravky', (req, res) => __awaiter(this, void 0, void 0, function* () {
+lp_router.get('/ukoncenaregistracelecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);
@@ -483,7 +484,7 @@ lp_router.get('/ukoncenaregistracelecivepripravky', (req, res) => __awaiter(this
         console.log(e.message);
     }
 }));
-lp_router.get('/slozenilecivepripravky', (req, res) => __awaiter(this, void 0, void 0, function* () {
+lp_router.get('/slozenilecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);

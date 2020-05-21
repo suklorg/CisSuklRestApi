@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -17,7 +18,7 @@ ciselniky_router.get('/docs', async (req: express.Request, res: express.Response
     res.sendFile(__dirname + '\\public\\docs\\index.html');
 });
 */
-ciselniky_router.get('/obaly', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/obaly', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     let oraProcedure;
     try {
@@ -49,7 +50,7 @@ ciselniky_router.get('/obaly', (req, res) => __awaiter(this, void 0, void 0, fun
         console.log(e.message);
     }
 }));
-ciselniky_router.get('/obaly/:kodObal', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/obaly/:kodObal', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     let oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getObalyKodObal);
     try {
@@ -77,7 +78,7 @@ ciselniky_router.get('/obaly/:kodObal', (req, res) => __awaiter(this, void 0, vo
         console.log(e.message);
     }
 }));
-ciselniky_router.get('/cestypodani', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/cestypodani', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);
@@ -106,7 +107,7 @@ ciselniky_router.get('/cestypodani', (req, res) => __awaiter(this, void 0, void 
         console.log(e.message);
     }
 }));
-ciselniky_router.get('/cestypodani/:kodCestaPodani', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/cestypodani/:kodCestaPodani', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);
@@ -133,7 +134,7 @@ ciselniky_router.get('/cestypodani/:kodCestaPodani', (req, res) => __awaiter(thi
         console.log(e.message);
     }
 }));
-ciselniky_router.get('/lekoveformy', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/lekoveformy', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);
@@ -162,7 +163,7 @@ ciselniky_router.get('/lekoveformy', (req, res) => __awaiter(this, void 0, void 
         console.log(e.message);
     }
 }));
-ciselniky_router.get('/lekoveformy/:kodLekovaForma', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/lekoveformy/:kodLekovaForma', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);
@@ -189,7 +190,7 @@ ciselniky_router.get('/lekoveformy/:kodLekovaForma', (req, res) => __awaiter(thi
         console.log(e.message);
     }
 }));
-ciselniky_router.get('/registracniprocedury', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/registracniprocedury', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);
@@ -218,7 +219,7 @@ ciselniky_router.get('/registracniprocedury', (req, res) => __awaiter(this, void
         console.log(e.message);
     }
 }));
-ciselniky_router.get('/registracniprocedury/:kodRegistracniProcedura', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/registracniprocedury/:kodRegistracniProcedura', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);
@@ -245,7 +246,7 @@ ciselniky_router.get('/registracniprocedury/:kodRegistracniProcedura', (req, res
         console.log(e.message);
     }
 }));
-ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);
@@ -274,7 +275,7 @@ ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(this, void 0, 
         console.log(e.message);
     }
 }));
-ciselniky_router.get('/ucinnelatky', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/ucinnelatky', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);
@@ -308,7 +309,7 @@ ciselniky_router.get('/ucinnelatky', (req, res) => __awaiter(this, void 0, void 
         console.log(e.message);
     }
 }));
-ciselniky_router.get('/ucinnelatky/:kodUcinnaLatka', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/ucinnelatky/:kodUcinnaLatka', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);
@@ -336,7 +337,7 @@ ciselniky_router.get('/ucinnelatky/:kodUcinnaLatka', (req, res) => __awaiter(thi
     }
 }));
 ///
-ciselniky_router.get('/atcskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/atcskupiny', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);
@@ -365,7 +366,7 @@ ciselniky_router.get('/atcskupiny', (req, res) => __awaiter(this, void 0, void 0
         console.log(e.message);
     }
 }));
-ciselniky_router.get('/atcskupiny/:kodAtcSkupina', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/atcskupiny/:kodAtcSkupina', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);
@@ -392,7 +393,7 @@ ciselniky_router.get('/atcskupiny/:kodAtcSkupina', (req, res) => __awaiter(this,
         console.log(e.message);
     }
 }));
-ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);
@@ -421,7 +422,7 @@ ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(this, void 0, 
         console.log(e.message);
     }
 }));
-ciselniky_router.get('/indikacniskupiny/:kodIndikacniSkupina', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/indikacniskupiny/:kodIndikacniSkupina', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);
@@ -448,7 +449,7 @@ ciselniky_router.get('/indikacniskupiny/:kodIndikacniSkupina', (req, res) => __a
         console.log(e.message);
     }
 }));
-ciselniky_router.get('/stavyregistrace', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/stavyregistrace', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);
@@ -477,7 +478,7 @@ ciselniky_router.get('/stavyregistrace', (req, res) => __awaiter(this, void 0, v
         console.log(e.message);
     }
 }));
-ciselniky_router.get('/stavyregistrace/:kodStavRegistrace', (req, res) => __awaiter(this, void 0, void 0, function* () {
+ciselniky_router.get('/stavyregistrace/:kodStavRegistrace', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
         common_1.SetHeader(res);

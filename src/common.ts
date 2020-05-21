@@ -983,6 +983,16 @@ namespace common {
 
             }
         },
+        getCislaJednaciRegCislo: {
+            procName: "BEGIN cis_sukl_reg_cisla.GetCislaJednaciRegCislo( :registracni_cislo, :count, :cursor ); END;",
+            procParams: {
+                registracni_cislo: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
         getZmenyRegistracniCisla: {
             procName: "BEGIN cis_sukl_reg_cisla.GetZmenyRegCisla(:count, :cursor ); END;",
             procParams: {
