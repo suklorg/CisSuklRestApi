@@ -99,6 +99,8 @@ namespace common {
         kod_sukl?: IProcParamsItems;
         stavy_registrace?: IProcParamsItems;
         kod_obal?: IProcParamsItems;
+        cislo_bedny?: IProcParamsItems;
+        registracni_cislo?: IProcParamsItems;
         offset?: IProcParamsItems;
         limit?: IProcParamsItems;
         total_count?: IProcParamsItems;
@@ -110,6 +112,8 @@ namespace common {
         kod_sukl?: IProcParamsItems;
         stavy_registrace?: IProcParamsItems;
         kod_obal?: IProcParamsItems;
+        cislo_bedny?: IProcParamsItems;
+        registracni_cislo?: IProcParamsItems;
         offset?: IProcParamsItems;
         limit?: IProcParamsItems;
         total_count?: IProcParamsItems;
@@ -117,6 +121,11 @@ namespace common {
         cursor: IProcParamsItems;
 
         constructor(procParams: IProcParams) {
+            if (procParams.cislo_bedny)
+                this.cislo_bedny = new ProcParamsItems(procParams.cislo_bedny);
+            if (procParams.registracni_cislo)
+                this.registracni_cislo = new ProcParamsItems(procParams.registracni_cislo);
+
             if (procParams.kod_sukl)
                 this.kod_sukl = new ProcParamsItems(procParams.kod_sukl);
             if (procParams.kod_obal)
@@ -227,6 +236,34 @@ namespace common {
     };
 
     export const oraProcs = {
+        getArchiv: {
+            procName: "BEGIN cis_sukl_archiv.GetArchiv( :count, :cursor ); END;",
+            procParams: {
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        getArchivBedna: {
+            procName: "BEGIN cis_sukl_archiv.GetArchivBedna( :cislo_bedny, :count, :cursor ); END;",
+            procParams: {
+                cislo_bedny: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+        getArchivRegCislo: {
+            procName: "BEGIN cis_sukl_archiv.GetArchivRegCislo( :registracni_cislo, :count, :cursor ); END;",
+            procParams: {
+                registracni_cislo: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
 
         getObaly: {
             procName: "BEGIN cis_sukl_cis.GetObaly( :count, :cursor ); END;",

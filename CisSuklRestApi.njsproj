@@ -79,6 +79,7 @@
     <Content Include="src\node-swagger-api\views\error.jade" />
     <Content Include="src\node-swagger-api\views\index.jade" />
     <Content Include="src\node-swagger-api\views\layout.jade" />
+    <Content Include="src\routers\cissukl_archiv_router.js.map" />
     <Content Include="src\routers\cissukl_ectd_router.js.map" />
     <Content Include="src\routers\cissukl_router.js.map" />
     <Content Include="tsconfig.json" />
@@ -96,6 +97,7 @@
     <TypeScriptCompile Include="Scripts\typings\modules\oracledb\index.d.ts" />
     <TypeScriptCompile Include="src\common.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_cdnu_router.ts" />
+    <TypeScriptCompile Include="src\routers\cissukl_ciselniky_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_cp_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_dis13_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_lp_bwl_router.ts" />
@@ -104,7 +106,7 @@
     <TypeScriptCompile Include="src\routers\cissukl_pk_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_reg_cisla_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_lekarny_router.ts" />
-    <TypeScriptCompile Include="src\routers\cissukl_ciselniky_router.ts" />
+    <TypeScriptCompile Include="src\routers\cissukl_archiv_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_lp_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_router.ts" />
     <TypeScriptCompile Include="src\routers\cissukl_organizace_router.ts" />

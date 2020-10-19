@@ -28,7 +28,8 @@ cdnu_router.post('/cdnu', async (req: express.Request, res: express.Response): P
 null
     let oraExecuteResult: IOraExecuteResult;
 
-    let connectionAttributes: IConnectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlptest" };
+    //let connectionAttributes: IConnectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlptest" };
+    let connectionAttributes: IConnectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlp" };
     let connection: IConnection = await getConnection(connectionAttributes);
 
     try {

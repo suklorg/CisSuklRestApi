@@ -70,6 +70,10 @@ var common;
     ;
     class ProcParams {
         constructor(procParams) {
+            if (procParams.cislo_bedny)
+                this.cislo_bedny = new ProcParamsItems(procParams.cislo_bedny);
+            if (procParams.registracni_cislo)
+                this.registracni_cislo = new ProcParamsItems(procParams.registracni_cislo);
             if (procParams.kod_sukl)
                 this.kod_sukl = new ProcParamsItems(procParams.kod_sukl);
             if (procParams.kod_obal)
@@ -153,6 +157,29 @@ var common;
     common.SetHeader = SetHeader;
     ;
     common.oraProcs = {
+        getArchiv: {
+            procName: "BEGIN cis_sukl_archiv.GetArchiv( :count, :cursor ); END;",
+            procParams: {
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getArchivBedna: {
+            procName: "BEGIN cis_sukl_archiv.GetArchivBedna( :cislo_bedny, :count, :cursor ); END;",
+            procParams: {
+                cislo_bedny: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getArchivRegCislo: {
+            procName: "BEGIN cis_sukl_archiv.GetArchivRegCislo( :registracni_cislo, :count, :cursor ); END;",
+            procParams: {
+                registracni_cislo: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
         getObaly: {
             procName: "BEGIN cis_sukl_cis.GetObaly( :count, :cursor ); END;",
             procParams: {

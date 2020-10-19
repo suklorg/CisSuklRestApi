@@ -21,7 +21,8 @@ class RegCislo {
 cdnu_router.post('/cdnu', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     null;
     let oraExecuteResult;
-    let connectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlptest" };
+    //let connectionAttributes: IConnectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlptest" };
+    let connectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlp" };
     let connection = yield oracledb_1.getConnection(connectionAttributes);
     try {
         res.type('application/json');
