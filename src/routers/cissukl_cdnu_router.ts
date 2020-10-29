@@ -1,10 +1,10 @@
 ﻿"use strict";
 
 import * as express from "express";
-import { FormatExceptionMessage, errMessage400, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult } from "../common";
+import { FormatExceptionMessage, errMessage400, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, connectionAttributes } from "../common";
 
 
-import { IConnectionAttributes, IExecuteOptions, IConnection, getConnection, OBJECT, NUMBER, STRING, DATE, CURSOR, BIND_IN, BIND_OUT } from "oracledb";
+import { IConnectionAttributes, IExecuteOptions, IConnection,  getConnection, OBJECT, NUMBER, STRING, DATE, CURSOR, BIND_IN, BIND_OUT } from "oracledb";
 let cdnu_router: express.Router = express.Router();
 
 
@@ -29,7 +29,7 @@ null
     let oraExecuteResult: IOraExecuteResult;
 
     //let connectionAttributes: IConnectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlptest" };
-    let connectionAttributes: IConnectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlp" };
+    //let connectionAttributes: IConnectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlp" };
     let connection: IConnection = await getConnection(connectionAttributes);
 
     try {
