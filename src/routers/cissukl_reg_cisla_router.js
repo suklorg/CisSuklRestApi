@@ -167,6 +167,10 @@ reg_cisla_router.get('/registracnicisla', (req, res) => __awaiter(void 0, void 0
             common_1.oraProcs.getCislaJednaciRegCislo.procParams.registracni_cislo.val = req.query.registracni_cislo;
             oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCislaJednaciRegCislo);
         }
+        else if (typeof req.query.uuid !== "undefined" && typeof req.query.uuid !== "object" && Object.keys(req.query).length === 1) {
+            common_1.oraProcs.getCislaJednaciUuidCislo.procParams.uuid_cislo.val = req.query.uuid;
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCislaJednaciUuidCislo);
+        }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);

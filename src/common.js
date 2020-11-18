@@ -807,6 +807,14 @@ var common;
                 cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
             }
         },
+        getCislaJednaciUuidCislo: {
+            procName: "BEGIN cis_sukl_reg_cisla.GetCislaJednaciUuidCislo( :uuid_cislo, :count, :cursor ); END;",
+            procParams: {
+                uuid_cislo: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
         getZmenyRegistracniCisla: {
             procName: "BEGIN cis_sukl_reg_cisla.GetZmenyRegCisla(:count, :cursor ); END;",
             procParams: {

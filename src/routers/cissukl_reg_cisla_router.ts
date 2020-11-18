@@ -171,6 +171,9 @@ reg_cisla_router.get('/registracnicisla', async (req: express.Request, res: expr
         } else if (typeof req.query.registracni_cislo !== "undefined" && typeof req.query.registracni_cislo !== "object" && Object.keys(req.query).length === 1) {
             oraProcs.getCislaJednaciRegCislo.procParams.registracni_cislo.val = req.query.registracni_cislo;
             oraExecuteResult = await ExecuteProcedure(oraProcs.getCislaJednaciRegCislo);
+        } else if (typeof req.query.uuid !== "undefined" && typeof req.query.uuid !== "object" && Object.keys(req.query).length === 1) {
+            oraProcs.getCislaJednaciUuidCislo.procParams.uuid_cislo.val = req.query.uuid;
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getCislaJednaciUuidCislo);
         }
 
         if (typeof oraExecuteResult !== "undefined") {
