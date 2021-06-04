@@ -18,7 +18,7 @@ archiv_router.post('/archiv', (req, res) => __awaiter(void 0, void 0, void 0, fu
     null;
     let oraExecuteResult;
     //let connectionAttributes: IConnectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlp" };
-    let connection = yield oracledb_1.getConnection(common_1.connectionAttributes);
+    let connection = yield oracledb_1.getConnection(common_1.connectionAttributesDlp);
     try {
         res.type('application/json');
         let cisloBedny = req.body.cislo_bedny;

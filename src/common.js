@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const connAttributes = require("./connectionAttributes.json");
+const connAttributesDlp = require("./connectionAttributesDlp.json");
 const oracledb_1 = require("oracledb");
 let oracledb = require('oracledb');
 let buffer = require('buffer');
@@ -29,6 +30,11 @@ var common;
         user: connAttributes.user,
         password: connAttributes.password,
         connectString: connAttributes.connectString
+    };
+    common.connectionAttributesDlp = {
+        user: connAttributesDlp.user,
+        password: connAttributesDlp.password,
+        connectString: connAttributesDlp.connectString
     };
     /*
         export const connectionAttributes: IConnectionAttributes = {

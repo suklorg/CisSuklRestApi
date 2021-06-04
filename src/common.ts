@@ -1,6 +1,7 @@
 ﻿"use strict";
 
 import * as connAttributes from './connectionAttributes.json';
+import * as connAttributesDlp from './connectionAttributesDlp.json';
 
 import * as express from "express";
 
@@ -41,6 +42,13 @@ namespace common {
         password: (<any>connAttributes).password,
         connectString: (<any>connAttributes).connectString
     };
+
+    export const connectionAttributesDlp: IConnectionAttributes = {
+        user: (<any>connAttributesDlp).user,
+        password: (<any>connAttributesDlp).password,
+        connectString: (<any>connAttributesDlp).connectString
+    };
+
 /*
     export const connectionAttributes: IConnectionAttributes = {
         user: "cis2016",

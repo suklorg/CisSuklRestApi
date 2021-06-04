@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 import * as express from "express";
-import { FormatExceptionMessage, FormatException, errMessage400, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, SetHeader, OraProcedure, connectionAttributes } from "../common";
+import { FormatExceptionMessage, FormatException, errMessage400, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, SetHeader, OraProcedure, connectionAttributes, connectionAttributesDlp } from "../common";
 import { IConnectionAttributes, IExecuteOptions, IConnection, getConnection, OBJECT, NUMBER, STRING, DATE, CURSOR, BIND_IN, BIND_OUT } from "oracledb";
 
 let archiv_router: express.Router = express.Router();
@@ -11,7 +11,7 @@ archiv_router.post('/archiv', async (req: express.Request, res: express.Response
     let oraExecuteResult: IOraExecuteResult;
 
     //let connectionAttributes: IConnectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlp" };
-    let connection: IConnection = await getConnection(connectionAttributes);
+    let connection: IConnection = await getConnection(connectionAttributesDlp);
 
     try {
         res.type('application/json');
