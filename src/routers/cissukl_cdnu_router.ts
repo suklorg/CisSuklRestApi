@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 import * as express from "express";
-import { FormatExceptionMessage, errMessage400, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, connectionAttributes } from "../common";
+import { FormatExceptionMessage, errMessage400, FormatException, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, connectionAttributes, connectionAttributesDlp } from "../common";
 
 
 import { IConnectionAttributes, IExecuteOptions, IConnection,  getConnection, OBJECT, NUMBER, STRING, DATE, CURSOR, BIND_IN, BIND_OUT } from "oracledb";
@@ -30,7 +30,7 @@ null
 
     //let connectionAttributes: IConnectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlptest" };
     //let connectionAttributes: IConnectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlp" };
-    let connection: IConnection = await getConnection(connectionAttributes);
+    let connection: IConnection = await getConnection(connectionAttributesDlp);
 
     try {
         res.type('application/json');
