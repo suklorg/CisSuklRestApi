@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.lp_router = void 0;
 const express = require("express");
 const common_1 = require("../common");
 let lp_router = express.Router();
