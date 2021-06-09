@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.cdnu_router = void 0;
 const express = require("express");
 const common_1 = require("../common");
 const oracledb_1 = require("oracledb");
