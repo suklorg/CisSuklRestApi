@@ -2,7 +2,7 @@
 
 import * as express from "express";
 //import { getConnection, IConnection, BIND_IN, BIND_OUT, CURSOR, NUMBER, STRING } from "oracledb";
-import { FormatExceptionMessage, FormatException, errMessage400, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult, logger } from "../common";
+import { FormatExceptionMessage, FormatException, errMessage400, oraProcs, AppError, ExecuteProcedure, IOraExecuteResult/*logger*/ } from "../common";
 import * as cis from "../common";
  
 let reg_cisla_router: express.Router = express.Router();

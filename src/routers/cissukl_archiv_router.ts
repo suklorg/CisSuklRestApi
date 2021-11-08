@@ -62,6 +62,10 @@ archiv_router.get('/archiv', async (req: express.Request, res: express.Response)
             oraProcedure = new OraProcedure(oraProcs.getArchivRegCislo);
             oraProcedure.procParams.registracni_cislo.val = req.query.registracni_cislo;
             oraExecuteResult = await ExecuteProcedure(oraProcedure);
+        } else if (typeof req.query.cislo_jednaci !== "undefined" && Object.keys(req.query).length === 1) {
+            oraProcedure = new OraProcedure(oraProcs.getArchivCisloJednaci);
+            oraProcedure.procParams.cislo_jednaci.val = req.query.cislo_jednaci;
+            oraExecuteResult = await ExecuteProcedure(oraProcedure);
         }
 
         if (typeof oraExecuteResult !== "undefined") {

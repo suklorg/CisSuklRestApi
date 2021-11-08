@@ -80,6 +80,8 @@ var common;
                 this.cislo_bedny = new ProcParamsItems(procParams.cislo_bedny);
             if (procParams.registracni_cislo)
                 this.registracni_cislo = new ProcParamsItems(procParams.registracni_cislo);
+            if (procParams.cislo_jednaci)
+                this.cislo_jednaci = new ProcParamsItems(procParams.cislo_jednaci);
             if (procParams.kod_sukl)
                 this.kod_sukl = new ProcParamsItems(procParams.kod_sukl);
             if (procParams.kod_obal)
@@ -174,6 +176,14 @@ var common;
             procName: "BEGIN cis_sukl_archiv.GetArchivBedna( :cislo_bedny, :count, :cursor ); END;",
             procParams: {
                 cislo_bedny: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getArchivCisloJednaci: {
+            procName: "BEGIN cis_sukl_archiv.GetArchivCisloJednaci( :cislo_jednaci, :count, :cursor ); END;",
+            procParams: {
+                cislo_jednaci: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
                 count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
                 cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
             }

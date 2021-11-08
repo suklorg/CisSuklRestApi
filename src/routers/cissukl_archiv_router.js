@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.archiv_router = void 0;
 const express = require("express");
 const common_1 = require("../common");
 const oracledb_1 = require("oracledb");
@@ -58,6 +59,11 @@ archiv_router.get('/archiv', (req, res) => __awaiter(void 0, void 0, void 0, fun
         else if (typeof req.query.registracni_cislo !== "undefined" && Object.keys(req.query).length === 1) {
             oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getArchivRegCislo);
             oraProcedure.procParams.registracni_cislo.val = req.query.registracni_cislo;
+            oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
+        }
+        else if (typeof req.query.cislo_jednaci !== "undefined" && Object.keys(req.query).length === 1) {
+            oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getArchivCisloJednaci);
+            oraProcedure.procParams.cislo_jednaci.val = req.query.cislo_jednaci;
             oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
         }
         if (typeof oraExecuteResult !== "undefined") {

@@ -109,6 +109,7 @@ namespace common {
         kod_obal?: IProcParamsItems;
         cislo_bedny?: IProcParamsItems;
         registracni_cislo?: IProcParamsItems;
+        cislo_jednaci?: IProcParamsItems;
         offset?: IProcParamsItems;
         limit?: IProcParamsItems;
         total_count?: IProcParamsItems;
@@ -122,6 +123,7 @@ namespace common {
         kod_obal?: IProcParamsItems;
         cislo_bedny?: IProcParamsItems;
         registracni_cislo?: IProcParamsItems;
+        cislo_jednaci?: IProcParamsItems;
         offset?: IProcParamsItems;
         limit?: IProcParamsItems;
         total_count?: IProcParamsItems;
@@ -133,7 +135,10 @@ namespace common {
                 this.cislo_bedny = new ProcParamsItems(procParams.cislo_bedny);
             if (procParams.registracni_cislo)
                 this.registracni_cislo = new ProcParamsItems(procParams.registracni_cislo);
-
+            
+            if (procParams.cislo_jednaci)
+                this.cislo_jednaci = new ProcParamsItems(procParams.cislo_jednaci);
+            
             if (procParams.kod_sukl)
                 this.kod_sukl = new ProcParamsItems(procParams.kod_sukl);
             if (procParams.kod_obal)
@@ -261,6 +266,17 @@ namespace common {
 
             }
         },
+        
+        getArchivCisloJednaci: {
+            procName: "BEGIN cis_sukl_archiv.GetArchivCisloJednaci( :cislo_jednaci, :count, :cursor ); END;",
+            procParams: {
+                cislo_jednaci: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        
 
         getArchivRegCislo: {
             procName: "BEGIN cis_sukl_archiv.GetArchivRegCislo( :registracni_cislo, :count, :cursor ); END;",

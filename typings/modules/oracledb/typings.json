@@ -1,0 +1,10 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/Bigous/typed-oracledb/b54cb7527e27dd955a7da32af3dbd75f6a7d8d0c/typings.json",
+    "raw": "registry:npm/oracledb#1.11.0+20160831235128",
+    "main": "index.d.ts",
+    "version": "1.11.0",
+    "name": "oracledb"
+  }
+}
