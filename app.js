@@ -1,7 +1,7 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
 const bodyParser = require("body-parser");
-////var bodyParser = require('body-parser');
+//var bodyParser = require('body-parser');
 const express = require("express");
 const cissukl_organizace_router_1 = require("./src/routers/cissukl_organizace_router");
 const cissukl_reg_cisla_router_1 = require("./src/routers/cissukl_reg_cisla_router");
