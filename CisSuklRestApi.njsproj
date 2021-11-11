@@ -87,7 +87,9 @@
     <TypeScriptCompile Include="app.ts" />
     <Content Include="package.json" />
     <Content Include="README.md" />
-    <TypeScriptCompile Include="cissukl_cp_routers.ts" />
+    <TypeScriptCompile Include="src\routers\cissukl_distributori_router.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Scripts\typings\globals\express-serve-static-core\index.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\globals\express\index.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\globals\mime\index.d.ts" />

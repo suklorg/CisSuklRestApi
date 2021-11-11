@@ -105,6 +105,7 @@ namespace common {
 
     export interface IProcParams {
         kod_sukl?: IProcParamsItems;
+        ico?: IProcParamsItems;
         stavy_registrace?: IProcParamsItems;
         kod_obal?: IProcParamsItems;
         cislo_bedny?: IProcParamsItems;
@@ -119,6 +120,7 @@ namespace common {
 
     export class ProcParams implements IProcParams {
         kod_sukl?: IProcParamsItems;
+        ico?: IProcParamsItems;
         stavy_registrace?: IProcParamsItems;
         kod_obal?: IProcParamsItems;
         cislo_bedny?: IProcParamsItems;
@@ -131,6 +133,9 @@ namespace common {
         cursor: IProcParamsItems;
 
         constructor(procParams: IProcParams) {
+            if (procParams.ico)
+                this.ico = new ProcParamsItems(procParams.ico);
+
             if (procParams.cislo_bedny)
                 this.cislo_bedny = new ProcParamsItems(procParams.cislo_bedny);
             if (procParams.registracni_cislo)
@@ -249,6 +254,25 @@ namespace common {
     };
 
     export const oraProcs = {
+        getDistributori: {
+            procName: "BEGIN cis_sukl_Distributori.GetDistributori( :count, :cursor ); END;",
+            procParams: {
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+        getDistributoriIco: {
+            procName: "BEGIN cis_sukl_Distributori.GetDistributoriIco( :ico, :count, :cursor ); END;",
+            procParams: {
+                ico: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
         getArchiv: {
             procName: "BEGIN cis_sukl_archiv.GetArchiv( :count, :cursor ); END;",
             procParams: {

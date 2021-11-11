@@ -20,6 +20,7 @@ import { lp_naz2_router } from "./src/routers/cissukl_lp_naz2_router";
 import { lp_bwl_router } from "./src/routers/cissukl_lp_bwl_router";
 import { cdnu_router } from "./src/routers/cissukl_cdnu_router";
 import { archiv_router } from "./src/routers/cissukl_archiv_router";
+import { distributori_router } from "./src/routers/cissukl_distributori_router";
 
 import { FormatExceptionMessage, errMessage400/*, logger */} from "./src/common";
 
@@ -55,6 +56,7 @@ app.use('/cissuklapi/v1', lp_naz2_router);
 app.use('/cissuklapi/v1', cdnu_router);
 app.use('/cissuklapi/v1', lp_bwl_router);
 app.use('/cissuklapi/v1', archiv_router);
+app.use('/cissuklapi/v1', distributori_router);
 
 /*
 app.get('/cissuklapi/vi', function (req: express.Request, res: express.Response): void {
