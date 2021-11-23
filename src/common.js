@@ -78,6 +78,8 @@ var common;
         constructor(procParams) {
             if (procParams.ico)
                 this.ico = new ProcParamsItems(procParams.ico);
+            if (procParams.nazev)
+                this.nazev = new ProcParamsItems(procParams.nazev);
             if (procParams.cislo_bedny)
                 this.cislo_bedny = new ProcParamsItems(procParams.cislo_bedny);
             if (procParams.registracni_cislo)
@@ -178,6 +180,14 @@ var common;
             procName: "BEGIN cis_sukl_Distributori.GetDistributoriIco( :ico, :count, :cursor ); END;",
             procParams: {
                 ico: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
+        getDistributoriNazev: {
+            procName: "BEGIN cis_sukl_Distributori.GetDistributoriNazev( :nazev, :count, :cursor ); END;",
+            procParams: {
+                nazev: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
                 count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
                 cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
             }

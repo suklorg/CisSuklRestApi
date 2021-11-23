@@ -28,6 +28,11 @@ distributori_router.get('/distributori', (req, res) => __awaiter(void 0, void 0,
             oraProcedure.procParams.ico.val = req.query.ico;
             oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
         }
+        else if (typeof req.query.nazev != "undefined" && Object.keys(req.query).length === 1) {
+            oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getDistributoriNazev);
+            oraProcedure.procParams.nazev.val = req.query.nazev;
+            oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
+        }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);

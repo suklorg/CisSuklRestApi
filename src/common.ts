@@ -106,6 +106,7 @@ namespace common {
     export interface IProcParams {
         kod_sukl?: IProcParamsItems;
         ico?: IProcParamsItems;
+        nazev?: IProcParamsItems;
         stavy_registrace?: IProcParamsItems;
         kod_obal?: IProcParamsItems;
         cislo_bedny?: IProcParamsItems;
@@ -121,6 +122,7 @@ namespace common {
     export class ProcParams implements IProcParams {
         kod_sukl?: IProcParamsItems;
         ico?: IProcParamsItems;
+        nazev?: IProcParamsItems;
         stavy_registrace?: IProcParamsItems;
         kod_obal?: IProcParamsItems;
         cislo_bedny?: IProcParamsItems;
@@ -135,6 +137,8 @@ namespace common {
         constructor(procParams: IProcParams) {
             if (procParams.ico)
                 this.ico = new ProcParamsItems(procParams.ico);
+            if (procParams.nazev)
+                this.nazev = new ProcParamsItems(procParams.nazev);
 
             if (procParams.cislo_bedny)
                 this.cislo_bedny = new ProcParamsItems(procParams.cislo_bedny);
@@ -267,6 +271,15 @@ namespace common {
             procName: "BEGIN cis_sukl_Distributori.GetDistributoriIco( :ico, :count, :cursor ); END;",
             procParams: {
                 ico: { val: '', type: STRING, dir: BIND_IN },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+        getDistributoriNazev: {
+            procName: "BEGIN cis_sukl_Distributori.GetDistributoriNazev( :nazev, :count, :cursor ); END;",
+            procParams: {
+                nazev: { val: '', type: STRING, dir: BIND_IN },
                 count: { type: NUMBER, dir: BIND_OUT },
                 cursor: { type: CURSOR, dir: BIND_OUT }
 
