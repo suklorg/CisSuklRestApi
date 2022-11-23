@@ -1,5 +1,6 @@
 {
   "user": "aislp",
   "password": "drdrug",
-  "connectString": "dlp"
+  "connectString": "(DESCRIPTION =  (ADDRESS_LIST = (ADDRESS = (COMMUNITY = TCP.world)(PROTOCOL = TCP)(Host = s-dlp-db.sukl.cz)(Port = 1521)))(CONNECT_DATA = (SID = AISLP)(GLOBAL_NAME = DLP)))"
 }
+
