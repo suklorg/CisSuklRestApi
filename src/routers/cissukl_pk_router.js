@@ -20,25 +20,25 @@ pk_router.get('/paralelnikody', (req, res) => __awaiter(void 0, void 0, void 0, 
     let oraExecuteResult;
     //oracledb.fetchAsString = [oracledb.DATE, oracledb.NUMBER];
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (typeof req.query.kod_sukl !== "undefined" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getParalelniKodyKodSuklScau.procParams.kod_sukl.val = req.query.kod_sukl;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getParalelniKodyKodSuklScau);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getParalelniKodyKodSuklScau);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.totalCount.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -47,25 +47,25 @@ pk_router.get('/paralelnikody', (req, res) => __awaiter(void 0, void 0, void 0, 
 pk_router.get('/paralelnikody/:kodSukl', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getParalelniKodyKodSuklScau.procParams.kod_sukl.val = req.params.kodSukl;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getParalelniKodyKodSuklScau);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getParalelniKodyKodSuklScau);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);

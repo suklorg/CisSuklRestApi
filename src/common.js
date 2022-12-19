@@ -8,11 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const connAttributes = require("./connectionAttributes.json");
-const connAttributesDlp = require("./connectionAttributesDlp.json");
 const oracledb_1 = require("oracledb");
 let oracledb = require('oracledb');
 let buffer = require('buffer');
+let environment = process.env.NODE_ENV;
+//let environment = 'test';
 var common;
 (function (common) {
     class AppError {
@@ -26,16 +26,47 @@ var common;
         }
     }
     common.AppError = AppError;
-    common.connectionAttributes = {
-        user: connAttributes.user,
-        password: connAttributes.password,
-        connectString: connAttributes.connectString
-    };
-    common.connectionAttributesDlp = {
-        user: connAttributesDlp.user,
-        password: connAttributesDlp.password,
-        connectString: connAttributesDlp.connectString
-    };
+    if (environment == 'test') {
+        common.connectionAttributes = {
+            user: 'cis_sukl',
+            password: 'cis_sukl',
+            connectString: '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(COMMUNITY=TCP)(PROTOCOL=TCP)(Host=test-s-dlp-db.sukl.cz)(Port = 1521)))(CONNECT_DATA=(SID=AISLP)(GLOBAL_NAME=DLPTEST)))'
+        };
+        common.connectionAttributesDlp = {
+            user: 'aislp',
+            password: 'drdrug',
+            connectString: '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(COMMUNITY=TCP)(PROTOCOL=TCP)(Host=test-s-dlp-db.sukl.cz)(Port = 1521)))(CONNECT_DATA=(SID=AISLP)(GLOBAL_NAME=DLPTEST)))'
+        };
+    }
+    else if (environment == 'production') {
+        common.connectionAttributes = {
+            user: 'cis2016',
+            password: 'Amtax67779',
+            connectString: '(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (COMMUNITY = TCP)(PROTOCOL = TCP)(Host = s-util.sukl.cz)(Port = 1521)))(CONNECT_DATA = (SID = UTIL)(GLOBAL_NAME = UTIL)))'
+        };
+        common.connectionAttributesDlp = {
+            user: 'aislp',
+            password: 'drdrug',
+            connectString: '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(COMMUNITY=TCP)(PROTOCOL=TCP)(Host=s-dlp-db.sukl.cz)(Port = 1521)))(CONNECT_DATA=(SID=AISLP)(GLOBAL_NAME=DLPTEST)))'
+        };
+    }
+    //*/
+    //let connAttributes = new ConnectionAttributes(connectionAttributes);
+    //let connAttributesDlp = new ConnectionAttributes(connectionAttributesDlp);
+    /*
+        export const connectionAttributes: IConnectionAttributes = {
+            user: (<any>connAttributes).user,
+            password: (<any>connAttributes).password,
+            connectString: (<any>connAttributes).connectString
+        };
+    
+        export const connectionAttributesDlp: IConnectionAttributes = {
+            user: (<any>connAttributesDlp).user,
+            password: (<any>connAttributesDlp).password,
+            connectString: (<any>connAttributesDlp).connectString
+        }
+        
+    //*/
     /*
         export const connectionAttributes: IConnectionAttributes = {
             user: "cis2016",
@@ -121,7 +152,7 @@ var common;
         return __awaiter(this, void 0, void 0, function* () {
             //logger.info('start ExecuteProcedure ' + oraProcedure.procName);
             let oraExecuteResult = new OraExecuteResult();
-            let connection = yield oracledb_1.getConnection(common.connectionAttributes);
+            let connection = yield (0, oracledb_1.getConnection)(common.connectionAttributes);
             try {
                 let result = yield connection.execute(oraProcedure.procName, oraProcedure.procParams, common.oraOutFormat);
                 //logger.info('exec  ExecuteProcedure ' + oraProcedure.procName);

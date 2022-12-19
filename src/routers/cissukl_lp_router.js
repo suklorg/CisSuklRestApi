@@ -39,7 +39,7 @@ lp_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(void 0, void 
     let oraExecuteResult;
     let oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getLecivePripravkyKodSukl);
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         //res.type('application/json');
         if (Object.keys(req.query).length === 0) {
             /*
@@ -48,7 +48,7 @@ lp_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(void 0, void 
             */
             //*
             oraProcedure.procParams.kod_sukl.val = req.params.kodSukl;
-            oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(oraProcedure);
             //*/
         }
         if (typeof oraExecuteResult !== "undefined") {
@@ -56,15 +56,15 @@ lp_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(void 0, void 
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -74,7 +74,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
     let oraExecuteResult;
     let oraProcedure; // = new OraProcedure(oraProcs.getLecivePripravkyKodSukl);
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         //res.type('application/json');
         //
         // /lecivepripravky
@@ -82,7 +82,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getLecivePripravky.procParams.offset.val = common_1.defOffset;
             common_1.oraProcs.getLecivePripravky.procParams.limit.val = common_1.defLimit;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravky);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravky);
         }
         //
         //// lecivepripravky?kod_sukl={kod_sukl}&stavy_registrace=stavy_registrace_scau
@@ -93,7 +93,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
             oraProcedure.procParams.kod_sukl.val = req.query.kod_sukl;
             //oraProcedure.procParams.stavy_registrace.val = req.query.stavy_registrace;
             //oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodSuklSRegScau);
-            oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(oraProcedure);
         }
         //
         //// lecivepripravky?stavy_registrace=stavy_registrace_scau
@@ -102,7 +102,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
             (Object.keys(req.query).length === 1)) {
             common_1.oraProcs.getLecivePripravkySRegScau.procParams.offset.val = common_1.defOffset;
             common_1.oraProcs.getLecivePripravkySRegScau.procParams.limit.val = common_1.defLimit;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkySRegScau);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkySRegScau);
         }
         //
         //// lecivepripravky?stavy_registrace=stavy_registrace_scau&limit={limit}
@@ -111,7 +111,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
             (typeof req.query.limit !== "undefined") && (Object.keys(req.query).length === 2)) {
             common_1.oraProcs.getLecivePripravkySRegScau.procParams.offset.val = common_1.defOffset;
             common_1.oraProcs.getLecivePripravkySRegScau.procParams.limit.val = Number(req.query.limit);
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkySRegScau);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkySRegScau);
         }
         //
         //// lecivepripravky?stavy_registrace=stavy_registrace_scau&offset={offset}
@@ -120,7 +120,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
             (typeof req.query.offset !== "undefined") && (Object.keys(req.query).length === 2)) {
             common_1.oraProcs.getLecivePripravkySRegScau.procParams.offset.val = Number(req.query.offset);
             common_1.oraProcs.getLecivePripravkySRegScau.procParams.limit.val = common_1.defLimit;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkySRegScau);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkySRegScau);
         }
         //
         //// lecivepripravky?stavy_registrace=stavy_registrace_scau&limit={limit}&offset={offset}
@@ -129,7 +129,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
             (typeof req.query.limit !== "undefined") && (typeof req.query.offset !== "undefined") && (Object.keys(req.query).length === 3)) {
             common_1.oraProcs.getLecivePripravkySRegScau.procParams.offset.val = Number(req.query.offset);
             common_1.oraProcs.getLecivePripravkySRegScau.procParams.limit.val = Number(req.query.limit);
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkySRegScau);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkySRegScau);
         }
         ///
         //
@@ -140,7 +140,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
             (Object.keys(req.query).length === 2)) {
             common_1.oraProcs.getLecivePripravkyKodySRegScau.procParams.offset.val = common_1.defOffset;
             common_1.oraProcs.getLecivePripravkyKodySRegScau.procParams.limit.val = common_1.defLimit;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyKodySRegScau);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyKodySRegScau);
         }
         //
         //// lecivepripravky?fields=kod_sukl&stavy_registrace=stavy_registrace_scau&limit={limit}
@@ -150,7 +150,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
             (typeof req.query.limit !== "undefined") && (Object.keys(req.query).length === 3)) {
             common_1.oraProcs.getLecivePripravkyKodySRegScau.procParams.offset.val = common_1.defOffset;
             common_1.oraProcs.getLecivePripravkyKodySRegScau.procParams.limit.val = Number(req.query.limit);
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyKodySRegScau);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyKodySRegScau);
         }
         //
         //// lecivepripravky?fields=kod_sukl&stavy_registrace=stavy_registrace_scau&offset={offset}
@@ -160,7 +160,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
             (typeof req.query.offset !== "undefined") && (Object.keys(req.query).length === 3)) {
             common_1.oraProcs.getLecivePripravkyKodySRegScau.procParams.offset.val = Number(req.query.offset);
             common_1.oraProcs.getLecivePripravkyKodySRegScau.procParams.limit.val = common_1.defLimit;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyKodySRegScau);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyKodySRegScau);
         }
         //
         //// lecivepripravky?fields=kod_sukl&stavy_registrace=stavy_registrace_scau&limit={limit}&offset={offset}
@@ -170,7 +170,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
             (typeof req.query.limit !== "undefined") && (typeof req.query.offset !== "undefined") && (Object.keys(req.query).length === 4)) {
             common_1.oraProcs.getLecivePripravkyKodySRegScau.procParams.offset.val = Number(req.query.offset);
             common_1.oraProcs.getLecivePripravkyKodySRegScau.procParams.limit.val = Number(req.query.limit);
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyKodySRegScau);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyKodySRegScau);
         }
         //
         //// ?fields=...
@@ -186,7 +186,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                 if (Object.keys(req.query).length === 1) {
                     common_1.oraProcs.getLecivePripravkyKody.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getLecivePripravkyKody.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyKody);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyKody);
                 }
                 //
                 //// ?fields=kod_sukl&je_regulovany={je_regulovany}
@@ -199,7 +199,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                         common_1.oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.je_regulovany.val = req.query.je_regulovany;
                         common_1.oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.offset.val = common_1.defOffset;
                         common_1.oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.limit.val = common_1.defLimit;
-                        oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyKodyJeRegulovany);
+                        oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyKodyJeRegulovany);
                     }
                     //
                     //// /lecivepripravky?fields=kod_sukl&je_regulovany={je_regulovany}&limit={limit}
@@ -208,7 +208,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                         common_1.oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.je_regulovany.val = req.query.je_regulovany;
                         common_1.oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.offset.val = common_1.defOffset;
                         common_1.oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.limit.val = Number(req.query.limit);
-                        oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyKodyJeRegulovany);
+                        oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyKodyJeRegulovany);
                     }
                     //
                     //// /lecivepripravky?fields=kod_sukl&je_regulovany={je_regulovany}&offset={offset}
@@ -217,7 +217,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                         common_1.oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.je_regulovany.val = req.query.je_regulovany;
                         common_1.oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.offset.val = Number(req.query.offset);
                         common_1.oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.limit.val = common_1.defLimit;
-                        oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyKodyJeRegulovany);
+                        oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyKodyJeRegulovany);
                     }
                     //
                     //// /lecivepripravky?fields=kod_sukl&je_regulovany={je_regulovany}&limit={limit}&offset={offset}
@@ -226,7 +226,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                         common_1.oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.je_regulovany.val = req.query.je_regulovany;
                         common_1.oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.offset.val = Number(req.query.offset);
                         common_1.oraProcs.getLecivePripravkyKodyJeRegulovany.procParams.limit.val = Number(req.query.limit);
-                        oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyKodyJeRegulovany);
+                        oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyKodyJeRegulovany);
                     }
                 }
                 //
@@ -240,7 +240,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                         common_1.oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;
                         common_1.oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.offset.val = common_1.defOffset;
                         common_1.oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.limit.val = common_1.defLimit;
-                        oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyKodyPlatnostOd);
+                        oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyKodyPlatnostOd);
                     }
                     //
                     //// ?fields=kod_sukl&platnost_od={platnost_od}&limit={limit}
@@ -249,7 +249,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                         common_1.oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;
                         common_1.oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.offset.val = common_1.defOffset;
                         common_1.oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.limit.val = Number(req.query.limit);
-                        oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyKodyPlatnostOd);
+                        oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyKodyPlatnostOd);
                     }
                     //
                     //// ?fields=kod_sukl&platnost_od={platnost_od}&offset={offset}
@@ -258,7 +258,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                         common_1.oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;
                         common_1.oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.offset.val = Number(req.query.offset);
                         common_1.oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.limit.val = common_1.defLimit;
-                        oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyKodyPlatnostOd);
+                        oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyKodyPlatnostOd);
                     }
                     //
                     //// ?fields=kod_sukl&platnost_od={platnost_od}&limit={limit}&offset={offset}
@@ -267,7 +267,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                         common_1.oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;
                         common_1.oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.offset.val = Number(req.query.offset);
                         common_1.oraProcs.getLecivePripravkyKodyPlatnostOd.procParams.limit.val = Number(req.query.limit);
-                        oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyKodyPlatnostOd);
+                        oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyKodyPlatnostOd);
                     }
                 }
                 //
@@ -276,7 +276,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                 else if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 2) {
                     common_1.oraProcs.getLecivePripravkyKody.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getLecivePripravkyKody.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyKody);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyKody);
                 }
                 //
                 // /lecivepripravky?fields=kod_sukl&offset={offset}
@@ -284,7 +284,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                 else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 2) {
                     common_1.oraProcs.getLecivePripravkyKody.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getLecivePripravkyKody.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyKody);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyKody);
                 }
                 //
                 // /lecivepripravky?fields=kod_sukl&limit={limit}&offset={offset}
@@ -292,7 +292,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                 else if (typeof req.query.offset !== "undefined" && typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 3) {
                     common_1.oraProcs.getLecivePripravkyKody.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getLecivePripravkyKody.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyKody);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyKody);
                 }
             }
         }
@@ -308,7 +308,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                     common_1.oraProcs.getLecivePripravkyPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;
                     common_1.oraProcs.getLecivePripravkyPlatnostOd.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getLecivePripravkyPlatnostOd.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyPlatnostOd);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyPlatnostOd);
                 }
                 //
                 //// ?fields=kod_sukl&platnost_od={platnost_od}&limit={limit}
@@ -317,7 +317,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                     common_1.oraProcs.getLecivePripravkyPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;
                     common_1.oraProcs.getLecivePripravkyPlatnostOd.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getLecivePripravkyPlatnostOd.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyPlatnostOd);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyPlatnostOd);
                 }
                 //
                 //// ?fields=kod_sukl&platnost_od={platnost_od}&offset={offset}
@@ -326,7 +326,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                     common_1.oraProcs.getLecivePripravkyPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;
                     common_1.oraProcs.getLecivePripravkyPlatnostOd.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getLecivePripravkyPlatnostOd.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyPlatnostOd);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyPlatnostOd);
                 }
                 //
                 //// ?fields=kod_sukl&platnost_od={platnost_od}&limit={limit}&offset={offset}
@@ -335,7 +335,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                     common_1.oraProcs.getLecivePripravkyPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;
                     common_1.oraProcs.getLecivePripravkyPlatnostOd.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getLecivePripravkyPlatnostOd.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravkyPlatnostOd);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyPlatnostOd);
                 }
             } ///////
             //
@@ -348,7 +348,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                 if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 1) {
                     common_1.oraProcs.getLecivePripravky.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getLecivePripravky.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravky);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravky);
                 }
                 //
                 // /lecivepripravky?offset={offset}
@@ -356,7 +356,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                 else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 1) {
                     common_1.oraProcs.getLecivePripravky.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getLecivePripravky.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravky);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravky);
                 }
                 //
                 // /lecivepripravky?limit={limit}&offset={offset}
@@ -364,7 +364,7 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
                 else if (typeof req.query.offset !== "undefined" && typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 2) {
                     common_1.oraProcs.getLecivePripravky.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getLecivePripravky.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLecivePripravky);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravky);
                 }
             }
         }
@@ -374,15 +374,15 @@ lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -392,7 +392,7 @@ lp_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(void 0, void 
     let oraExecuteResult;
     let oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getLecivePripravkyKodSukl);
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         //res.type('application/json');
         if (Object.keys(req.query).length === 0) {
             /*
@@ -401,7 +401,7 @@ lp_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(void 0, void 
             */
             //*
             oraProcedure.procParams.kod_sukl.val = req.params.kodSukl;
-            oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(oraProcedure);
             //*/
         }
         if (typeof oraExecuteResult !== "undefined") {
@@ -409,15 +409,15 @@ lp_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(void 0, void 
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -426,29 +426,29 @@ lp_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(void 0, void 
 lp_router.get('/neregistrovanelecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         //res.type('application/json');
         if (Object.keys(req.query).length === 0) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getNeregistrovaneLecivePripravky);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getNeregistrovaneLecivePripravky);
         }
         else if (typeof req.query.obdobi_od !== "undefined" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getNeregistrovaneLecivePripravkyObdobiOd.procParams.obdobi_od.val = req.query.obdobi_od;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getNeregistrovaneLecivePripravkyObdobiOd);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getNeregistrovaneLecivePripravkyObdobiOd);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -457,29 +457,29 @@ lp_router.get('/neregistrovanelecivepripravky', (req, res) => __awaiter(void 0, 
 lp_router.get('/ukoncenaregistracelecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         //res.type('application/json');
         if (Object.keys(req.query).length === 0) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getNeregistrovaneLecivePripravky);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getNeregistrovaneLecivePripravky);
         }
         else if (typeof req.query.obdobi_od !== "undefined" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getNeregistrovaneLecivePripravkyObdobiOd.procParams.obdobi_od.val = req.query.obdobi_od;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getNeregistrovaneLecivePripravkyObdobiOd);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getNeregistrovaneLecivePripravkyObdobiOd);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -488,10 +488,10 @@ lp_router.get('/ukoncenaregistracelecivepripravky', (req, res) => __awaiter(void
 lp_router.get('/slozenilecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (typeof req.query.kod_sukl !== "undefined" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getSlozeniLecivePripravkyKodSukl.procParams.kod_sukl.val = req.query.kod_sukl;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getSlozeniLecivePripravkyKodSukl);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getSlozeniLecivePripravkyKodSukl);
         }
         else {
             //
@@ -500,7 +500,7 @@ lp_router.get('/slozenilecivepripravky', (req, res) => __awaiter(void 0, void 0,
             if (Object.keys(req.query).length === 0) {
                 common_1.oraProcs.getSlozeniLecivePripravky.procParams.offset.val = common_1.defOffset;
                 common_1.oraProcs.getSlozeniLecivePripravky.procParams.limit.val = common_1.defLimit;
-                oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getSlozeniLecivePripravky);
+                oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getSlozeniLecivePripravky);
             }
             else {
                 //
@@ -509,7 +509,7 @@ lp_router.get('/slozenilecivepripravky', (req, res) => __awaiter(void 0, void 0,
                 if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 1) {
                     common_1.oraProcs.getSlozeniLecivePripravky.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getSlozeniLecivePripravky.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getSlozeniLecivePripravky);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getSlozeniLecivePripravky);
                 }
                 //
                 // /slozenilecivepripravky?offset={offset}
@@ -517,7 +517,7 @@ lp_router.get('/slozenilecivepripravky', (req, res) => __awaiter(void 0, void 0,
                 else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 1) {
                     common_1.oraProcs.getSlozeniLecivePripravky.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getSlozeniLecivePripravky.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getSlozeniLecivePripravky);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getSlozeniLecivePripravky);
                 }
                 //
                 // /slozenilecivepripravky?limit={limit}&offset={offset}
@@ -525,7 +525,7 @@ lp_router.get('/slozenilecivepripravky', (req, res) => __awaiter(void 0, void 0,
                 else if (typeof req.query.offset !== "undefined" && typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 2) {
                     common_1.oraProcs.getSlozeniLecivePripravky.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getSlozeniLecivePripravky.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getSlozeniLecivePripravky);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getSlozeniLecivePripravky);
                 }
             }
         }
@@ -535,15 +535,15 @@ lp_router.get('/slozenilecivepripravky', (req, res) => __awaiter(void 0, void 0,
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);

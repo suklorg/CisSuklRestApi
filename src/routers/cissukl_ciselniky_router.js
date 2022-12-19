@@ -23,29 +23,29 @@ ciselniky_router.get('/obaly', (req, res) => __awaiter(void 0, void 0, void 0, f
     let oraExecuteResult;
     let oraProcedure;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
             oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getObaly);
-            oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(oraProcedure);
         }
         else if (req.query.fields === "kod_obal" && Object.keys(req.query).length === 1) {
             oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getObalyKody);
-            oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(oraProcedure);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -55,25 +55,25 @@ ciselniky_router.get('/obaly/:kodObal', (req, res) => __awaiter(void 0, void 0, 
     let oraExecuteResult;
     let oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getObalyKodObal);
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
             oraProcedure.procParams.kod_obal.val = req.params.kodObal;
-            oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(oraProcedure);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -82,27 +82,27 @@ ciselniky_router.get('/obaly/:kodObal', (req, res) => __awaiter(void 0, void 0, 
 ciselniky_router.get('/cestypodani', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCestyPodani);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getCestyPodani);
         }
         else if (req.query.fields === "kod_cesta_podani" && Object.keys(req.query).length === 1) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCestyPodaniKody);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getCestyPodaniKody);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -111,25 +111,25 @@ ciselniky_router.get('/cestypodani', (req, res) => __awaiter(void 0, void 0, voi
 ciselniky_router.get('/cestypodani/:kodCestaPodani', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getCestyPodaniKodCestaPodani.procParams.kod_cesta_podani.val = req.params.kodCestaPodani;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCestyPodaniKodCestaPodani);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getCestyPodaniKodCestaPodani);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -138,27 +138,27 @@ ciselniky_router.get('/cestypodani/:kodCestaPodani', (req, res) => __awaiter(voi
 ciselniky_router.get('/lekoveformy', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLekoveFormy);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLekoveFormy);
         }
         else if (req.query.fields === "kod_lekova_forma" && Object.keys(req.query).length === 1) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLekoveFormyKody);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLekoveFormyKody);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -167,25 +167,25 @@ ciselniky_router.get('/lekoveformy', (req, res) => __awaiter(void 0, void 0, voi
 ciselniky_router.get('/lekoveformy/:kodLekovaForma', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getLekoveFormyKodLekovaForma.procParams.kod_lekova_forma.val = req.params.kodLekovaForma;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLekoveFormyKodLekovaForma);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLekoveFormyKodLekovaForma);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -194,27 +194,27 @@ ciselniky_router.get('/lekoveformy/:kodLekovaForma', (req, res) => __awaiter(voi
 ciselniky_router.get('/registracniprocedury', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getRegistracniProcedury);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getRegistracniProcedury);
         }
         else if (req.query.fields === "kod_registracni_procedura" && Object.keys(req.query).length === 1) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getRegistracniProceduryKody);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getRegistracniProceduryKody);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -223,25 +223,25 @@ ciselniky_router.get('/registracniprocedury', (req, res) => __awaiter(void 0, vo
 ciselniky_router.get('/registracniprocedury/:kodRegistracniProcedura', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getRegistracniProceduryKodRegistracniProcedura.procParams.kod_registracni_procedura.val = req.params.kodRegistracniProcedura;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getRegistracniProceduryKodRegistracniProcedura);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getRegistracniProceduryKodRegistracniProcedura);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -250,27 +250,27 @@ ciselniky_router.get('/registracniprocedury/:kodRegistracniProcedura', (req, res
 ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getIndikacniSkupiny);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getIndikacniSkupiny);
         }
         else if (req.query.fields === "kod_indikacni_skupina" && Object.keys(req.query).length === 1) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getIndikacniSkupinyKody);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getIndikacniSkupinyKody);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -279,32 +279,32 @@ ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(void 0, void 0
 ciselniky_router.get('/ucinnelatky', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getUcinneLatky);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getUcinneLatky);
         }
         else if (req.query.fields === "kod_ucinna_latka" && Object.keys(req.query).length === 1) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getUcinneLatkyKody);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getUcinneLatkyKody);
         }
         //        else if (typeof req.query.obdobi_od !== "undefined" && Object.keys(req.query).length === 1) {
         else if (req.query.kod_sukl !== "undefined" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getUcinneLatkyKodSukl.procParams.kod_sukl.val = req.query.kod_sukl;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getUcinneLatkyKodSukl);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getUcinneLatkyKodSukl);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -313,25 +313,25 @@ ciselniky_router.get('/ucinnelatky', (req, res) => __awaiter(void 0, void 0, voi
 ciselniky_router.get('/ucinnelatky/:kodUcinnaLatka', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getUcinneLatkyKodUcinnaLatka.procParams.kod_ucinna_latka.val = req.params.kodUcinnaLatka;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getUcinneLatkyKodUcinnaLatka);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getUcinneLatkyKodUcinnaLatka);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -341,27 +341,27 @@ ciselniky_router.get('/ucinnelatky/:kodUcinnaLatka', (req, res) => __awaiter(voi
 ciselniky_router.get('/atcskupiny', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getAtcSkupiny);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getAtcSkupiny);
         }
         else if (req.query.fields === "kod_atc_skupina" && Object.keys(req.query).length === 1) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getAtcSkupinyKody);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getAtcSkupinyKody);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -370,25 +370,25 @@ ciselniky_router.get('/atcskupiny', (req, res) => __awaiter(void 0, void 0, void
 ciselniky_router.get('/atcskupiny/:kodAtcSkupina', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getAtcSkupinyKodAtcSkupina.procParams.kod_atc_skupina.val = req.params.kodAtcSkupina;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getAtcSkupinyKodAtcSkupina);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getAtcSkupinyKodAtcSkupina);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -397,27 +397,27 @@ ciselniky_router.get('/atcskupiny/:kodAtcSkupina', (req, res) => __awaiter(void 
 ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getIndikacniSkupiny);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getIndikacniSkupiny);
         }
         else if (req.query.fields === "kod_indikacni_skupina" && Object.keys(req.query).length === 1) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getIndikacniSkupinyKody);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getIndikacniSkupinyKody);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -426,25 +426,25 @@ ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(void 0, void 0
 ciselniky_router.get('/indikacniskupiny/:kodIndikacniSkupina', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getIndikacniSkupinyKodIndikacniSkupina.procParams.kod_indikacni_skupina.val = req.params.kodIndikacniSkupina;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getIndikacniSkupinyKodIndikacniSkupina);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getIndikacniSkupinyKodIndikacniSkupina);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -453,27 +453,27 @@ ciselniky_router.get('/indikacniskupiny/:kodIndikacniSkupina', (req, res) => __a
 ciselniky_router.get('/stavyregistrace', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getStavyRegistrace);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getStavyRegistrace);
         }
         else if (req.query.fields === "kod_stav_registrace" && Object.keys(req.query).length === 1) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getStavyRegistraceKody);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getStavyRegistraceKody);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -482,25 +482,25 @@ ciselniky_router.get('/stavyregistrace', (req, res) => __awaiter(void 0, void 0,
 ciselniky_router.get('/stavyregistrace/:kodStavRegistrace', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getStavyRegistraceKodStavRegistrace.procParams.kod_stav_registrace.val = req.params.kodStavRegistrace;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getStavyRegistraceKodStavRegistrace);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getStavyRegistraceKodStavRegistrace);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);

@@ -20,21 +20,21 @@ scau_router.get('/scau', (req, res) => __awaiter(void 0, void 0, void 0, functio
     let oraExecuteResult;
     //oracledb.fetchAsString = [oracledb.DATE, oracledb.NUMBER];
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         //
         // /scau
         //
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getScau.procParams.offset.val = common_1.defOffset;
             common_1.oraProcs.getScau.procParams.limit.val = common_1.defLimit;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getScau);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getScau);
         }
         //
         //// /scau?kod_sukl={kod_sukl}
         //
         else if (typeof req.query.kod_sukl !== "undefined" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getScauKodSukl.procParams.kod_sukl.val = req.query.kod_sukl;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getScauKodSukl);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getScauKodSukl);
         }
         //
         //// /scau?kod_sukl={kod_sukl}&obdobi={obdobi}
@@ -42,7 +42,7 @@ scau_router.get('/scau', (req, res) => __awaiter(void 0, void 0, void 0, functio
         else if (typeof req.query.kod_sukl !== "undefined" && typeof req.query.obdobi !== "undefined" && Object.keys(req.query).length === 2) {
             common_1.oraProcs.getScauKodSuklObdobi.procParams.kod_sukl.val = req.query.kod_sukl;
             common_1.oraProcs.getScauKodSuklObdobi.procParams.obdobi.val = req.query.obdobi;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getScauKodSuklObdobi);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getScauKodSuklObdobi);
         }
         //
         //// ?fields=...
@@ -58,7 +58,7 @@ scau_router.get('/scau', (req, res) => __awaiter(void 0, void 0, void 0, functio
                 if (Object.keys(req.query).length === 1) {
                     common_1.oraProcs.getScauKody.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getScauKody.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getScauKody);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getScauKody);
                 }
                 //
                 // /scau?fields=kod_sukl&limit={limit}
@@ -66,7 +66,7 @@ scau_router.get('/scau', (req, res) => __awaiter(void 0, void 0, void 0, functio
                 else if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 2) {
                     common_1.oraProcs.getScauKody.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getScauKody.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getScauKody);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getScauKody);
                 }
                 //
                 // /scau?fields=kod_sukl&offset={offset}
@@ -74,7 +74,7 @@ scau_router.get('/scau', (req, res) => __awaiter(void 0, void 0, void 0, functio
                 else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 2) {
                     common_1.oraProcs.getScauKody.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getScauKody.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getScauKody);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getScauKody);
                 }
                 //
                 // /scau?fields=kod_sukl&limit={limit}&offset={offset}
@@ -82,7 +82,7 @@ scau_router.get('/scau', (req, res) => __awaiter(void 0, void 0, void 0, functio
                 else if (typeof req.query.offset !== "undefined" && typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 3) {
                     common_1.oraProcs.getScauKody.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getScauKody.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getScauKody);
+                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getScauKody);
                 }
             }
         }
@@ -96,7 +96,7 @@ scau_router.get('/scau', (req, res) => __awaiter(void 0, void 0, void 0, functio
             if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 1) {
                 common_1.oraProcs.getScau.procParams.offset.val = common_1.defOffset;
                 common_1.oraProcs.getScau.procParams.limit.val = Number(req.query.limit);
-                oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getScau);
+                oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getScau);
             }
             //
             // /scau?offset={offset}
@@ -104,7 +104,7 @@ scau_router.get('/scau', (req, res) => __awaiter(void 0, void 0, void 0, functio
             else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 1) {
                 common_1.oraProcs.getScau.procParams.offset.val = Number(req.query.offset);
                 common_1.oraProcs.getScau.procParams.limit.val = common_1.defLimit;
-                oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getScau);
+                oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getScau);
             }
             //
             // /scau?limit={limit}&offset={offset}
@@ -112,7 +112,7 @@ scau_router.get('/scau', (req, res) => __awaiter(void 0, void 0, void 0, functio
             else if (typeof req.query.offset !== "undefined" && typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 2) {
                 common_1.oraProcs.getScau.procParams.offset.val = Number(req.query.offset);
                 common_1.oraProcs.getScau.procParams.limit.val = Number(req.query.limit);
-                oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getScau);
+                oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getScau);
             }
             //*/
         }
@@ -121,15 +121,15 @@ scau_router.get('/scau', (req, res) => __awaiter(void 0, void 0, void 0, functio
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -138,25 +138,25 @@ scau_router.get('/scau', (req, res) => __awaiter(void 0, void 0, void 0, functio
 scau_router.get('/scau/:kodSukl', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getScauKodSukl.procParams.kod_sukl.val = req.params.kodSukl;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getScauKodSukl);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getScauKodSukl);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);

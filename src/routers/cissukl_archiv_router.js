@@ -19,7 +19,7 @@ archiv_router.post('/archiv', (req, res) => __awaiter(void 0, void 0, void 0, fu
     null;
     let oraExecuteResult;
     //let connectionAttributes: IConnectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlp" };
-    let connection = yield oracledb_1.getConnection(common_1.connectionAttributesDlp);
+    let connection = yield (0, oracledb_1.getConnection)(common_1.connectionAttributesDlp);
     try {
         res.type('application/json');
         let cisloBedny = req.body.cislo_bedny;
@@ -33,10 +33,10 @@ archiv_router.post('/archiv', (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -46,40 +46,40 @@ archiv_router.get('/archiv', (req, res) => __awaiter(void 0, void 0, void 0, fun
     let oraExecuteResult;
     let oraProcedure;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
             oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getArchiv);
-            oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(oraProcedure);
         }
         else if (typeof req.query.cislo_bedny !== "undefined" && Object.keys(req.query).length === 1) {
             oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getArchivBedna);
             oraProcedure.procParams.cislo_bedny.val = req.query.cislo_bedny;
-            oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(oraProcedure);
         }
         else if (typeof req.query.registracni_cislo !== "undefined" && Object.keys(req.query).length === 1) {
             oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getArchivRegCislo);
             oraProcedure.procParams.registracni_cislo.val = req.query.registracni_cislo;
-            oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(oraProcedure);
         }
         else if (typeof req.query.cislo_jednaci !== "undefined" && Object.keys(req.query).length === 1) {
             oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getArchivCisloJednaci);
             oraProcedure.procParams.cislo_jednaci.val = req.query.cislo_jednaci;
-            oraExecuteResult = yield common_1.ExecuteProcedure(oraProcedure);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(oraProcedure);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);

@@ -24,20 +24,20 @@ lekarny_router.get('/lekarny', (req, res) => __awaiter(void 0, void 0, void 0, f
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
         */
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLekarny);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLekarny);
         }
         else if (typeof req.query.status !== "undefined" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getLekarnyStatus.procParams.status.val = req.query.status;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLekarnyStatus);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLekarnyStatus);
         }
         else if (req.query.fields === "kod_pracoviste" && Object.keys(req.query).length === 1) {
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLekarnyKody);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLekarnyKody);
         }
         else if (req.query.fields === "kod_pracoviste" && Object.keys(req.query).length === 2 && typeof req.query.status !== "undefined") {
             common_1.oraProcs.getLekarnyKodyStatus.procParams.status.val = req.query.status;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLekarnyKodyStatus);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLekarnyKodyStatus);
         }
         /*
                 else if (typeof req.query.kod_pracoviste !== "undefined" && Object.keys(req.query).length === 1) {
@@ -50,15 +50,15 @@ lekarny_router.get('/lekarny', (req, res) => __awaiter(void 0, void 0, void 0, f
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof cis.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
@@ -67,25 +67,25 @@ lekarny_router.get('/lekarny', (req, res) => __awaiter(void 0, void 0, void 0, f
 lekarny_router.get('/lekarny/:kod_pracoviste', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        common_1.SetHeader(res);
+        (0, common_1.SetHeader)(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getLekarnyKodPracoviste.procParams.kod_pracoviste.val = req.params.kod_pracoviste;
-            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getLekarnyKodPracoviste);
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLekarnyKodPracoviste);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof cis.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);

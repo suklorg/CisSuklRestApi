@@ -22,22 +22,22 @@ dis13_router.get('/dodavky', (req, res) => __awaiter(void 0, void 0, void 0, fun
             if (Object.keys(req.query).length === 1) {
                 common_1.oraProcs.getDis13Kody.procParams.offset.val = 0;
                 common_1.oraProcs.getDis13Kody.procParams.limit.val = 20;
-                oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getDis13Kody);
+                oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getDis13Kody);
             }
             else if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 2) {
                 common_1.oraProcs.getDis13Kody.procParams.offset.val = 0;
                 common_1.oraProcs.getDis13Kody.procParams.limit.val = Number(req.query.limit);
-                oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getDis13Kody);
+                oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getDis13Kody);
             }
             else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 2) {
                 common_1.oraProcs.getDis13Kody.procParams.offset.val = Number(req.query.offset);
                 common_1.oraProcs.getDis13Kody.procParams.limit.val = 20;
-                oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getDis13Kody);
+                oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getDis13Kody);
             }
             else if (typeof req.query.offset !== "undefined" && typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 3) {
                 common_1.oraProcs.getDis13Kody.procParams.offset.val = Number(req.query.offset);
                 common_1.oraProcs.getDis13Kody.procParams.limit.val = Number(req.query.limit);
-                oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getDis13Kody);
+                oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getDis13Kody);
             }
         }
         if (typeof oraExecuteResult !== "undefined") {
@@ -45,15 +45,15 @@ dis13_router.get('/dodavky', (req, res) => __awaiter(void 0, void 0, void 0, fun
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
+            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         else {
-            res.status(400).send(common_1.FormatExceptionMessage(e.message));
+            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
         }
         ;
         console.log(e.message);
