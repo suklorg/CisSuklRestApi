@@ -307,6 +307,20 @@ namespace common {
     };
 
     export const oraProcs = {
+
+        getLecivePripravkyRegCislo: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravkyRegCislo( :registracni_cislo, :total_count, :count, :cursor ); END;",
+            procParams: {
+                registracni_cislo: { val: '', type: STRING, dir: BIND_IN },
+                total_count: { type: NUMBER, dir: BIND_OUT },
+                count: { type: NUMBER, dir: BIND_OUT },
+                cursor: { type: CURSOR, dir: BIND_OUT }
+
+            }
+        },
+
+
+
         getDistributori: {
             procName: "BEGIN cis_sukl_Distributori.GetDistributori( :count, :cursor ); END;",
             procParams: {

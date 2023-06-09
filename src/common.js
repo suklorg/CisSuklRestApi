@@ -200,6 +200,15 @@ var common;
     common.SetHeader = SetHeader;
     ;
     common.oraProcs = {
+        getLecivePripravkyRegCislo: {
+            procName: "BEGIN cis_sukl_lp.GetLecivePripravkyRegCislo( :registracni_cislo, :total_count, :count, :cursor ); END;",
+            procParams: {
+                registracni_cislo: { val: '', type: oracledb_1.STRING, dir: oracledb_1.BIND_IN },
+                total_count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                count: { type: oracledb_1.NUMBER, dir: oracledb_1.BIND_OUT },
+                cursor: { type: oracledb_1.CURSOR, dir: oracledb_1.BIND_OUT }
+            }
+        },
         getDistributori: {
             procName: "BEGIN cis_sukl_Distributori.GetDistributori( :count, :cursor ); END;",
             procParams: {

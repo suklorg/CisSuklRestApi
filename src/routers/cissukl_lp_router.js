@@ -35,51 +35,22 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
 
 });
 */
-lp_router.get('/lecivepripravky/:kodSukl', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let oraExecuteResult;
-    let oraProcedure = new common_1.OraProcedure(common_1.oraProcs.getLecivePripravkyKodSukl);
-    try {
-        (0, common_1.SetHeader)(res);
-        //res.type('application/json');
-        if (Object.keys(req.query).length === 0) {
-            /*
-            oraProcs.getLecivePripravkyKodSukl.procParams.kod_sukl.val = req.params.kodSukl;
-            oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodSukl);
-            */
-            //*
-            oraProcedure.procParams.kod_sukl.val = req.params.kodSukl;
-            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(oraProcedure);
-            //*/
-        }
-        if (typeof oraExecuteResult !== "undefined") {
-            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
-            res.send(oraExecuteResult.resultSet);
-        }
-        else {
-            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
-        }
-    }
-    catch (e) {
-        if (e instanceof common_1.AppError) {
-            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
-        }
-        else {
-            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
-        }
-        ;
-        console.log(e.message);
-    }
-}));
 lp_router.get('/lecivepripravky', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     let oraProcedure; // = new OraProcedure(oraProcs.getLecivePripravkyKodSukl);
     try {
         (0, common_1.SetHeader)(res);
+        //// lecivepripravky?registracni_cislo={registracni_cislo}
+        //
+        if ((typeof req.query.registracni_cislo !== "undefined") && (Object.keys(req.query).length === 1)) {
+            common_1.oraProcs.getLecivePripravkyRegCislo.procParams.registracni_cislo.val = req.query.registracni_cislo;
+            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravkyRegCislo);
+        }
         //res.type('application/json');
         //
         // /lecivepripravky
         //
-        if (Object.keys(req.query).length === 0) {
+        else if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getLecivePripravky.procParams.offset.val = common_1.defOffset;
             common_1.oraProcs.getLecivePripravky.procParams.limit.val = common_1.defLimit;
             oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getLecivePripravky);

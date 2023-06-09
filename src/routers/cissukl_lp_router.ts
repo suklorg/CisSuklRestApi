@@ -27,48 +27,6 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
 });
 */
 
-lp_router.get('/lecivepripravky/:kodSukl', async (req: express.Request, res: express.Response): Promise<void> => {
-
-    let oraExecuteResult: IOraExecuteResult;
-
-    let oraProcedure: OraProcedure = new OraProcedure(oraProcs.getLecivePripravkyKodSukl);
-
-
-    try {
-        SetHeader(res);
-        //res.type('application/json');
-
-        if (Object.keys(req.query).length === 0) {
-            /*
-            oraProcs.getLecivePripravkyKodSukl.procParams.kod_sukl.val = req.params.kodSukl;
-            oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyKodSukl);
-            */
-            //*
-            oraProcedure.procParams.kod_sukl.val = req.params.kodSukl;
-            oraExecuteResult = await ExecuteProcedure(oraProcedure);
-            //*/
-        }
-
-        if (typeof oraExecuteResult !== "undefined") {
-            res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
-            res.send(oraExecuteResult.resultSet);
-        }
-        else {
-            res.status(400).send(FormatExceptionMessage(errMessage400))
-        }
-    } catch (e) {
-        if (e instanceof AppError) {
-            res.status(e.status).send(FormatExceptionMessage(e.message));
-        }
-        else {
-            res.status(400).send(FormatExceptionMessage(e.message));
-        };
-        console.log(e.message);
-    }
-
-});
-
-
 
 
 
@@ -80,12 +38,24 @@ lp_router.get('/lecivepripravky', async (req: express.Request, res: express.Resp
 
     try {
         SetHeader(res);
+
+
+        //// lecivepripravky?registracni_cislo={registracni_cislo}
+        //
+        if ((typeof req.query.registracni_cislo !== "undefined") && (Object.keys(req.query).length === 1)) {
+            oraProcs.getLecivePripravkyRegCislo.procParams.registracni_cislo.val = req.query.registracni_cislo;
+            oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravkyRegCislo);
+        }
+
+
+
         //res.type('application/json');
         //
         // /lecivepripravky
         //
 
-        if (Object.keys(req.query).length === 0) {
+
+        else if (Object.keys(req.query).length === 0) {
             oraProcs.getLecivePripravky.procParams.offset.val = defOffset;
             oraProcs.getLecivePripravky.procParams.limit.val = defLimit;
             oraExecuteResult = await ExecuteProcedure(oraProcs.getLecivePripravky);
