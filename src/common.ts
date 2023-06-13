@@ -1,7 +1,7 @@
 ﻿"use strict";
 
-//import * as connAttributes from './connectionAttributes.json';
-//import * as connAttributesDlp from './connectionAttributesDlp.json';
+import * as connAttributes from './connectionAttributes.json';
+import * as connAttributesDlp from './connectionAttributesDlp.json';
 
 import * as express from "express";
 
@@ -12,9 +12,6 @@ let oracledb = require('oracledb');
 let buffer = require('buffer');
 
 
-let environment = process.env.NODE_ENV;
-//let environment = 'test';
-
 
 
 
@@ -24,8 +21,8 @@ namespace common {
 
     export class AppError implements Error {
         public name = 'AppError';
-        public status: number;
-        public message: string;
+        public status: number; 
+        public message: string; 
         constructor(status: number, message: string) {
             this.status = status;
             this.message = message;
@@ -35,55 +32,11 @@ namespace common {
         }
     }
 
-    /*
-    export class ConnectionAttributes implements IConnectionAttributes {
-        user: string;
-        password: string;
-        connectString: string;
-        //constructor(val: any, type: string, dir: string)
-        constructor(connectionAttributes: IConnectionAttributes) {
-            this.user = connectionAttributes.user;
-            this.password = connectionAttributes.password;
-            this.connectString = connectionAttributes.connectString;
-        }
-    }
-    //*/
 
-    ///*
 
-    export var connectionAttributes: IConnectionAttributes;
-    export var connectionAttributesDlp: IConnectionAttributes;
-    if (environment == 'test') {
-        connectionAttributes = {
-            user: 'cis_sukl',
-            password: 'cis_sukl',
-            connectString: '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(COMMUNITY=TCP)(PROTOCOL=TCP)(Host=test-s-dlp-db.sukl.cz)(Port = 1521)))(CONNECT_DATA=(SID=AISLP)(GLOBAL_NAME=DLPTEST)))'
-        }
 
-        connectionAttributesDlp = {
-            user: 'aislp',
-            password: 'drdrug',
-            connectString: '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(COMMUNITY=TCP)(PROTOCOL=TCP)(Host=test-s-dlp-db.sukl.cz)(Port = 1521)))(CONNECT_DATA=(SID=AISLP)(GLOBAL_NAME=DLPTEST)))'
-        }
-    } else if (environment == 'production')
-    {
-        connectionAttributes = {
-            user: 'cis2016',
-            password: 'Amtax67779',
-            connectString: '(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (COMMUNITY = TCP)(PROTOCOL = TCP)(Host = s-util.sukl.cz)(Port = 1521)))(CONNECT_DATA = (SID = UTIL)(GLOBAL_NAME = UTIL)))'
-        }
+ 
 
-        connectionAttributesDlp = {
-            user: 'aislp',
-            password: 'drdrug',
-            connectString: '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(COMMUNITY=TCP)(PROTOCOL=TCP)(Host=s-dlp-db.sukl.cz)(Port = 1521)))(CONNECT_DATA=(SID=AISLP)(GLOBAL_NAME=DLPTEST)))'
-        }
-    }
-    //*/
-    //let connAttributes = new ConnectionAttributes(connectionAttributes);
-    //let connAttributesDlp = new ConnectionAttributes(connectionAttributesDlp);
-    
-/*
     export const connectionAttributes: IConnectionAttributes = {
         user: (<any>connAttributes).user,
         password: (<any>connAttributes).password,
@@ -94,9 +47,7 @@ namespace common {
         user: (<any>connAttributesDlp).user,
         password: (<any>connAttributesDlp).password,
         connectString: (<any>connAttributesDlp).connectString
-    }
-    
-//*/
+    };
 
 /*
     export const connectionAttributes: IConnectionAttributes = {
@@ -307,8 +258,8 @@ namespace common {
     };
 
     export const oraProcs = {
-
         getLecivePripravkyRegCislo: {
+
             procName: "BEGIN cis_sukl_lp.GetLecivePripravkyRegCislo( :registracni_cislo, :total_count, :count, :cursor ); END;",
             procParams: {
                 registracni_cislo: { val: '', type: STRING, dir: BIND_IN },
@@ -318,8 +269,6 @@ namespace common {
 
             }
         },
-
-
 
         getDistributori: {
             procName: "BEGIN cis_sukl_Distributori.GetDistributori( :count, :cursor ); END;",

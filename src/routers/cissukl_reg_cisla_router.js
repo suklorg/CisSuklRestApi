@@ -58,26 +58,26 @@ reg_cisla_router.get('/zmenyregistracnicisla', (req, res) => __awaiter(void 0, v
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
         if (Object.keys(req.query).length === 0) {
-            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getZmenyRegistracniCisla);
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getZmenyRegistracniCisla);
         }
         else if (typeof req.query.platnost_od !== "undefined" && typeof req.query.platnost_od !== "object" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getZmenyRegistracniCislaPlatnostOd.procParams.platnost_od.val = req.query.platnost_od;
-            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getZmenyRegistracniCislaPlatnostOd);
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getZmenyRegistracniCislaPlatnostOd);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof cis.AppError) {
-            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
         }
         else {
-            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
         }
         ;
         console.log(e.message);
@@ -157,35 +157,35 @@ reg_cisla_router.get('/registracnicisla', (req, res) => __awaiter(void 0, void 0
         if (typeof req.query.cislo_jednaci !== "undefined" && typeof req.query.cislo_jednaci !== "object" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getCislaJednaciCisloJednaci.procParams.cislo_jednaci.val = req.query.cislo_jednaci;
             //logger.info('start registracnicisla param cislo jednaci: ' + req.query.cislo_jednaci);
-            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getCislaJednaciCisloJednaci);
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCislaJednaciCisloJednaci);
             //logger.info('stop  registracnicisla param cislo jednaci: ' + req.query.cislo_jednaci);
         }
         else if (typeof req.query.mrp_cislo !== "undefined" && typeof req.query.mrp_cislo !== "object" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getCislaJednaciMrpCislo.procParams.mrp_cislo.val = req.query.mrp_cislo;
-            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getCislaJednaciMrpCislo);
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCislaJednaciMrpCislo);
         }
         else if (typeof req.query.registracni_cislo !== "undefined" && typeof req.query.registracni_cislo !== "object" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getCislaJednaciRegCislo.procParams.registracni_cislo.val = req.query.registracni_cislo;
-            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getCislaJednaciRegCislo);
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCislaJednaciRegCislo);
         }
         else if (typeof req.query.uuid !== "undefined" && typeof req.query.uuid !== "object" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getCislaJednaciUuidCislo.procParams.uuid_cislo.val = req.query.uuid;
-            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getCislaJednaciUuidCislo);
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCislaJednaciUuidCislo);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
         }
         else {
-            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
         }
         ;
         console.log(e.message);

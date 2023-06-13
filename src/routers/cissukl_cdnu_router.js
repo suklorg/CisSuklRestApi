@@ -24,7 +24,7 @@ cdnu_router.post('/cdnu', (req, res) => __awaiter(void 0, void 0, void 0, functi
     let oraExecuteResult;
     //let connectionAttributes: IConnectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlptest" };
     //let connectionAttributes: IConnectionAttributes = { user: "aislp", password: "drdrug", connectString: "dlp" };
-    let connection = yield (0, oracledb_1.getConnection)(common_1.connectionAttributesDlp);
+    let connection = yield oracledb_1.getConnection(common_1.connectionAttributesDlp);
     try {
         res.type('application/json');
         let cisloJednaci = req.body.cislo_jednaci;
@@ -52,10 +52,10 @@ cdnu_router.post('/cdnu', (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
         }
         else {
-            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
         }
         ;
         console.log(e.message);

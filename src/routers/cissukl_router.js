@@ -230,7 +230,7 @@ ciselniky_router.get('/atcskupiny', (req, res) => __awaiter(void 0, void 0, void
             res.send(yield GetAtcSkupinyKody());
         }
         else {
-            res.status(404).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
+            res.status(404).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
@@ -318,7 +318,7 @@ ciselniky_router.get('/indikacniskupiny', (req, res) => __awaiter(void 0, void 0
             res.send(yield GetIndikacniSkupinyKody());
         }
         else {
-            res.status(404).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
+            res.status(404).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
@@ -409,7 +409,7 @@ ciselniky_router.get('/ucinnelatky', (req, res) => __awaiter(void 0, void 0, voi
             res.send(yield GetUcinneLatkyKodSukl(req.query.kod_sukl));
         }
         else {
-            res.status(404).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
+            res.status(404).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {

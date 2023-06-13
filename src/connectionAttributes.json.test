@@ -1,6 +1,5 @@
 {
   "user": "cis_sukl",
   "password": "cis_sukl",
-  "connectString": "(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (COMMUNITY = TCP)(PROTOCOL = TCP)(Host = test-s-dlp-db.sukl.cz)(Port = 1521)))(CONNECT_DATA = (SID = AISLP)(GLOBAL_NAME = DLPTEST)))"
+  "connectString": "dlptest"
 }
-

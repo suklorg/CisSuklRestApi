@@ -54,7 +54,7 @@ app.get('/cissuklapi/vi', function (req: express.Request, res: express.Response)
 });
 */
 app.get('*', function (req, res) {
-    res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
+    res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
 });
 app.listen(port);
 //CutomLogger.logger.info('CisSuklApi: ' + port);

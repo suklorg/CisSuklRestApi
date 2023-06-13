@@ -20,21 +20,21 @@ cp_router.get('/cenypuvodce', (req, res) => __awaiter(void 0, void 0, void 0, fu
     let oraExecuteResult;
     //oracledb.fetchAsString = [oracledb.DATE, oracledb.NUMBER];
     try {
-        (0, common_1.SetHeader)(res);
+        common_1.SetHeader(res);
         //
         // /cenypuvodce
         //
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getCenyPuvodce.procParams.offset.val = common_1.defOffset;
             common_1.oraProcs.getCenyPuvodce.procParams.limit.val = common_1.defLimit;
-            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getCenyPuvodce);
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCenyPuvodce);
         }
         //
         //// /cenypuvodce?kod_sukl={kod_sukl}
         //
         else if (typeof req.query.kod_sukl !== "undefined" && Object.keys(req.query).length === 1) {
             common_1.oraProcs.getCenyPuvodceKodSukl.procParams.kod_sukl.val = req.query.kod_sukl;
-            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getCenyPuvodceKodSukl);
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCenyPuvodceKodSukl);
         }
         //
         //// /cenypuvodce?kod_sukl={kod_sukl}&obdobi={obdobi}
@@ -60,7 +60,7 @@ cp_router.get('/cenypuvodce', (req, res) => __awaiter(void 0, void 0, void 0, fu
                 if (Object.keys(req.query).length === 1) {
                     common_1.oraProcs.getCenyPuvodceKody.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getCenyPuvodceKody.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getCenyPuvodceKody);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCenyPuvodceKody);
                 }
                 //
                 // /cenypuvodce?fields=kod_sukl&limit={limit}
@@ -68,7 +68,7 @@ cp_router.get('/cenypuvodce', (req, res) => __awaiter(void 0, void 0, void 0, fu
                 else if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 2) {
                     common_1.oraProcs.getCenyPuvodceKody.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getCenyPuvodceKody.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getCenyPuvodceKody);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCenyPuvodceKody);
                 }
                 //
                 // /cenypuvodce?fields=kod_sukl&offset={offset}
@@ -76,7 +76,7 @@ cp_router.get('/cenypuvodce', (req, res) => __awaiter(void 0, void 0, void 0, fu
                 else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 2) {
                     common_1.oraProcs.getCenyPuvodceKody.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getCenyPuvodceKody.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getCenyPuvodceKody);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCenyPuvodceKody);
                 }
                 //
                 // /cenypuvodce?fields=kod_sukl&limit={limit}&offset={offset}
@@ -84,7 +84,7 @@ cp_router.get('/cenypuvodce', (req, res) => __awaiter(void 0, void 0, void 0, fu
                 else if (typeof req.query.offset !== "undefined" && typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 3) {
                     common_1.oraProcs.getCenyPuvodceKody.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getCenyPuvodceKody.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getCenyPuvodceKody);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCenyPuvodceKody);
                 }
             }
         }
@@ -98,7 +98,7 @@ cp_router.get('/cenypuvodce', (req, res) => __awaiter(void 0, void 0, void 0, fu
             if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 1) {
                 common_1.oraProcs.getCenyPuvodce.procParams.offset.val = common_1.defOffset;
                 common_1.oraProcs.getCenyPuvodce.procParams.limit.val = Number(req.query.limit);
-                oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getCenyPuvodce);
+                oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCenyPuvodce);
             }
             //
             // /cenypuvodce?offset={offset}
@@ -106,7 +106,7 @@ cp_router.get('/cenypuvodce', (req, res) => __awaiter(void 0, void 0, void 0, fu
             else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 1) {
                 common_1.oraProcs.getCenyPuvodce.procParams.offset.val = Number(req.query.offset);
                 common_1.oraProcs.getCenyPuvodce.procParams.limit.val = common_1.defLimit;
-                oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getCenyPuvodce);
+                oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCenyPuvodce);
             }
             //
             // /cenypuvodce?limit={limit}&offset={offset}
@@ -114,7 +114,7 @@ cp_router.get('/cenypuvodce', (req, res) => __awaiter(void 0, void 0, void 0, fu
             else if (typeof req.query.offset !== "undefined" && typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 2) {
                 common_1.oraProcs.getCenyPuvodce.procParams.offset.val = Number(req.query.offset);
                 common_1.oraProcs.getCenyPuvodce.procParams.limit.val = Number(req.query.limit);
-                oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getCenyPuvodce);
+                oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCenyPuvodce);
             }
             //*/
         }
@@ -123,15 +123,15 @@ cp_router.get('/cenypuvodce', (req, res) => __awaiter(void 0, void 0, void 0, fu
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
         }
         else {
-            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
         }
         ;
         console.log(e.message);
@@ -140,25 +140,25 @@ cp_router.get('/cenypuvodce', (req, res) => __awaiter(void 0, void 0, void 0, fu
 cp_router.get('/cenypuvodce/:kodSukl', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        (0, common_1.SetHeader)(res);
+        common_1.SetHeader(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getCenyPuvodceKodSukl.procParams.kod_sukl.val = req.params.kodSukl;
-            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getCenyPuvodceKodSukl);
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getCenyPuvodceKodSukl);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
         }
         else {
-            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
         }
         ;
         console.log(e.message);

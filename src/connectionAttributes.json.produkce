@@ -1,5 +1,5 @@
 {
         "user": "cis2016",
         "password": "Amtax67779",
-        "connectString": "(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (COMMUNITY = TCP)(PROTOCOL = TCP)(Host = s-util.sukl.cz)(Port = 1521)))(CONNECT_DATA = (SID = UTIL)(GLOBAL_NAME = UTIL)))"
+        "connectString": "util"
 }

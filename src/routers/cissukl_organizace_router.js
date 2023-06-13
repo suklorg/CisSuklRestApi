@@ -17,14 +17,14 @@ exports.organizace_router = organizace_router;
 organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        (0, common_1.SetHeader)(res);
+        common_1.SetHeader(res);
         //
         // /organizace
         //
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getOrganizace.procParams.offset.val = common_1.defOffset;
             common_1.oraProcs.getOrganizace.procParams.limit.val = common_1.defLimit;
-            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizace);
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizace);
         }
         //
         //// ?fields=kod_organizace
@@ -36,7 +36,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
             if (Object.keys(req.query).length === 1) {
                 common_1.oraProcs.getOrganizaceKody.procParams.offset.val = common_1.defOffset;
                 common_1.oraProcs.getOrganizaceKody.procParams.limit.val = common_1.defLimit;
-                oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceKody);
+                oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceKody);
             }
             //
             //// ?fields=kod_organizace&je_drzitel={je_drzitel}
@@ -49,7 +49,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                     common_1.oraProcs.getOrganizaceKodyJeDrzitel.procParams.je_drzitel.val = req.query.je_drzitel;
                     common_1.oraProcs.getOrganizaceKodyJeDrzitel.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getOrganizaceKodyJeDrzitel.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceKodyJeDrzitel);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceKodyJeDrzitel);
                 }
                 //
                 // /organizace?fields=kod_organizace&je_drzitel={je_drzitel}&limit={limit}
@@ -58,7 +58,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                     common_1.oraProcs.getOrganizaceKodyJeDrzitel.procParams.je_drzitel.val = req.query.je_drzitel;
                     common_1.oraProcs.getOrganizaceKodyJeDrzitel.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getOrganizaceKodyJeDrzitel.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceKodyJeDrzitel);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceKodyJeDrzitel);
                 }
                 //
                 // /organizace?fields=kod_organizace&je_drzitel={je_drzitel}&offset={offset}
@@ -67,7 +67,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                     common_1.oraProcs.getOrganizaceKodyJeDrzitel.procParams.je_drzitel.val = req.query.je_drzitel;
                     common_1.oraProcs.getOrganizaceKodyJeDrzitel.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getOrganizaceKodyJeDrzitel.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceKodyJeDrzitel);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceKodyJeDrzitel);
                 }
                 //
                 // /organizace?fields=kod_organizace&je_drzitel={je_drzitel}&limit={limit}&offset={offset}
@@ -76,7 +76,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                     common_1.oraProcs.getOrganizaceKodyJeDrzitel.procParams.je_drzitel.val = req.query.je_drzitel;
                     common_1.oraProcs.getOrganizaceKodyJeDrzitel.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getOrganizaceKodyJeDrzitel.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceKodyJeDrzitel);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceKodyJeDrzitel);
                 }
             }
             //
@@ -90,7 +90,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                     common_1.oraProcs.getOrganizaceKodyJeVyrobce.procParams.je_vyrobce.val = req.query.je_vyrobce;
                     common_1.oraProcs.getOrganizaceKodyJeVyrobce.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getOrganizaceKodyJeVyrobce.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceKodyJeVyrobce);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceKodyJeVyrobce);
                 }
                 //
                 // /organizace?fields=kod_organizace&je_drzitel={je_vyrobce}&limit={limit}
@@ -99,7 +99,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                     common_1.oraProcs.getOrganizaceKodyJeVyrobce.procParams.je_vyrobce.val = req.query.je_vyrobce;
                     common_1.oraProcs.getOrganizaceKodyJeVyrobce.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getOrganizaceKodyJeVyrobce.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceKodyJeVyrobce);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceKodyJeVyrobce);
                 }
                 //
                 // /organizace?fields=kod_organizace&je_vyrobce={je_vyrobce}&offset={offset}
@@ -108,7 +108,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                     common_1.oraProcs.getOrganizaceKodyJeVyrobce.procParams.je_vyrobce.val = req.query.je_vyrobce;
                     common_1.oraProcs.getOrganizaceKodyJeVyrobce.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getOrganizaceKodyJeVyrobce.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceKodyJeVyrobce);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceKodyJeVyrobce);
                 }
                 //
                 // /organizace?fields=kod_organizace&je_vyrobce={je_vyrobce}&limit={limit}&offset={offset}
@@ -117,7 +117,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                     common_1.oraProcs.getOrganizaceKodyJeVyrobce.procParams.je_vyrobce.val = req.query.je_vyrobce;
                     common_1.oraProcs.getOrganizaceKodyJeVyrobce.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getOrganizaceKodyJeVyrobce.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceKodyJeVyrobce);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceKodyJeVyrobce);
                 }
             }
             //
@@ -126,7 +126,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
             else if ((typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 2)) {
                 common_1.oraProcs.getOrganizaceKody.procParams.offset.val = common_1.defOffset;
                 common_1.oraProcs.getOrganizaceKody.procParams.limit.val = Number(req.query.limit);
-                oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceKody);
+                oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceKody);
             }
             //
             // /organizace?fields=kod_organizace&offset={offset}
@@ -134,7 +134,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
             else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 2) {
                 common_1.oraProcs.getOrganizaceKody.procParams.offset.val = Number(req.query.offset);
                 common_1.oraProcs.getOrganizaceKody.procParams.limit.val = common_1.defLimit;
-                oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceKody);
+                oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceKody);
             }
             //
             // /organizace?fields=kod_organizace&limit={limit}&offset={offset}
@@ -142,7 +142,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
             else if (typeof req.query.offset !== "undefined" && typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 3) {
                 common_1.oraProcs.getOrganizaceKody.procParams.offset.val = Number(req.query.offset);
                 common_1.oraProcs.getOrganizaceKody.procParams.limit.val = Number(req.query.limit);
-                oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceKody);
+                oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceKody);
             }
         }
         //
@@ -160,7 +160,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                     common_1.oraProcs.getOrganizaceJeDrzitel.procParams.je_drzitel.val = req.query.je_drzitel;
                     common_1.oraProcs.getOrganizaceJeDrzitel.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getOrganizaceJeDrzitel.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceJeDrzitel);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceJeDrzitel);
                 }
                 //
                 // /organizace?je_drzitel={je_drzitel}&limit={limit}
@@ -169,7 +169,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                     common_1.oraProcs.getOrganizaceJeDrzitel.procParams.je_drzitel.val = req.query.je_drzitel;
                     common_1.oraProcs.getOrganizaceJeDrzitel.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getOrganizaceJeDrzitel.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceJeDrzitel);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceJeDrzitel);
                 }
                 //
                 // /organizace?je_drzitel={je_drzitel}&offset={offset}
@@ -178,7 +178,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                     common_1.oraProcs.getOrganizaceJeDrzitel.procParams.je_drzitel.val = req.query.je_drzitel;
                     common_1.oraProcs.getOrganizaceJeDrzitel.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getOrganizaceJeDrzitel.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceJeDrzitel);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceJeDrzitel);
                 }
                 //
                 // /organizace?je_drzitel={je_drzitel}&limit={limit}&offset={offset}
@@ -187,7 +187,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                     common_1.oraProcs.getOrganizaceJeDrzitel.procParams.je_drzitel.val = req.query.je_drzitel;
                     common_1.oraProcs.getOrganizaceJeDrzitel.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getOrganizaceJeDrzitel.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceJeDrzitel);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceJeDrzitel);
                 }
             }
             //
@@ -201,7 +201,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                     common_1.oraProcs.getOrganizaceJeVyrobce.procParams.je_vyrobce.val = req.query.je_vyrobce;
                     common_1.oraProcs.getOrganizaceJeVyrobce.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getOrganizaceJeVyrobce.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceJeVyrobce);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceJeVyrobce);
                 }
                 //
                 // /organizace?je_drzitel={je_vyrobce}&limit={limit}
@@ -210,7 +210,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                     common_1.oraProcs.getOrganizaceJeVyrobce.procParams.je_vyrobce.val = req.query.je_vyrobce;
                     common_1.oraProcs.getOrganizaceJeVyrobce.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getOrganizaceJeVyrobce.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceJeVyrobce);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceJeVyrobce);
                 }
                 //
                 // /organizace?je_vyrobce={je_vyrobce}&offset={offset}
@@ -219,7 +219,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                     common_1.oraProcs.getOrganizaceJeVyrobce.procParams.je_vyrobce.val = req.query.je_vyrobce;
                     common_1.oraProcs.getOrganizaceJeVyrobce.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getOrganizaceJeVyrobce.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceJeVyrobce);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceJeVyrobce);
                 }
                 //
                 // /organizace?je_vyrobce={je_vyrobce}&limit={limit}&offset={offset}
@@ -228,7 +228,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                     common_1.oraProcs.getOrganizaceJeVyrobce.procParams.je_vyrobce.val = req.query.je_vyrobce;
                     common_1.oraProcs.getOrganizaceJeVyrobce.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getOrganizaceJeVyrobce.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceJeVyrobce);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceJeVyrobce);
                 }
             }
             else {
@@ -238,7 +238,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                 if (typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 1) {
                     common_1.oraProcs.getOrganizace.procParams.offset.val = common_1.defOffset;
                     common_1.oraProcs.getOrganizace.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizace);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizace);
                 }
                 //
                 // /organizace?offset={offset}
@@ -246,7 +246,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                 else if (typeof req.query.offset !== "undefined" && Object.keys(req.query).length === 1) {
                     common_1.oraProcs.getOrganizace.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getOrganizace.procParams.limit.val = common_1.defLimit;
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizace);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizace);
                 }
                 //
                 // /organizace?limit={limit}&offset={offset}
@@ -254,7 +254,7 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
                 else if (typeof req.query.offset !== "undefined" && typeof req.query.limit !== "undefined" && Object.keys(req.query).length === 2) {
                     common_1.oraProcs.getOrganizace.procParams.offset.val = Number(req.query.offset);
                     common_1.oraProcs.getOrganizace.procParams.limit.val = Number(req.query.limit);
-                    oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizace);
+                    oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizace);
                 }
             }
         }
@@ -263,15 +263,15 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
         }
         else {
-            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
         }
         ;
         console.log(e.message);
@@ -280,25 +280,25 @@ organizace_router.get('/organizace', (req, res) => __awaiter(void 0, void 0, voi
 organizace_router.get('/organizace/:kodOrganizace', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let oraExecuteResult;
     try {
-        (0, common_1.SetHeader)(res);
+        common_1.SetHeader(res);
         if (Object.keys(req.query).length === 0) {
             common_1.oraProcs.getOrganizaceKodOrganizace.procParams.kod_organizace.val = req.params.kodOrganizace;
-            oraExecuteResult = yield (0, common_1.ExecuteProcedure)(common_1.oraProcs.getOrganizaceKodOrganizace);
+            oraExecuteResult = yield common_1.ExecuteProcedure(common_1.oraProcs.getOrganizaceKodOrganizace);
         }
         if (typeof oraExecuteResult !== "undefined") {
             res.setHeader('X-Total-Count', oraExecuteResult.count.toString());
             res.send(oraExecuteResult.resultSet);
         }
         else {
-            res.status(400).send((0, common_1.FormatExceptionMessage)(common_1.errMessage400));
+            res.status(400).send(common_1.FormatExceptionMessage(common_1.errMessage400));
         }
     }
     catch (e) {
         if (e instanceof common_1.AppError) {
-            res.status(e.status).send((0, common_1.FormatExceptionMessage)(e.message));
+            res.status(e.status).send(common_1.FormatExceptionMessage(e.message));
         }
         else {
-            res.status(400).send((0, common_1.FormatExceptionMessage)(e.message));
+            res.status(400).send(common_1.FormatExceptionMessage(e.message));
         }
         ;
         console.log(e.message);

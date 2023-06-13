@@ -38,7 +38,7 @@
       if (url && url.length > 1) {
         url = decodeURIComponent(url[1]);
       } else {
-          url = "http://test-s-node:8000/cissukl.swagger.json";
+          url = "http://test-s-node.sukl.cz:8000/cissukl.swagger.json";
       }
 
       hljs.configure({

@@ -1,0 +1,3086 @@
+{
+  "info": {
+    "description": "Popis RESTful API",
+    "version": "1.0.0",
+    "title": "Číselníky SÚKL"
+  },
+  "host": "localhost:8000",
+  "basePath": "/cissuklapi/v1",
+  "consumes": [
+    "application/json"
+  ],
+  "paths": {
+    "/lecivepripravky2": {
+      "get": {
+        "tags": [
+          "Lecive pripravky"
+        ],
+        "description": "Vrací seznam informací o léčivých přípravcích",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Kód SÚKL léčivého přípravku",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "kod_sukl"
+            ]
+          },
+          {
+            "name": "kod_sukl",
+            "in": "query",
+            "description": "Kód SÚKL léčivého přípravku",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit, přednastavená hodnota limit=20",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset, přednastavená hodnota offset=0",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/LecivePripravky2"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/sodlecivepripravky": {
+      "get": {
+        "tags": [
+          "Lecive pripravky"
+        ],
+        "description": "Vrací seznam informací o léčivých přípravcích",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Kód SÚKL léčivého přípravku",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "kod_sukl"
+            ]
+          },
+          {
+            "name": "kod_sukl",
+            "in": "query",
+            "description": "Kód SÚKL léčivého přípravku",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit, přednastavená hodnota limit=20",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset, přednastavená hodnota offset=0",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/SODLecivePripravky"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/cenypuvodce": {
+      "get": {
+        "tags": [
+          "Ceny puvodce"
+        ],
+        "description": "Vrací seznam cen původce",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Kód SÚKL léčivého přípravku",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "kod_sukl"
+            ]
+          },
+          {
+            "name": "kod_sukl",
+            "in": "query",
+            "description": "Kód SÚKL léčivého přípravku",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit, přednastavená hodnota limit=20",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset, přednastavená hodnota offset=0",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/CenyPuvodce"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/cenypuvodce/{kod_sukl}": {
+      "get": {
+        "tags": [
+          "Ceny puvodce"
+        ],
+        "description": "Vrací cenu původce k danému kódu SÚKL",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "kod_sukl",
+            "in": "path",
+            "description": "Kód SÚKL",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "description": "Operace proběhla bez chyby",
+            "schema": {
+              "$ref": "#/definitions/CenyPuvodce"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/paralelnikody": {
+      "get": {
+        "tags": [
+          "Paralelni kody"
+        ],
+        "description": "Vrací seznam kódů SÚKL, které jsou paralení k danému kódu SÚKL. Vrácené kódy SÚKL se nacházejí v aktuálním Seznamu cen a úhrad.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "kod_sukl",
+            "in": "query",
+            "description": "Kód SÚKL",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ParalelniKody"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/paralelnikody/{kod_sukl}": {
+      "get": {
+        "tags": [
+          "Paralelni kody"
+        ],
+        "description": "Vrací seznam kódů SÚKL, které jsou paralení k danému kódu SÚKL. Vrácené kódy SÚKL se nacházejí v aktuálním Seznamu cen a úhrad.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "kod_sukl",
+            "in": "path",
+            "description": "Kód SÚKL",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "description": "Operace proběhla bez chyby",
+            "schema": {
+              "$ref": "#/definitions/ParalelniKody"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/stavyregistrace": {
+      "get": {
+        "tags": [
+          "Ciselniky"
+        ],
+        "description": "Vrací seznam informací o stavech registrace",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Kód stavu registrace",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "kod_stav_registrace"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/StavyRegistrace"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/stavyregistrace/{kod_stav_registrace}": {
+      "get": {
+        "tags": [
+          "Ciselniky"
+        ],
+        "description": "Vrací informace o stavu registrace pro daný kód",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "kod_stav_registrace",
+            "in": "path",
+            "description": "Kód stavu registrace",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "description": "Operace proběhla bez chyby",
+            "schema": {
+              "$ref": "#/definitions/StavyRegistrace"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/indikacniskupiny": {
+      "get": {
+        "tags": [
+          "Ciselniky"
+        ],
+        "description": "Vrací seznam informací o indikačních skupinách",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Kód indikační skupiny",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "kod_indikacni_skupina"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/IndikacniSkupiny"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/indikacniskupiny/{kod_indikacni_skupina}": {
+      "get": {
+        "tags": [
+          "Ciselniky"
+        ],
+        "description": "Vrací informace o indikační skupině pro daný kód",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "kod_indikacni_skupina",
+            "in": "path",
+            "description": "Kód indikační skupiny",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/IndikacniSkupiny"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/atcskupiny": {
+      "get": {
+        "tags": [
+          "Ciselniky"
+        ],
+        "description": "Vrací seznam informací o ATC skupinách",
+        "produces": [
+          "text"
+        ],
+        "parameters": [
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Kód ATC skupiny",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "kod_atc_skupina"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/AtcSkupiny"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/atcskupiny/{kod_atc_skupina}": {
+      "get": {
+        "tags": [
+          "Ciselniky"
+        ],
+        "description": "Vrací informace a ATC skupině pro daný kód",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "kod_atc_skupina",
+            "in": "path",
+            "description": "Kód ATC skupiny",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/AtcSkupiny"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/lecivepripravky": {
+      "get": {
+        "tags": [
+          "Lecive pripravky"
+        ],
+        "description": "Vrací seznam informací o léčivých přípravcích",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Kód SÚKL léčivého přípravku",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "kod_sukl"
+            ]
+          },
+          {
+            "name": "stavy_registrace",
+            "in": "query",
+            "description": "Vybrané stavy registrace",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "stavy_registrace_scau"
+            ]
+          },
+          {
+            "name": "je_regulovany",
+            "in": "query",
+            "description": "Příznak, zda je léčivý přípravek regulovaný",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "A",
+              "N"
+            ]
+          },
+          {
+            "name": "platnost_od",
+            "in": "query",
+            "description": "Datum, od kdy jsou informace o léčivém přípravku platné",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit, přednastavená hodnota limit=20",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset, přednastavená hodnota offset=0",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/LecivePripravky"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/lecivepripravky/{kod_sukl}": {
+      "get": {
+        "tags": [
+          "Lecive pripravky"
+        ],
+        "description": "Vrací seznam informací o léčivých přípravcích",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "kod_sukl",
+            "in": "path",
+            "description": "Kód SÚKL léčivého přípravku",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/LecivePripravky"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/ukoncenaregistracelecivepripravky": {
+      "get": {
+        "tags": [
+          "Lecive pripravky"
+        ],
+        "description": "Vrací seznam kódů SÚKL, kterým byla ukončena registrace",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "obdobi_od",
+            "in": "query",
+            "description": "Období, ve kterém byla ukončena registrace léčivému přípravku, formát yyyy.mm",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/UkoncenaRegistraceLecivePripravky"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/slozenilecivepripravky": {
+      "get": {
+        "tags": [
+          "Lecive pripravky"
+        ],
+        "description": "Vrací seznam informací o léčivých přípravcích",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "kod_sukl",
+            "in": "query",
+            "description": "Kód SÚKL léčivého přípravku",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/SlozeniLecivePripravky"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/ucinnelatky": {
+      "get": {
+        "tags": [
+          "Ciselniky"
+        ],
+        "description": "Vrací seznam informací o účinných látkách",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Kód účinné látky",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "kod_ucinna_latka"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/UcinneLatky"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/ucinnelatky/{kod_ucinna_latka}": {
+      "get": {
+        "tags": [
+          "Ciselniky"
+        ],
+        "description": "Vrací informace o účinných látkách pro daný kód SÚKL",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "kod_ucinna_latka",
+            "in": "path",
+            "description": "Kód účinné látky",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/UcinneLatky"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/registracnicisla": {
+      "get": {
+        "tags": [
+          "Registracni cisla"
+        ],
+        "description": "Vrací seznam registračních čísel přiřazených k číslu jednacímu",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "cislo_jednaci",
+            "in": "query",
+            "description": "Číslo jednací bez lomítka",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "mrp_cislo",
+            "in": "query",
+            "description": "MRP číslo bez lomítek",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/RegistracniCisla"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/zmenyregistracnicisla": {
+      "get": {
+        "tags": [
+          "Registracni cisla"
+        ],
+        "description": "Vrací seznam změněných registračních čísel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "platnost_od",
+            "in": "query",
+            "description": "Datum platnosti, formát dd.mm.rrrr",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ZmenyRegistracniCisla"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/organizace": {
+      "get": {
+        "tags": [
+          "Organizace"
+        ],
+        "description": "Vrací seznam informací o organizacích",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Kód organizace",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "kod_organizace"
+            ]
+          },
+          {
+            "name": "je_drzitel",
+            "in": "query",
+            "description": "Příznak, zda je organizace držitelem",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "A",
+              "N"
+            ]
+          },
+          {
+            "name": "je_vyrobce",
+            "in": "query",
+            "description": "Příznak, zda je organizace výrobcem",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "A",
+              "N"
+            ]
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit, přednastavená hodnota limit=20",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset, přednastavená hodnota offset=0",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "schema": {
+              "$ref": "#/definitions/Organizace"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/organizace/{kod_organizace}": {
+      "get": {
+        "tags": [
+          "Organizace"
+        ],
+        "description": "Vrací informace o organizaci pro daný kód organizace",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "kod_organizace",
+            "in": "path",
+            "description": "Kód organizace",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "schema": {
+              "$ref": "#/definitions/Organizace"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/lekarny": {
+      "get": {
+        "tags": [
+          "Lekarny"
+        ],
+        "description": "Vrací seznam informací o lékárnách",
+        "produces": [
+          "text"
+        ],
+        "parameters": [
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Kód pracovistě",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "kod_pracoviste"
+            ]
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status pracovistě",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "zarazeno",
+              "vyrazeno"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "schema": {
+              "$ref": "#/definitions/Lekarny"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/lekarny/{kod_pracoviste}": {
+      "get": {
+        "tags": [
+          "Lekarny"
+        ],
+        "description": "Vrací informace lékárně pro daný kód pracoviště",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "kod_pracoviste",
+            "in": "path",
+            "description": "Kód pracoviste",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "schema": {
+              "$ref": "#/definitions/Lekarny"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    },
+    "/scau": {
+      "get": {
+        "tags": [
+          "SCAU"
+        ],
+        "description": "Vrací seznam informací o cenách a úhradách léčivých přípravků",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Kód SÚKL léčivého přípravku",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "kod_sukl"
+            ]
+          },
+          {
+            "name": "kod_sukl",
+            "in": "query",
+            "description": "Kód SÚKL léčivého přípravku",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "obdobi",
+            "in": "query",
+            "description": "Období ve formátu rrrr.mm",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operace proběhla bez chyby",
+            "headers": {
+              "x-total-count": {
+                "description": "Celkový počet nalezených záznamů",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/Scau"
+            }
+          },
+          "400": {
+            "description": "Pro dané URL není služba implementována",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "Nenalezeny žádné záznamy",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Error400": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "example": "Pro dané URL není služba implementována",
+          "maxLength": 256
+        }
+      }
+    },
+    "Error404": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "example": "Nenalezeny žádné záznamy",
+          "maxLength": 256
+        }
+      }
+    },
+    "SODLecivePripravky": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SODLecivyPripravek"
+      }
+    },
+    "SODLecivyPripravek": {
+      "type": "object",
+      "properties": {
+        "KOD_SUKL": {
+          "type": "string",
+          "example": "0000009",
+          "description": "Kód SÚKL léčivého přípravku",
+          "maxLength": 7
+        },
+        "NAZEV": {
+          "type": "string",
+          "example": "ACYLCOFFIN",
+          "description": "Název léčivého přípravku",
+          "maxLength": 70
+        },
+        "SILA": {
+          "type": "string",
+          "example": "450MG/50MG",
+          "description": "Síla",
+          "maxLength": 24
+        },
+        "KOD_LEKOVA_FORMA": {
+          "type": "string",
+          "example": "TBL NOB",
+          "description": "Farmaceutická forma",
+          "maxLength": 27
+        },
+        "BALENI": {
+          "type": "string",
+          "example": "10",
+          "description": "Balení",
+          "maxLength": 22
+        },
+        "KOD_CESTA_PODANI": {
+          "type": "string",
+          "example": "POR",
+          "description": "Kód cesty podání",
+          "maxLength": 15
+        },
+        "DOPLNEK": {
+          "type": "string",
+          "example": "450MG/50MG TBL NOB 10",
+          "description": "Doplněk",
+          "maxLength": 75
+        },
+        "KOD_OBAL": {
+          "type": "string",
+          "example": "BLI",
+          "description": "Kód obalu",
+          "maxLength": 3
+        },
+        "REGISTRACNI_CISLO": {
+          "type": "string",
+          "example": "07/049/69-S/C",
+          "description": "Registrační číslo",
+          "maxLength": 16
+        },
+        "KOD_REGISTRACNI_PROCEDURA": {
+          "type": "string",
+          "example": "NAR",
+          "description": "Kód registrační procedury",
+          "maxLength": 3
+        },
+        "KOD_STAV_REGISTRACE": {
+          "type": "string",
+          "example": "R",
+          "description": "Kód stavu registrace",
+          "maxLength": 2
+        },
+        "KOD_DRUH_REGISTRACE": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód druhu registrace",
+          "maxLength": 3
+        },
+        "KOD_ORGANIZACE_DRZITEL": {
+          "type": "string",
+          "example": "ZNBSK",
+          "description": "Kód držitele rozhodnutí o registraci",
+          "maxLength": 7
+        },
+        "KOD_ZEME_DRZITEL": {
+          "type": "string",
+          "example": "SK",
+          "description": "Kód země držitele",
+          "maxLength": 3
+        },
+        "KOD_ORGANIZACE_DRZITEL_SREG_B": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód původního držitele rozhodnutí o registraci",
+          "maxLength": 7
+        },
+        "KOD_ZEME_DRZITEL_SREG_B": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód země původního držitele",
+          "maxLength": 3
+        },
+        "SOUBEZNY_DOVOZ": {
+          "type": "string",
+          "example": "null",
+          "description": "Identifikační číslo souběžného dovozu",
+          "maxLength": 11
+        },
+        "KOD_ORGANIZACE_DOVOZCE": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód dovozce pro souběžný dovoz",
+          "maxLength": 7
+        },
+        "KOD_ZEME_DOVOZCE": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód země dovozce pro souběžný dovoz",
+          "maxLength": 3
+        },
+        "PLATNOST_REGISTRACE_DO": {
+          "type": "string",
+          "format": "date",
+          "example": "null",
+          "description": "Datum platnosti registrace"
+        },
+        "NEOMEZENA_PLATNOST_REGISTRACE": {
+          "type": "string",
+          "example": "A",
+          "description": "příznak, zda má registrace neomezenou platnost, hodnoty \"A\" - ano, \"N\" - ne",
+          "maxLength": 1
+        },
+        "UVADENI_DO": {
+          "type": "string",
+          "format": "date",
+          "example": "null",
+          "description": "Datum, do kdy se může léčivý přípravek se stavem registrace B uvádět na trh"
+        },
+        "KOD_INDIKACNI_SKUPINA": {
+          "type": "number",
+          "example": 7,
+          "description": "Kód indikační skupiny"
+        },
+        "KOD_ATC_SKUPINA": {
+          "type": "string",
+          "example": "N02BA51",
+          "description": "Kód ATC skupiny",
+          "maxLength": 7
+        },
+        "DDD_MNOZSTVI": {
+          "type": "number",
+          "example": 6,
+          "description": "Definovaná denní dávka - množství"
+        },
+        "DDD_JEDNOTKA": {
+          "type": "string",
+          "example": "DF",
+          "description": "Definovaná denní dávka - jednotka",
+          "maxLength": 2
+        },
+        "DDD_BALENI": {
+          "type": "number",
+          "example": 2.963,
+          "description": "Počet definovaných denních dávek v balení"
+        },
+        "DDD_ZDROJ": {
+          "type": "string",
+          "example": "NO17",
+          "description": "Definovaná denní dávka - zdroj WHO",
+          "maxLength": 4
+        },
+        "POVINNE_VZORKY": {
+          "type": "string",
+          "example": "N",
+          "description": "Příznak, zda má držitel povinnost předkládat Ústavu před propuštěním na trh vzorky každé šarže přípravku k přezkoušení, hodnoty \"A\" - ano, \"N\" - ne",
+          "maxLength": 1
+        },
+        "SEZNAM_KOD_UCINNA_LATKA": {
+          "type": "string",
+          "example": "12,223",
+          "description": "Seznam kódů učinných látek pro daný léčivý přípravek",
+          "maxLength": 1000
+        },
+        "KOD_ZPUSOB_VYDEJE": {
+          "type": "string",
+          "example": "F",
+          "description": "Kód způsobu výdeje",
+          "maxLength": 1
+        },
+        "KOD_ZAVISLOST": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód závislosti",
+          "maxLength": 2
+        },
+        "KOD_DOPING": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód dopingu",
+          "maxLength": 7
+        },
+        "KOD_NARIZENI_VLADY": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód nařízení vlády",
+          "maxLength": 2
+        },
+        "SEZNAM_KOD_EAN": {
+          "type": "string",
+          "example": "8584005110206",
+          "description": "Seznam kódů EAN pro daný léčivý přípravek",
+          "maxLength": 1000
+        },
+        "BRAILLOVO_PISMO": {
+          "type": "string",
+          "example": "S",
+          "description": "Příznak, nabývá tyto hodnoty  \"S\" - , \"V\" -, \"N\" -",
+          "maxLength": 1
+        },
+        "EXPIRACE": {
+          "type": "string",
+          "example": "36",
+          "description": "Dopba použitelnosti",
+          "maxLength": 3
+        },
+        "EXPIRACE_JEDNOTKA": {
+          "type": "string",
+          "example": "M",
+          "description": "Jednotka doby použitelnost",
+          "maxLength": 1
+        },
+        "JE_REGULOVANY": {
+          "type": "string",
+          "example": "N",
+          "description": "příznak, zda má léčivý přípravek regulované ceny, hodnoty \"A\" - ano, \"N\" - ne",
+          "maxLength": 1
+        },
+        "JE_DODAVKA": {
+          "type": "string",
+          "example": "N",
+          "description": "příznak, zda má léčivý přípravek hlášenou distribuci, hodnoty \"A\" - ano, \"N\" - ne",
+          "maxLength": 1
+        },
+        "NAZEV_REGISTROVANY": {
+          "type": "string",
+          "example": "ACYLCOFFIN",
+          "description": "Registrovaný název léčivého přípravku",
+          "maxLength": 70
+        }
+      }
+    },
+    "CenyPuvodce": {
+      "type": "object",
+      "properties": {
+        "KOD_SUKL": {
+          "type": "string",
+          "example": "0027193",
+          "description": "Kód SÚKL",
+          "maxLength": 7
+        },
+        "CENA_PUVODCE": {
+          "type": "number",
+          "example": "79623,21",
+          "description": "Cena původce"
+        }
+      }
+    },
+    "ParalelniKody": {
+      "type": "object",
+      "properties": {
+        "KOD_SUKL": {
+          "type": "string",
+          "example": "0026329",
+          "description": "Kód SÚKL",
+          "maxLength": 7
+        }
+      }
+    },
+    "LecivePripravky": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/LecivyPripravek"
+      }
+    },
+    "LecivyPripravek": {
+      "type": "object",
+      "properties": {
+        "KOD_SUKL": {
+          "type": "string",
+          "example": "0000009",
+          "description": "Kód SÚKL léčivého přípravku",
+          "maxLength": 7
+        },
+        "NAZEV": {
+          "type": "string",
+          "example": "ACYLCOFFIN",
+          "description": "Název léčivého přípravku",
+          "maxLength": 70
+        },
+        "SILA": {
+          "type": "string",
+          "example": "450MG/50MG",
+          "description": "Síla",
+          "maxLength": 24
+        },
+        "KOD_LEKOVA_FORMA": {
+          "type": "string",
+          "example": "TBL NOB",
+          "description": "Farmaceutická forma",
+          "maxLength": 27
+        },
+        "BALENI": {
+          "type": "string",
+          "example": "10",
+          "description": "Balení",
+          "maxLength": 22
+        },
+        "KOD_CESTA_PODANI": {
+          "type": "string",
+          "example": "POR",
+          "description": "Kód cesty podání",
+          "maxLength": 15
+        },
+        "DOPLNEK": {
+          "type": "string",
+          "example": "450MG/50MG TBL NOB 10",
+          "description": "Doplněk",
+          "maxLength": 75
+        },
+        "KOD_OBAL": {
+          "type": "string",
+          "example": "BLI",
+          "description": "Kód obalu",
+          "maxLength": 3
+        },
+        "REGISTRACNI_CISLO": {
+          "type": "string",
+          "example": "07/049/69-S/C",
+          "description": "Registrační číslo",
+          "maxLength": 16
+        },
+        "KOD_REGISTRACNI_PROCEDURA": {
+          "type": "string",
+          "example": "NAR",
+          "description": "Kód registrační procedury",
+          "maxLength": 3
+        },
+        "KOD_STAV_REGISTRACE": {
+          "type": "string",
+          "example": "R",
+          "description": "Kód stavu registrace",
+          "maxLength": 2
+        },
+        "KOD_DRUH_REGISTRACE": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód druhu registrace",
+          "maxLength": 3
+        },
+        "KOD_ORGANIZACE_DRZITEL": {
+          "type": "string",
+          "example": "ZNBSK",
+          "description": "Kód držitele rozhodnutí o registraci",
+          "maxLength": 7
+        },
+        "KOD_ZEME_DRZITEL": {
+          "type": "string",
+          "example": "SK",
+          "description": "Kód země držitele",
+          "maxLength": 3
+        },
+        "KOD_ORGANIZACE_DRZITEL_SREG_B": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód původního držitele rozhodnutí o registraci",
+          "maxLength": 7
+        },
+        "KOD_ZEME_DRZITEL_SREG_B": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód země původního držitele",
+          "maxLength": 3
+        },
+        "SOUBEZNY_DOVOZ": {
+          "type": "string",
+          "example": "null",
+          "description": "Identifikační číslo souběžného dovozu",
+          "maxLength": 11
+        },
+        "KOD_ORGANIZACE_DOVOZCE": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód dovozce pro souběžný dovoz",
+          "maxLength": 7
+        },
+        "KOD_ZEME_DOVOZCE": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód země dovozce pro souběžný dovoz",
+          "maxLength": 3
+        },
+        "PLATNOST_REGISTRACE_DO": {
+          "type": "string",
+          "format": "date",
+          "example": "null",
+          "description": "Datum platnosti registrace"
+        },
+        "NEOMEZENA_PLATNOST_REGISTRACE": {
+          "type": "string",
+          "example": "A",
+          "description": "příznak, zda má registrace neomezenou platnost, hodnoty \"A\" - ano, \"N\" - ne",
+          "maxLength": 1
+        },
+        "UVADENI_DO": {
+          "type": "string",
+          "format": "date",
+          "example": "null",
+          "description": "Datum, do kdy se může léčivý přípravek se stavem registrace B uvádět na trh"
+        },
+        "KOD_INDIKACNI_SKUPINA": {
+          "type": "number",
+          "example": 7,
+          "description": "Kód indikační skupiny"
+        },
+        "KOD_ATC_SKUPINA": {
+          "type": "string",
+          "example": "N02BA51",
+          "description": "Kód ATC skupiny",
+          "maxLength": 7
+        },
+        "DDD_MNOZSTVI": {
+          "type": "number",
+          "example": 6,
+          "description": "Definovaná denní dávka - množství"
+        },
+        "DDD_JEDNOTKA": {
+          "type": "string",
+          "example": "DF",
+          "description": "Definovaná denní dávka - jednotka",
+          "maxLength": 2
+        },
+        "DDD_BALENI": {
+          "type": "number",
+          "example": 2.963,
+          "description": "Počet definovaných denních dávek v balení"
+        },
+        "DDD_ZDROJ": {
+          "type": "string",
+          "example": "NO17",
+          "description": "Definovaná denní dávka - zdroj WHO",
+          "maxLength": 4
+        },
+        "POVINNE_VZORKY": {
+          "type": "string",
+          "example": "N",
+          "description": "Příznak, zda má držitel povinnost předkládat Ústavu před propuštěním na trh vzorky každé šarže přípravku k přezkoušení, hodnoty \"A\" - ano, \"N\" - ne",
+          "maxLength": 1
+        },
+        "KOD_ZPUSOB_VYDEJE": {
+          "type": "string",
+          "example": "F",
+          "description": "Kód způsobu výdeje",
+          "maxLength": 1
+        },
+        "KOD_ZAVISLOST": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód závislosti",
+          "maxLength": 2
+        },
+        "KOD_DOPING": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód dopingu",
+          "maxLength": 7
+        },
+        "KOD_NARIZENI_VLADY": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód nařízení vlády",
+          "maxLength": 2
+        },
+        "BRAILLOVO_PISMO": {
+          "type": "string",
+          "example": "S",
+          "description": "Příznak, nabývá tyto hodnoty  \"S\" - , \"V\" -, \"N\" -",
+          "maxLength": 1
+        },
+        "EXPIRACE": {
+          "type": "string",
+          "example": "36",
+          "description": "Dopba použitelnosti",
+          "maxLength": 3
+        },
+        "EXPIRACE_JEDNOTKA": {
+          "type": "string",
+          "example": "M",
+          "description": "Jednotka doby použitelnost",
+          "maxLength": 1
+        },
+        "JE_REGULOVANY": {
+          "type": "string",
+          "example": "N",
+          "description": "příznak, zda má léčivý přípravek regulované ceny, hodnoty \"A\" - ano, \"N\" - ne",
+          "maxLength": 1
+        }
+      }
+    },
+    "LecivePripravky2": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/LecivyPripravek2"
+      }
+    },
+    "LecivyPripravek2": {
+      "type": "object",
+      "properties": {
+        "KOD_SUKL": {
+          "type": "string",
+          "example": "0000009",
+          "description": "Kód SÚKL léčivého přípravku",
+          "maxLength": 7
+        },
+        "NAZEV2": {
+          "type": "string",
+          "example": "ACYLCOFFIN",
+          "description": "Zkrácený název léčivého přípravku",
+          "maxLength": 70
+        },
+        "SILA": {
+          "type": "string",
+          "example": "450MG/50MG",
+          "description": "Síla",
+          "maxLength": 24
+        },
+        "KOD_LEKOVA_FORMA": {
+          "type": "string",
+          "example": "TBL NOB",
+          "description": "Farmaceutická forma",
+          "maxLength": 27
+        },
+        "BALENI": {
+          "type": "string",
+          "example": "10",
+          "description": "Balení",
+          "maxLength": 22
+        },
+        "KOD_CESTA_PODANI": {
+          "type": "string",
+          "example": "POR",
+          "description": "Kód cesty podání",
+          "maxLength": 15
+        },
+        "DOPLNEK": {
+          "type": "string",
+          "example": "450MG/50MG TBL NOB 10",
+          "description": "Doplněk",
+          "maxLength": 75
+        },
+        "KOD_OBAL": {
+          "type": "string",
+          "example": "BLI",
+          "description": "Kód obalu",
+          "maxLength": 3
+        },
+        "REGISTRACNI_CISLO": {
+          "type": "string",
+          "example": "07/049/69-S/C",
+          "description": "Registrační číslo",
+          "maxLength": 16
+        },
+        "KOD_REGISTRACNI_PROCEDURA": {
+          "type": "string",
+          "example": "NAR",
+          "description": "Kód registrační procedury",
+          "maxLength": 3
+        },
+        "KOD_STAV_REGISTRACE": {
+          "type": "string",
+          "example": "R",
+          "description": "Kód stavu registrace",
+          "maxLength": 2
+        },
+        "KOD_DRUH_REGISTRACE": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód druhu registrace",
+          "maxLength": 3
+        },
+        "KOD_ORGANIZACE_DRZITEL": {
+          "type": "string",
+          "example": "ZNBSK",
+          "description": "Kód držitele rozhodnutí o registraci",
+          "maxLength": 7
+        },
+        "KOD_ZEME_DRZITEL": {
+          "type": "string",
+          "example": "SK",
+          "description": "Kód země držitele",
+          "maxLength": 3
+        },
+        "KOD_ORGANIZACE_DRZITEL_SREG_B": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód původního držitele rozhodnutí o registraci",
+          "maxLength": 7
+        },
+        "KOD_ZEME_DRZITEL_SREG_B": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód země původního držitele",
+          "maxLength": 3
+        },
+        "SOUBEZNY_DOVOZ": {
+          "type": "string",
+          "example": "null",
+          "description": "Identifikační číslo souběžného dovozu",
+          "maxLength": 11
+        },
+        "KOD_ORGANIZACE_DOVOZCE": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód dovozce pro souběžný dovoz",
+          "maxLength": 7
+        },
+        "KOD_ZEME_DOVOZCE": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód země dovozce pro souběžný dovoz",
+          "maxLength": 3
+        },
+        "PLATNOST_REGISTRACE_DO": {
+          "type": "string",
+          "format": "date",
+          "example": "null",
+          "description": "Datum platnosti registrace"
+        },
+        "NEOMEZENA_PLATNOST_REGISTRACE": {
+          "type": "string",
+          "example": "A",
+          "description": "příznak, zda má registrace neomezenou platnost, hodnoty \"A\" - ano, \"N\" - ne",
+          "maxLength": 1
+        },
+        "UVADENI_DO": {
+          "type": "string",
+          "format": "date",
+          "example": "null",
+          "description": "Datum, do kdy se může léčivý přípravek se stavem registrace B uvádět na trh"
+        },
+        "KOD_INDIKACNI_SKUPINA": {
+          "type": "number",
+          "example": 7,
+          "description": "Kód indikační skupiny"
+        },
+        "KOD_ATC_SKUPINA": {
+          "type": "string",
+          "example": "N02BA51",
+          "description": "Kód ATC skupiny",
+          "maxLength": 7
+        },
+        "DDD_MNOZSTVI": {
+          "type": "number",
+          "example": 6,
+          "description": "Definovaná denní dávka - množství"
+        },
+        "DDD_JEDNOTKA": {
+          "type": "string",
+          "example": "DF",
+          "description": "Definovaná denní dávka - jednotka",
+          "maxLength": 2
+        },
+        "DDD_BALENI": {
+          "type": "number",
+          "example": 2.963,
+          "description": "Počet definovaných denních dávek v balení"
+        },
+        "DDD_ZDROJ": {
+          "type": "string",
+          "example": "NO17",
+          "description": "Definovaná denní dávka - zdroj WHO",
+          "maxLength": 4
+        },
+        "POVINNE_VZORKY": {
+          "type": "string",
+          "example": "N",
+          "description": "Příznak, zda má držitel povinnost předkládat Ústavu před propuštěním na trh vzorky každé šarže přípravku k přezkoušení, hodnoty \"A\" - ano, \"N\" - ne",
+          "maxLength": 1
+        },
+        "KOD_ZPUSOB_VYDEJE": {
+          "type": "string",
+          "example": "F",
+          "description": "Kód způsobu výdeje",
+          "maxLength": 1
+        },
+        "KOD_ZAVISLOST": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód závislosti",
+          "maxLength": 2
+        },
+        "KOD_DOPING": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód dopingu",
+          "maxLength": 7
+        },
+        "KOD_NARIZENI_VLADY": {
+          "type": "string",
+          "example": "null",
+          "description": "Kód nařízení vlády",
+          "maxLength": 2
+        },
+        "BRAILLOVO_PISMO": {
+          "type": "string",
+          "example": "S",
+          "description": "Příznak, nabývá tyto hodnoty  \"S\" - , \"V\" -, \"N\" -",
+          "maxLength": 1
+        },
+        "EXPIRACE": {
+          "type": "string",
+          "example": "36",
+          "description": "Dopba použitelnosti",
+          "maxLength": 3
+        },
+        "EXPIRACE_JEDNOTKA": {
+          "type": "string",
+          "example": "M",
+          "description": "Jednotka doby použitelnost",
+          "maxLength": 1
+        },
+        "JE_REGULOVANY": {
+          "type": "string",
+          "example": "N",
+          "description": "příznak, zda má léčivý přípravek regulované ceny, hodnoty \"A\" - ano, \"N\" - ne",
+          "maxLength": 1
+        }
+      }
+    },
+    "UkoncenaRegistraceLecivePripravky": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/UkoncenaRegistraceLecivyPripravek"
+      }
+    },
+    "UkoncenaRegistraceLecivyPripravek": {
+      "type": "object",
+      "properties": {
+        "KOD_SUKL": {
+          "type": "string",
+          "example": "0113251",
+          "description": "Kód SÚKL",
+          "maxLength": 7
+        },
+        "OBDOBI": {
+          "type": "string",
+          "example": "2016.11",
+          "description": "Období, ve kterém byla ukončena registrace léčivému přípravku, formát yyyy.mm",
+          "maxLength": 7
+        },
+        "DOPRODEJ_DO": {
+          "type": "string",
+          "format": "date",
+          "example": "null",
+          "description": "Datum, do kdy bude přípravek stažen z oběhu",
+          "maxLength": 7
+        }
+      }
+    },
+    "SlozeniLecivePripravky": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SlozeniLecivyPripravek"
+      }
+    },
+    "SlozeniLecivyPripravek": {
+      "type": "object",
+      "properties": {
+        "KOD_SUKL": {
+          "type": "string",
+          "example": 200,
+          "description": "Kód SÚKL",
+          "maxLength": 7
+        },
+        "KOD_UCINNA_LATKA": {
+          "type": "number",
+          "example": 765,
+          "description": "Kód účinné látky",
+          "maxLength": 5
+        }
+      }
+    },
+    "StavyRegistrace": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/StavRegistrace"
+      }
+    },
+    "StavRegistrace": {
+      "type": "object",
+      "properties": {
+        "KOD_STAV_REGISTRACE": {
+          "type": "string",
+          "example": "R",
+          "description": "Kód stavu registrace",
+          "maxLength": 2
+        },
+        "NAZEV": {
+          "type": "string",
+          "example": "registrovaný léčivý přípravek",
+          "description": "Název stavu registrace česky",
+          "maxLength": 300
+        }
+      }
+    },
+    "IndikacniSkupiny": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/IndikacniSkupina"
+      }
+    },
+    "IndikacniSkupina": {
+      "type": "object",
+      "properties": {
+        "KOD_INDIKACNI_SKUPINA": {
+          "type": "number",
+          "example": 1,
+          "description": "Kód indikační skupiny"
+        },
+        "NAZEV": {
+          "type": "string",
+          "example": "Anaesthetica (lokální)",
+          "description": "Název indikační skupiny česky",
+          "maxLength": 58
+        }
+      }
+    },
+    "AtcSkupiny": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AtcSkupina"
+      }
+    },
+    "AtcSkupina": {
+      "type": "object",
+      "properties": {
+        "KOD_ATC_SKUPINA": {
+          "type": "string",
+          "example": "A01AA02",
+          "description": "Kód ATC skupiny",
+          "maxLength": 7
+        },
+        "NAZEV": {
+          "type": "string",
+          "example": "Monofluorofosforečnan sodný",
+          "description": "Název ATC skupiny česky",
+          "maxLength": 200
+        },
+        "NAZEV_EN": {
+          "type": "string",
+          "example": "sodium monofluorophosphate",
+          "description": "Název ATC skupiny anglicky",
+          "maxLength": 200
+        },
+        "JE_SUKL_ATC_SKUPINA": {
+          "type": "string",
+          "example": "N",
+          "description": "příznak, zda ATC skupina je definovaná na SÚKL, hodnoty \"A\" - ano, \"N\" - ne",
+          "maxLength": 1
+        }
+      }
+    },
+    "UcinneLatky": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/UcinnaLatka"
+      }
+    },
+    "UcinnaLatka": {
+      "type": "object",
+      "properties": {
+        "KOD_UCINNA_LATKA": {
+          "type": "number",
+          "example": 10,
+          "description": "Kód učinné látky"
+        },
+        "NAZEV": {
+          "type": "string",
+          "example": "ACETON",
+          "description": "Název učinné látky česky",
+          "maxLength": 44
+        },
+        "NAZEV_EN": {
+          "type": "string",
+          "example": "ACETONE",
+          "description": "Název učinné látky anglicky",
+          "maxLength": 44
+        },
+        "NAZEV_LA": {
+          "type": "string",
+          "example": "ACETONUM",
+          "description": "Název učinné látky latinsky",
+          "maxLength": 44
+        },
+        "KOD_UCINNA_LATKA_BAZE": {
+          "type": "number",
+          "example": "null",
+          "description": "Kód učinné látky"
+        }
+      }
+    },
+    "Organizace": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/organizace"
+      }
+    },
+    "organizace": {
+      "type": "object",
+      "properties": {
+        "KOD_ORGANIZACE": {
+          "type": "string",
+          "example": "AABDK",
+          "description": "Kód organizace",
+          "maxLength": 7
+        },
+        "KOD_ZEME": {
+          "type": "string",
+          "example": "DK",
+          "description": "Kód země",
+          "maxLength": 2
+        },
+        "NAZEV": {
+          "type": "string",
+          "example": "Aastrom Biosciences DK ApS, Kastrup",
+          "description": "Název organizace",
+          "maxLength": 200
+        },
+        "JE_VYROBCE": {
+          "type": "string",
+          "example": "A",
+          "description": "Příznak, zda je organizace výrobcem, hodnoty \"A\" - ano, \"N\" - ne",
+          "maxLength": 1
+        },
+        "JE_DRZITEL": {
+          "type": "string",
+          "example": "N",
+          "description": "Příznak, zda je organizace držitelem, hodnoty \"A\" - ano, \"N\" - ne",
+          "maxLength": 1
+        }
+      }
+    },
+    "ZmenyRegistracniCisla": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ZmenyRegistracniCislo"
+      }
+    },
+    "ZmenyRegistracniCislo": {
+      "type": "object",
+      "properties": {
+        "REGISTRACNI_CISLO": {
+          "type": "string",
+          "example": "87/173/03-C",
+          "description": "Nové registrační číslo",
+          "maxLength": 16
+        },
+        "REGISTRACNI_CISLO_PUVODNI": {
+          "type": "string",
+          "example": "87/173/03-C",
+          "description": "Původní registrační číslo",
+          "maxLength": 16
+        }
+      }
+    },
+    "RegistracniCisla": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/RegistracniCislo"
+      }
+    },
+    "RegistracniCislo": {
+      "type": "object",
+      "properties": {
+        "CISLO_JEDNACI": {
+          "type": "string",
+          "example": "1792/15",
+          "description": "Číslo jednací",
+          "maxLength": 12
+        },
+        "REGISTRACNI_CISLO": {
+          "type": "string",
+          "example": "17/192/06-C",
+          "description": "Registrační číslo",
+          "maxLength": 16
+        },
+        "SOUBEZNY_DOVOZ_CISLO": {
+          "type": "string",
+          "example": "PI/001/14",
+          "description": "Číslo souběžného dovozu",
+          "maxLength": 9
+        },
+        "MRP_CISLO": {
+          "type": "string",
+          "example": "NL/H/0701/001",
+          "description": "MRP číslo",
+          "maxLength": 13
+        },
+        "ASMF_CISLO": {
+          "type": "string",
+          "example": "null",
+          "description": "ASMF číslo",
+          "maxLength": 15
+        },
+        "RC1": {
+          "type": "string",
+          "example": "87",
+          "description": "Složka registračního čísla",
+          "maxLength": 2
+        },
+        "RC2": {
+          "type": "string",
+          "example": "173",
+          "description": "Složka registračního čísla",
+          "maxLength": 4
+        },
+        "RC3": {
+          "type": "string",
+          "example": "03",
+          "description": "Složka registračního čísla",
+          "maxLength": 4
+        },
+        "RC4": {
+          "type": "string",
+          "example": "C",
+          "description": "Složka registračního čísla",
+          "maxLength": 3
+        }
+      }
+    },
+    "Lekarny": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Lekarna"
+      }
+    },
+    "Lekarna": {
+      "type": "object",
+      "properties": {
+        "KOD_PRACOVISTE": {
+          "type": "string",
+          "example": "01995085000",
+          "description": "Kód pracoviště",
+          "maxLength": 11
+        },
+        "NAZEV": {
+          "type": "string",
+          "example": "Adamova lékárna",
+          "description": "Název lékárny",
+          "maxLength": 60
+        },
+        "KOD_LEKARNA": {
+          "type": "string",
+          "example": "01995680",
+          "description": "Kód lékárny",
+          "maxLength": 10
+        },
+        "KOD_TYP_LEKARNA": {
+          "type": "string",
+          "example": "Kód typu lékárny",
+          "description": "Kód typu lékárny",
+          "maxLength": 20
+        },
+        "ICO": {
+          "type": "string",
+          "example": "25136143",
+          "description": "IČO",
+          "maxLength": 12
+        },
+        "ICZ": {
+          "type": "string",
+          "example": "01995085",
+          "description": "IČZ",
+          "maxLength": 30
+        },
+        "MESTO": {
+          "type": "string",
+          "example": "Praha 1",
+          "description": "Město lékárny",
+          "maxLength": 50
+        },
+        "ULICE": {
+          "type": "string",
+          "example": "Václavské náměstí 8",
+          "description": "Ulice lékárny",
+          "maxLength": 30
+        },
+        "PSC": {
+          "type": "string",
+          "example": "110 10",
+          "description": "PSČ",
+          "maxLength": 10
+        },
+        "PROVOZOVATEL": {
+          "type": "string",
+          "example": "Pharma 97, s.r.o., Křovinovo náměstí 9/12, 193 00 Praha 9 - Horní Počernice",
+          "description": "Provozovatel lékárny",
+          "maxLength": 400
+        },
+        "LEKARNIK_PRIJMENI": {
+          "type": "string",
+          "example": "Fišerová",
+          "description": "Příjmení lékárníka",
+          "maxLength": 100
+        },
+        "LEKARNIK_JMENO": {
+          "type": "string",
+          "example": "Jana",
+          "description": "Jméno lékárníka",
+          "maxLength": 15
+        },
+        "LEKARNIK_TITUL": {
+          "type": "string",
+          "example": "Mgr.",
+          "description": "Titul lékárníka",
+          "maxLength": 20
+        },
+        "KOD_OKL": {
+          "type": "string",
+          "example": "401",
+          "description": "Kód OKL",
+          "maxLength": 5
+        },
+        "STATUS": {
+          "type": "string",
+          "example": "V",
+          "description": "příznak statusu lékárny, nabývá hodnot \"Z\" - zařazena, \"V\" - vyřazena",
+          "maxLength": 1
+        },
+        "REGION": {
+          "type": "string",
+          "example": "Praha  1",
+          "description": "Region",
+          "maxLength": 15
+        },
+        "WWW": {
+          "type": "string",
+          "example": "null",
+          "description": "Webové adresy",
+          "maxLength": 200
+        },
+        "EMAIL": {
+          "type": "string",
+          "example": "info@mantamedica.cz",
+          "description": "Mailové adresy",
+          "maxLength": 100
+        },
+        "TELEFON": {
+          "type": "string",
+          "example": "603 293 038",
+          "description": "Telefon",
+          "maxLength": 50
+        },
+        "FAX": {
+          "type": "string",
+          "example": "null",
+          "description": "Fax",
+          "maxLength": 100
+        },
+        "ERECEPT": {
+          "type": "string",
+          "example": "N",
+          "description": "příznak, zda lékárna vydává erecpt,  nabývá hodnot \"A\" - ano, \"N\" - ne",
+          "maxLength": 1
+        },
+        "POHOTOVOST_24H": {
+          "type": "string",
+          "example": "N",
+          "description": "příznak, zda má lékárna pohotovost,  nabývá hodnot \"A\" - ano, \"N\" - ne",
+          "maxLength": 1
+        }
+      }
+    },
+    "Scau": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ScauLP"
+      }
+    },
+    "ScauLP": {
+      "type": "object",
+      "properties": {
+        "KOD_SUKL": {
+          "type": "string",
+          "example": "0027193",
+          "description": "Kód SÚKL léčivého přípravku",
+          "maxLength": 7
+        },
+        "NAZ": {
+          "type": "string",
+          "example": "NEXAVAR",
+          "description": "Název léčivého přípravku",
+          "maxLength": 70
+        },
+        "SILA": {
+          "type": "string",
+          "example": "200MG",
+          "description": "Síla",
+          "maxLength": 24
+        },
+        "FORMA": {
+          "type": "string",
+          "example": "TBL FLM",
+          "description": "Kód lékové formy",
+          "maxLength": 27
+        },
+        "BALENI": {
+          "type": "string",
+          "example": "112(4X28)",
+          "description": "Balení",
+          "maxLength": 22
+        },
+        "CESTA": {
+          "type": "string",
+          "example": "POR",
+          "description": "Kód cesty podání",
+          "maxLength": 15
+        },
+        "DOP": {
+          "type": "string",
+          "example": "200MG TBL FLM 112(4X28)",
+          "description": "Doplněk, specifikace léčivého přípravku",
+          "maxLength": 75
+        },
+        "OBAL": {
+          "type": "string",
+          "example": "BLI",
+          "description": "Kód obalu",
+          "maxLength": 3
+        },
+        "DRZ": {
+          "type": "string",
+          "example": "BZB",
+          "description": "Kód držitele rozhodnutí o registraci zkrácený o kód země",
+          "maxLength": 7
+        },
+        "ZEMDRZ": {
+          "type": "string",
+          "example": "D",
+          "description": "Kód země držitele",
+          "maxLength": 3
+        },
+        "RC": {
+          "type": "string",
+          "example": "EU/1/06/342/001",
+          "description": "Registrační číslo",
+          "maxLength": 16
+        },
+        "SOUBDOV": {
+          "type": "string",
+          "example": "null",
+          "description": "Identifikační číslo souběžného dovozu",
+          "maxLength": 11
+        },
+        "T_REG": {
+          "type": "string",
+          "example": "ORP",
+          "description": "Kód registrační procedury",
+          "maxLength": 3
+        },
+        "S_REG": {
+          "type": "string",
+          "example": "R",
+          "description": "Kód stavu registrace",
+          "maxLength": 2
+        },
+        "TCR": {
+          "type": "string",
+          "example": "MCV",
+          "description": "Typ cenové regulace",
+          "maxLength": 3
+        },
+        "CP": {
+          "type": "number",
+          "example": "79623,21",
+          "description": "Cena původce"
+        },
+        "LEG_CP": {
+          "type": "string",
+          "example": "S",
+          "description": "Právní základ ceny původce",
+          "maxLength": 1
+        },
+        "ODKAZ_CP": {
+          "type": "string",
+          "example": "SUKLS104786/2015",
+          "description": "Odůvodnění stanovení CP",
+          "maxLength": 20
+        },
+        "UHR1": {
+          "type": "number",
+          "example": "91325,39",
+          "description": "Úhrada"
+        },
+        "JUHR1": {
+          "type": "number",
+          "example": "79101,04",
+          "description": "Jádrová úhrada"
+        },
+        "LEG_JUHR1": {
+          "type": "string",
+          "example": "S",
+          "description": "Právní základ jádrové úhrady",
+          "maxLength": 1
+        },
+        "ODKAZ_JUHR1": {
+          "type": "string",
+          "example": "SUKLS109914/2012",
+          "description": "Odůvodnění stanovení výše jádrové úhrady",
+          "maxLength": 20
+        },
+        "LIM1": {
+          "type": "string",
+          "example": "null",
+          "description": "Vykazovací limit",
+          "maxLength": 2
+        },
+        "OME1": {
+          "type": "string",
+          "example": "null",
+          "description": "Specializace předepisujícího lékaře",
+          "maxLength": 40
+        },
+        "IND1": {
+          "type": "string",
+          "example": "P",
+          "description": "Příznak indikačního omezení",
+          "maxLength": 1
+        },
+        "PUHR1": {
+          "type": "string",
+          "example": "null",
+          "description": "Příznak plné úhrady",
+          "maxLength": 1
+        },
+        "JUHR1_PLATDO": {
+          "type": "string",
+          "format": "date",
+          "example": "null",
+          "description": "Platnost dočasné úhrady",
+          "maxLength": 1
+        },
+        "UHRPROC": {
+          "type": "number",
+          "example": "null",
+          "description": "Příznak plné úhrady"
+        },
+        "DNC": {
+          "type": "string",
+          "example": "null",
+          "description": "Písemné ujednání o ceně ve veřejném zájmu",
+          "maxLength": 1
+        },
+        "UHR2": {
+          "type": "number",
+          "example": "91326,79",
+          "description": "Druhá úhrada"
+        },
+        "JUHR2": {
+          "type": "number",
+          "example": "79102,26",
+          "description": "Druhá jádrová úhrada"
+        },
+        "LEG_JUHR2": {
+          "type": "string",
+          "example": "T",
+          "description": "Právní základ druhé jádrové úhrady",
+          "maxLength": 1
+        },
+        "ODKAZ_JUHR2": {
+          "type": "string",
+          "example": "SUKLS109914/2012",
+          "description": "Odůvodnění stanovení výše druhé jádrové úhrady",
+          "maxLength": 20
+        },
+        "LIM2": {
+          "type": "string",
+          "example": "S",
+          "description": "Vykazovací limit druhé úhrady",
+          "maxLength": 2
+        },
+        "OME2": {
+          "type": "string",
+          "example": "null",
+          "description": "Specializace předepisujícího lékaře",
+          "maxLength": 40
+        },
+        "IND2": {
+          "type": "string",
+          "example": "P",
+          "description": "Příznak indikačního omezení",
+          "maxLength": 1
+        },
+        "PUHR2": {
+          "type": "string",
+          "example": "null",
+          "description": "Příznak plné úhrady",
+          "maxLength": 1
+        },
+        "JUHR2_PLATDO": {
+          "type": "string",
+          "format": "date",
+          "example": "null",
+          "description": "Platnost dočasné úhrady uvedené v poli druhé úhrady",
+          "maxLength": 1
+        },
+        "UHR3": {
+          "type": "number",
+          "example": "89227,52",
+          "description": "Třetí úhrada"
+        },
+        "JUHR3": {
+          "type": "number",
+          "example": "77267,24",
+          "description": "Třetí jádrová úhrada"
+        },
+        "LEG_JUHR3": {
+          "type": "string",
+          "example": 1,
+          "description": "Právní základ třetí jádrové úhrady",
+          "maxLength": 1
+        },
+        "ODKAZ_JUHR3": {
+          "type": "string",
+          "example": "SUKLS135355/2014",
+          "description": "Odůvodnění stanovení výše třetí jádrové úhrady",
+          "maxLength": 20
+        },
+        "LIM3": {
+          "type": "string",
+          "example": "S",
+          "description": "Vykazovací limit třetí úhrady",
+          "maxLength": 2
+        },
+        "OME3": {
+          "type": "string",
+          "example": "null",
+          "description": "Specializace předepisujícího lékaře",
+          "maxLength": 40
+        },
+        "IND3": {
+          "type": "string",
+          "example": "P",
+          "description": "Příznak indikačního omezení",
+          "maxLength": 1
+        },
+        "PUHR3": {
+          "type": "string",
+          "example": "null",
+          "description": "Příznak plné úhrady",
+          "maxLength": 1
+        },
+        "JUHR3_PLATDO": {
+          "type": "string",
+          "format": "date",
+          "example": "01.11.2017",
+          "description": "Platnost dočasné úhrady uvedené v poli třetí úhrady",
+          "maxLength": 1
+        },
+        "RS": {
+          "type": "string",
+          "example": "null",
+          "description": "Referenční skupina",
+          "maxLength": 6
+        },
+        "TS": {
+          "type": "string",
+          "example": "null",
+          "description": "Terapeutická skupina",
+          "maxLength": 3
+        },
+        "TS_P": {
+          "type": "string",
+          "example": "null",
+          "description": "Podskupina TS",
+          "maxLength": 2
+        },
+        "ATC": {
+          "type": "string",
+          "example": "L01XE05",
+          "description": "Kód ATC skupiny",
+          "maxLength": 7
+        },
+        "V_PLATOD": {
+          "type": "string",
+          "format": "date",
+          "example": "null",
+          "description": "Platnost registrace od"
+        },
+        "V_PLATDO": {
+          "type": "string",
+          "format": "date",
+          "example": "null",
+          "description": "Platnost registrace do"
+        },
+        "NEOMEZ": {
+          "type": "string",
+          "example": "X",
+          "format": "date",
+          "description": "Neomezená platnost registrace",
+          "maxLength": 1
+        },
+        "HL_UV_OD": {
+          "type": "string",
+          "format": "date",
+          "example": "null",
+          "description": "Uvedení na trh"
+        },
+        "HL_UK_DO": {
+          "type": "string",
+          "format": "date",
+          "example": "null",
+          "description": "Ukončení dodávek"
+        },
+        "DDDM": {
+          "type": "number",
+          "example": "null",
+          "description": "Definovaná denní dávka - množství"
+        },
+        "DDDJ": {
+          "type": "string",
+          "example": "null",
+          "description": "Definovaná denní dávka - jednotka",
+          "maxLength": 2
+        },
+        "DDDBAL": {
+          "type": "number",
+          "example": "null",
+          "description": "Počet definovaných denních dávek v balení"
+        },
+        "ODTD1": {
+          "type": "number",
+          "example": 800,
+          "description": "Obvyklá denní terapeutická dávka pro úhradu"
+        },
+        "ODTDJ1": {
+          "type": "string",
+          "example": "MG",
+          "description": "Jednotka množství léčivé látky v ODTD1",
+          "maxLength": 5
+        },
+        "ODTDBAL1": {
+          "type": "number",
+          "example": 28,
+          "description": "Počet ODTD1 v balení léčivého přípravku"
+        },
+        "ODTD2": {
+          "type": "number",
+          "example": 800,
+          "description": "Obvyklá denní terapeutická dávka pro druhou úhradu"
+        },
+        "ODTDJ2": {
+          "type": "string",
+          "example": "MG",
+          "description": "Jednotka množství léčivé látky v ODTD2",
+          "maxLength": 5
+        },
+        "ODTDBAL2": {
+          "type": "number",
+          "example": 28,
+          "description": "Počet ODTD2 v balení léčivého přípravku"
+        },
+        "ODTD3": {
+          "type": "number",
+          "example": 800,
+          "description": "Obvyklá denní terapeutická dávka pro třetí úhradu"
+        },
+        "ODTDJ3": {
+          "type": "string",
+          "example": "MG",
+          "description": "Jednotka množství léčivé látky v ODTD3",
+          "maxLength": 5
+        },
+        "ODTDBAL3": {
+          "type": "number",
+          "example": 28,
+          "description": "Počet ODTD3 v balení léčivého přípravku"
+        },
+        "EKV1": {
+          "type": "number",
+          "example": "2825,0371",
+          "description": "Úhrada za ODTD1"
+        },
+        "ODKAZ_EKV1": {
+          "type": "string",
+          "example": "SUKLS109914/2012",
+          "description": "Odůvodnění stanovení ODTD1",
+          "maxLength": 20
+        },
+        "EKV2": {
+          "type": "number",
+          "example": "79102,26",
+          "description": "Úhrada za ODTD2"
+        },
+        "ODKAZ_EKV2": {
+          "type": "string",
+          "example": "SUKLS109914/2012",
+          "description": "Odůvodnění stanovení ODTD2",
+          "maxLength": 20
+        },
+        "EKV3": {
+          "type": "number",
+          "example": "77267,24",
+          "description": "Úhrada za ODTD3"
+        },
+        "ODKAZ_EKV3": {
+          "type": "string",
+          "example": "SUKLS135355/2014",
+          "description": "Odůvodnění stanovení ODTD3",
+          "maxLength": 20
+        },
+        "DAT_CP": {
+          "type": "string",
+          "format": "date",
+          "example": "01.11.2015",
+          "description": "Platnost CP"
+        },
+        "DAT_UHR": {
+          "type": "string",
+          "example": "01.08.2014",
+          "format": "date",
+          "description": "Platnost UHR1"
+        },
+        "ZAP1": {
+          "type": "string",
+          "example": 0,
+          "description": "Započitatelný doplatek"
+        },
+        "NEZAP1": {
+          "type": "string",
+          "example": 0,
+          "description": "Szmbol započitatelnosti do limitu",
+          "maxLength": 1
+        },
+        "ZAKL_ZAP1": {
+          "type": "string",
+          "example": "null",
+          "description": "Základ pro výpočet započitatelného doplatku",
+          "maxLength": 1
+        },
+        "ZAP2": {
+          "type": "string",
+          "example": 0,
+          "description": "Započitatelný doplatek pro druhou úhradu"
+        },
+        "NEZAP2": {
+          "type": "string",
+          "example": 0,
+          "description": "Szmbol započitatelnosti do limitu",
+          "maxLength": 1
+        },
+        "ZAP3": {
+          "type": "string",
+          "example": 0,
+          "description": "Započitatelný doplatek pro třetí úhradu"
+        },
+        "NEZAP3": {
+          "type": "string",
+          "example": 0,
+          "description": "Szmbol započitatelnosti do limitu",
+          "maxLength": 1
+        },
+        "ZPVYD": {
+          "type": "string",
+          "example": "R",
+          "description": "Způsob výdeje",
+          "maxLength": 1
+        },
+        "MFC": {
+          "type": "number",
+          "example": "91922,75",
+          "description": "Konečná cena"
+        },
+        "ENNV1": {
+          "type": "number",
+          "example": "null",
+          "description": "Ekonomicky nejméně náročná varianta očkovací látky"
+        },
+        "ENNV2": {
+          "type": "number",
+          "example": "null",
+          "description": "Ekonomicky nejméně náročná varianta očkovací látky"
+        },
+        "POCDAV": {
+          "type": "number",
+          "example": "null",
+          "description": "Počet dávek očkovací látky v balení"
+        },
+        "DPH": {
+          "type": "number",
+          "example": 10,
+          "description": "Sazba daně z přidané hodnoty"
+        },
+        "NAZ_REG": {
+          "type": "string",
+          "example": "NEXAVAR 200 MG",
+          "description": "Název léčivého přípravku",
+          "maxLength": 70
+        }
+      }
+    }
+  },
+  "produces": [
+    "application/json"
+  ],
+  "swagger": "2.0"
+}
