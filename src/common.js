@@ -8,11 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const connAttributes = require("./connectionAttributes.json");
-const connAttributesDlp = require("./connectionAttributesDlp.json");
 const oracledb_1 = require("oracledb");
 let oracledb = require('oracledb');
 let buffer = require('buffer');
+let environment = process.env.NODE_ENV;
+//let environment = 'test';
 var common;
 (function (common) {
     class AppError {
@@ -26,30 +26,30 @@ var common;
         }
     }
     common.AppError = AppError;
-    common.connectionAttributes = {
-        user: connAttributes.user,
-        password: connAttributes.password,
-        connectString: connAttributes.connectString
-    };
-    common.connectionAttributesDlp = {
-        user: connAttributesDlp.user,
-        password: connAttributesDlp.password,
-        connectString: connAttributesDlp.connectString
-    };
-    /*
-        export const connectionAttributes: IConnectionAttributes = {
-            user: "cis2016",
-            password: "Amtax67779",
-            connectString: "util"
+    if (environment == 'test') {
+        common.connectionAttributes = {
+            user: 'cis_sukl',
+            password: 'cis_sukl',
+            connectString: '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(COMMUNITY=TCP)(PROTOCOL=TCP)(Host=test-s-dlp-db.sukl.cz)(Port = 1521)))(CONNECT_DATA=(SID=AISLP)(GLOBAL_NAME=DLPTEST)))'
         };
-    /*/
-    /*
-        export const connectionAttributes: IConnectionAttributes = {
-            user: "cis_sukl",
-            password: "cis_sukl",
-            connectString: "dlptest"
+        common.connectionAttributesDlp = {
+            user: 'aislp',
+            password: 'drdrug',
+            connectString: '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(COMMUNITY=TCP)(PROTOCOL=TCP)(Host=test-s-dlp-db.sukl.cz)(Port = 1521)))(CONNECT_DATA=(SID=AISLP)(GLOBAL_NAME=DLPTEST)))'
         };
-    //*/
+    }
+    else if (environment == 'production') {
+        common.connectionAttributes = {
+            user: 'cis2016',
+            password: 'Amtax67779',
+            connectString: '(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (COMMUNITY = TCP)(PROTOCOL = TCP)(Host = s-util.sukl.cz)(Port = 1521)))(CONNECT_DATA = (SID = UTIL)(GLOBAL_NAME = UTIL)))'
+        };
+        common.connectionAttributesDlp = {
+            user: 'aislp',
+            password: 'drdrug',
+            connectString: '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(COMMUNITY=TCP)(PROTOCOL=TCP)(Host=s-dlp-db.sukl.cz)(Port = 1521)))(CONNECT_DATA=(SID=AISLP)(GLOBAL_NAME=DLPTEST)))'
+        };
+    }
     common.oraOutFormat = {
         outFormat: oracledb_1.OBJECT
     };

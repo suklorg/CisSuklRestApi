@@ -17,6 +17,7 @@
     "winston": "^3.10.0"
   },
   "devDependencies": {
-    "@types/winston": "^2.4.4"
+    "@types/winston": "^2.4.4",
+    "eslint": "^8.44.0"
   }
 }
