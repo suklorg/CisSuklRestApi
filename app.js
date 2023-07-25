@@ -19,7 +19,7 @@ const cissukl_cdnu_router_1 = require("./src/routers/cissukl_cdnu_router");
 const cissukl_archiv_router_1 = require("./src/routers/cissukl_archiv_router");
 const cissukl_distributori_router_1 = require("./src/routers/cissukl_distributori_router");
 const common_1 = require("./src/common");
-let port = 8000;
+let port = 8080;
 let app = express();
 ///*
 const path = require('path');
