@@ -1,7 +1,7 @@
 ﻿"use strict";
 
-//import * as connAttributes from './connectionAttributes.json';
-//import * as connAttributesDlp from './connectionAttributesDlp.json';
+import * as connAttributes from './connectionAttributes.json';
+import * as connAttributesDlp from './connectionAttributesDlp.json';
 
 import * as express from "express";
 
@@ -10,9 +10,6 @@ import { IConnectionAttributes, IExecuteOptions, IConnection, getConnection, OBJ
 let oracledb = require('oracledb');
 
 let buffer = require('buffer');
-
-let environment = process.env.NODE_ENV;
-//let environment = 'test';
 
 
 
@@ -33,9 +30,8 @@ namespace common {
             return this.name + ': ' + this.message;
         }
     }
-
  
-    /*
+
     export const connectionAttributes: IConnectionAttributes = {
         user: (<any>connAttributes).user,
         password: (<any>connAttributes).password,
@@ -47,36 +43,22 @@ namespace common {
         password: (<any>connAttributesDlp).password,
         connectString: (<any>connAttributesDlp).connectString
     };
-    */
 
-    export var connectionAttributes: IConnectionAttributes;
-    export var connectionAttributesDlp: IConnectionAttributes;
-    if (environment == 'test') {
-        connectionAttributes = {
-            user: 'cis_sukl',
-            password: 'cis_sukl',
-            connectString: '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(COMMUNITY=TCP)(PROTOCOL=TCP)(Host=test-s-dlp-db.sukl.cz)(Port = 1521)))(CONNECT_DATA=(SID=AISLP)(GLOBAL_NAME=DLPTEST)))'
-        }
+/*
+    export const connectionAttributes: IConnectionAttributes = {
+        user: "cis2016",
+        password: "Amtax67779",
+        connectString: "util"
+    };
+/*/
 
-        connectionAttributesDlp = {
-            user: 'aislp',
-            password: 'drdrug',
-            connectString: '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(COMMUNITY=TCP)(PROTOCOL=TCP)(Host=test-s-dlp-db.sukl.cz)(Port = 1521)))(CONNECT_DATA=(SID=AISLP)(GLOBAL_NAME=DLPTEST)))'
-        }
-    } else if (environment == 'production') {
-        connectionAttributes = {
-            user: 'cis2016',
-            password: 'Amtax67779',
-            connectString: '(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (COMMUNITY = TCP)(PROTOCOL = TCP)(Host = s-util.sukl.cz)(Port = 1521)))(CONNECT_DATA = (SID = UTIL)(GLOBAL_NAME = UTIL)))'
-        }
-
-        connectionAttributesDlp = {
-            user: 'aislp',
-            password: 'drdrug',
-            connectString: '(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(COMMUNITY=TCP)(PROTOCOL=TCP)(Host=s-dlp-db.sukl.cz)(Port = 1521)))(CONNECT_DATA=(SID=AISLP)(GLOBAL_NAME=DLPTEST)))'
-        }
-    }
-
+/*
+    export const connectionAttributes: IConnectionAttributes = {
+        user: "cis_sukl",
+        password: "cis_sukl",
+        connectString: "dlptest"
+    };
+//*/
 
     export const oraOutFormat: IExecuteOptions = {
         outFormat: OBJECT
