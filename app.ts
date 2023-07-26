@@ -21,7 +21,7 @@ import { distributori_router } from "./src/routers/cissukl_distributori_router";
 
 import { FormatExceptionMessage, errMessage400/*, logger */} from "./src/common";
 
-let port: number = 8080;
+let port: number = 8000;
 
 let app: express.Express = express();
 ///*
